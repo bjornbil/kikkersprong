@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="0dp"
+    android:background="@color/bgcolor"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_below="@+id/imageView1" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="88dp"
+        android:layout_toRightOf="@+id/imageView1" />
+
+    <Button
+        android:id="@+id/scanbutton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_alignParentBottom="true"
+        android:background="@color/btncolor"
+        android:text="@string/scan" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/main_title"
+        android:layout_below="@+id/main_title"
+        android:text="@string/slogan"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/slogancolor" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scanbutton"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_alignRight="@+id/scanbutton"
+        android:layout_below="@+id/infobutton"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/simpleborder" >
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textClock1"
+        android:text="@string/kikkersprong"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40sp" />
+
+    <Button
+        android:id="@+id/infobutton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/textClock1"
+        android:layout_alignLeft="@+id/main_title"
+        android:layout_marginTop="10dp"
+        android:background="@color/infcolor"
+        android:text="@string/info" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBottom="@+id/infobutton"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_launcher" />
+
+    <TextClock
+        android:id="@+id/textClock1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/frameLayout1"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="10dp"
+        android:format12Hour="MMM dd, yyyy k:mm:ss"
+        android:format24Hour="dd MMMM yyyy hh:mm"
+        android:text="TextClock"
+        android:timeZone="GMT+0200" />
+
+</RelativeLayout>
