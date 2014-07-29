@@ -1,4 +1,4 @@
-package be.khleuven.bjornbillen.kikkersprong;
+package be.khleuven.bjornbillen.kikkersprong.controller;
 
 import com.example.kikkersprong.R;
 import com.example.kikkersprong.R.layout;

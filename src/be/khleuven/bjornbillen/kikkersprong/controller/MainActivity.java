@@ -1,4 +1,4 @@
-package be.khleuven.bjornbillen.kikkersprong;
+package be.khleuven.bjornbillen.kikkersprong.controller;
 
 import com.example.kikkersprong.R;
 import com.example.kikkersprong.R.layout;
@@ -21,7 +21,6 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener {
 
 	Button infobutton, scanbutton;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
