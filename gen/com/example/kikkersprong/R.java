@@ -37,17 +37,18 @@ public final class R {
     }
     public static final class id {
         public static final int GridLayout1=0x7f090011;
-        public static final int action_settings=0x7f090016;
-        public static final int billsbutton=0x7f090014;
+        public static final int TextView01=0x7f090015;
+        public static final int action_settings=0x7f090017;
+        public static final int billsbutton=0x7f090013;
         public static final int check1=0x7f090008;
         public static final int check2=0x7f090006;
         public static final int check3=0x7f090005;
-        public static final int checkinbutton=0x7f090012;
+        public static final int checkinbutton=0x7f090014;
         public static final int frameLayout1=0x7f09000c;
         public static final int gebdatum=0x7f09000f;
-        public static final int imageButton1=0x7f090013;
+        public static final int imageButton1=0x7f090012;
         public static final int imageView1=0x7f090000;
-        public static final int imageView2=0x7f090015;
+        public static final int imageView2=0x7f090016;
         public static final int infobutton=0x7f09000d;
         public static final int main_title=0x7f090001;
         public static final int naam=0x7f090010;
@@ -83,6 +84,7 @@ public final class R {
         public static final int info3=0x7f05000b;
         public static final int info4=0x7f05000c;
         public static final int kikkersprong=0x7f050004;
+        public static final int memberinfo=0x7f050016;
         public static final int naam=0x7f050014;
         public static final int picture=0x7f050010;
         public static final int presency=0x7f050012;

@@ -17,7 +17,7 @@
 
     <color name="infcolor">#3fa9f5</color>
 
-    <string name="welkom">Gelieve te scannen om door te gaan..</string>
+    <string name="welkom">Welkom</string>
     <string name="slogan">Jouw mobiele kinderoppas</string>
 
     <color name="slogancolor">#ff0000</color>
@@ -35,5 +35,6 @@
     <string name="bills">Betalingen</string>
     <string name="naam">Bjorn Billen</string>
     <string name="dob">17/02/1992</string>
+    <string name="memberinfo">Wat wil je doen?</string>
 
 </resources>
