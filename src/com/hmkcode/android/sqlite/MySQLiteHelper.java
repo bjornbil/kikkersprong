@@ -23,25 +23,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	// Database Name
 	private static final String DATABASE_NAME = "KIKKERSPRONGDB";
 
-	private static final String TABLE_PRESENCIES = "presencies";
-
 	private static final String[] MEMBER_COLUMNS = { "id", "firstname",
 		"lastname", "birthday", "imgurl" };
-	
-	
-	// Table presencies Column names
-	private static final String PRESENCY_ID = "id";
-	private static final String PRESENCY_MEMBERID = "memberid";
-	private static final String PRESENCY_START = "startdate";
-	private static final String PRESENCY_END = "enddate";
-	
+		
 	// Singleton access
 	private static MySQLiteHelper sInstance;
 
 	public static SQLiteDatabase kikkersprongdb;
 
-	
-	
 	public static MySQLiteHelper getInstance(Context context) {
 
 	    // Use the application context, which will ensure that you 
@@ -52,7 +41,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	    }
 	    return sInstance;
 	  }
-
 
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
