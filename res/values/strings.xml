@@ -36,5 +36,9 @@
     <string name="naam">Bjorn Billen</string>
     <string name="dob">17/02/1992</string>
     <string name="memberinfo">Wat wil je doen?</string>
+    <string name="qrcode">Scan je QR code</string>
+    <string name="qrcodeinfo">Check het kind in (of uit)</string>
+    <string name="qrcodeinfo2">Bekijk aanwezigheden en rekeningen</string>
+    <string name="textclock"></string>
 
 </resources>

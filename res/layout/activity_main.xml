@@ -31,20 +31,6 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/slogancolor" />
 
-    <FrameLayout
-        android:id="@+id/frameLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/scanbutton"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_alignRight="@+id/scanbutton"
-        android:layout_below="@+id/infobutton"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/simpleborder" >
-
-    </FrameLayout>
-
     <TextView
         android:id="@+id/main_title"
         android:layout_width="wrap_content"
@@ -75,18 +61,93 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
         android:scaleType="fitStart"
+        android:contentDescription="infobutton"
         android:src="@drawable/ic_launcher" />
 
     <TextClock
         android:id="@+id/textClock1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/frameLayout1"
+        android:layout_alignRight="@+id/scanbutton"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="10dp"
         android:format12Hour="MMM dd, yyyy k:mm:ss"
         android:format24Hour="dd MMMM yyyy hh:mm"
-        android:text="TextClock"
+        android:text="@string/textclock"
         android:timeZone="GMT+0200" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/textView3"
+        android:src="@drawable/ic_checkin" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_centerHorizontal="true"
+        android:text="@string/qrcodeinfo"
+        android:textSize="15sp"
+         />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:src="@drawable/ic_checkout" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView3"
+        android:layout_below="@+id/imageView4"
+        android:layout_marginTop="16dp"
+        android:text="@string/qrcodeinfo2"
+        
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignTop="@+id/imageView6"
+        android:layout_marginRight="14dp"
+        android:src="@drawable/ic_euro" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView3"
+        android:layout_alignLeft="@+id/imageView3"
+        android:layout_marginBottom="28dp"
+        android:text="@string/qrcode"
+        
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignLeft="@+id/textView2"
+        android:src="@drawable/ic_qr" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/infobutton"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_pres" />
 
 </RelativeLayout>
