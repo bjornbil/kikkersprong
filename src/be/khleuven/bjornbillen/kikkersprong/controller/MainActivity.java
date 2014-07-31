@@ -62,6 +62,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				String contents = intent.getStringExtra("SCAN_RESULT");
 				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 				Toast.makeText(getApplicationContext(), contents + "(Format : " + format + ")", 1000);
+				//Intent i = new Intent(getApplicationContext(),MemberActivity.class);
+				//this.startActivity(i);
 				// Handle successful scan
 			} else if (resultCode == RESULT_CANCELED) {
 				// Handle cancel
@@ -73,10 +75,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.scanbutton:
-			//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-			//scanIntegrator.initiateScan();
-			Intent i = new Intent(getApplicationContext(),MemberActivity.class);
-			this.startActivity(i);
+			IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+			scanIntegrator.initiateScan();
+			//Intent i = new Intent(getApplicationContext(),MemberActivity.class);
+			//this.startActivity(i);
 			break;
 		case R.id.infobutton:
 			Intent i2 = new Intent(getApplicationContext(), InfoActivity.class);

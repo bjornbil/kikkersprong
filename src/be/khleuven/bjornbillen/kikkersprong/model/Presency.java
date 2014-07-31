@@ -1,19 +1,20 @@
 package be.khleuven.bjornbillen.kikkersprong.model;
 
-import java.util.Date;
+import java.util.Calendar;
+
 
 public class Presency {
 
 	private int id;
 	private Member member;
-	private Date startdate, enddate;
+	private Calendar startdate, enddate;
 	
 	
 	public Presency(){
 		
 	}
 	
-	public Presency(Date startdate, Date enddate){
+	public Presency(Calendar startdate, Calendar enddate){
 		
 	}
 	
@@ -25,23 +26,31 @@ public class Presency {
 		this.id = id;
 	}
 	
-	public Date getStartdate() {
+	public Calendar getStartdate() {
 		return startdate;
 	}
 
-	public void setStartdate(Date startdate) {
+	public String getStartdateString(){
+		return getStartdate().get(Calendar.DATE)+"/"+getStartdate().get(Calendar.MONTH)+"/"+getStartdate().get(Calendar.YEAR) + " " +
+				getStartdate().get(Calendar.HOUR)+":"+getStartdate().get(Calendar.MINUTE)+":"+getStartdate().get(Calendar.SECOND);		
+	}
+	
+	public void setStartdate(Calendar startdate) {
 		this.startdate = startdate;
 	}
 
-	public Date getEnddate() {
+	public Calendar getEnddate() {
 		return enddate;
 	}
-
-	public void setEnddate(Date enddate) {
-		this.enddate = enddate;
+	
+	public String getEnddateString(){
+		return getEnddate().get(Calendar.DATE)+"/"+getEnddate().get(Calendar.MONTH)+"/"+getEnddate().get(Calendar.YEAR) + " " +
+				getEnddate().get(Calendar.HOUR)+":"+getEnddate().get(Calendar.MINUTE)+":"+getEnddate().get(Calendar.SECOND);		
 	}
 
-	
+	public void setEnddate(Calendar enddate) {
+		this.enddate = enddate;
+	}
 
 	public Member getMember() {
 		return member;
