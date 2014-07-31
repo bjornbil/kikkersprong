@@ -75,10 +75,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.scanbutton:
-			IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-			scanIntegrator.initiateScan();
-			//Intent i = new Intent(getApplicationContext(),MemberActivity.class);
-			//this.startActivity(i);
+			//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+			//scanIntegrator.initiateScan();
+			Intent i = new Intent(getApplicationContext(),MemberActivity.class);
+			this.startActivity(i);
 			break;
 		case R.id.infobutton:
 			Intent i2 = new Intent(getApplicationContext(), InfoActivity.class);

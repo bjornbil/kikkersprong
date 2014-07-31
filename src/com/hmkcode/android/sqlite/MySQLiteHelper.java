@@ -58,16 +58,24 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ "memberid INTEGER FOREIGN KEY, " + "start TEXT, "
 				+ "end TEXT" + " )";
+		
+		String CREATE_BILL_TABLE = "CREATE TABLE bills ( "
+				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ "memberid INTEGER FOREIGN KEY, " + "paydate TEXT, "
+				+ "ispaid TEXT" + " )";
 
 		// create table
 		db.execSQL(CREATE_PRESENCY_TABLE);
 		db.execSQL(CREATE_MEMBER_TABLE);
+		db.execSQL(CREATE_BILL_TABLE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS members");
+		db.execSQL("DROP TABLE IF EXISTS presencies");
+		db.execSQL("DROP TABLE IF EXISTS bills");
 
 		// create fresh table
 		this.onCreate(db);

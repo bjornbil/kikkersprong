@@ -51,11 +51,11 @@ public final class R {
         public static final int gebdatum=0x7f090013;
         public static final int imageButton1=0x7f090016;
         public static final int imageView1=0x7f090000;
-        public static final int imageView2=0x7f090010;
+        public static final int imageView2=0x7f090012;
         public static final int imageView3=0x7f09000e;
         public static final int imageView4=0x7f09000f;
-        public static final int imageView5=0x7f090011;
-        public static final int imageView6=0x7f090012;
+        public static final int imageView5=0x7f090010;
+        public static final int imageView6=0x7f090011;
         public static final int infobutton=0x7f09000d;
         public static final int main_title=0x7f090001;
         public static final int naam=0x7f090014;
