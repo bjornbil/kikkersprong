@@ -18,13 +18,12 @@ public class MemberDAO extends MySQLiteHelper {
 	private static final String TABLE_MEMBERS = "members";
 	// Table member Column names
 	private static final String MEMBER_ID = "id";
-	private static final String MEMBER_FIRSTNAME = "firstname";
-	private static final String MEMBER_LASTNAME = "lastname";
+	private static final String MEMBER_NAME = "name";
 	private static final String MEMBER_DOB = "birthday";
 	private static final String MEMBER_IMAGEURL = "imgurl";
 	
-	private static final String[] MEMBER_COLUMNS = { MEMBER_ID, MEMBER_FIRSTNAME,
-		MEMBER_LASTNAME, MEMBER_DOB, MEMBER_IMAGEURL };
+	private static final String[] MEMBER_COLUMNS = { MEMBER_ID, MEMBER_NAME,
+		MEMBER_DOB, MEMBER_IMAGEURL };
 
 	public MemberDAO(Context context) {
 		super(context);
@@ -34,8 +33,7 @@ public class MemberDAO extends MySQLiteHelper {
 		if (member == null){} // exception handling
 		ContentValues values = new ContentValues();
 		values.put(MEMBER_ID, member.getId());
-		values.put(MEMBER_FIRSTNAME, member.getFirstname());
-		values.put(MEMBER_LASTNAME, member.getLastname());
+		values.put(MEMBER_NAME, member.getFirstname() + " " + member.getLastname());
 		values.put(MEMBER_DOB, member.getBirthdayString());
 		values.put(MEMBER_IMAGEURL, member.getImageurl());
 		super.addObject(TABLE_MEMBERS, values);
@@ -61,8 +59,7 @@ public class MemberDAO extends MySQLiteHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(MEMBER_ID, member.getId());
-		values.put(MEMBER_FIRSTNAME, member.getFirstname());
-		values.put(MEMBER_LASTNAME, member.getLastname());
+		values.put(MEMBER_NAME, member.getFirstname() + " " + member.getLastname());
 		values.put(MEMBER_DOB, member.getBirthdayString());
 		values.put(MEMBER_IMAGEURL, member.getImageurl());
 

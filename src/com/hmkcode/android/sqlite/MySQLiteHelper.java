@@ -56,15 +56,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		String CREATE_PRESENCY_TABLE = "CREATE TABLE presency ( "
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "memberid INTEGER FOREIGN KEY, " + "start TEXT, "
-				+ "end TEXT" + " )";
+				+ "memberid INTEGER , " + "start TEXT, "
+				+ "end TEXT,"
+				+ "FOREIGN KEY (memberid) REFERENCES members (id));";
+				
 		
 		String CREATE_BILL_TABLE = "CREATE TABLE bills ( "
 				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "memberid INTEGER FOREIGN KEY, " + "paydate TEXT, "
-				+ "ispaid TEXT" + " )";
-
-		// create table
+				+ "memberid INTEGER," + "paydate TEXT, "
+				+ "ispaid TEXT,"
+				+ " FOREIGN KEY (memberid) REFERENCES members (id));";
+				// create table
 		db.execSQL(CREATE_PRESENCY_TABLE);
 		db.execSQL(CREATE_MEMBER_TABLE);
 		db.execSQL(CREATE_BILL_TABLE);
