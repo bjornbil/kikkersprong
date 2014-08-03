@@ -10,17 +10,25 @@ import android.widget.ImageView;
 public class Member {
 	private Integer id;
 	private String firstname;
-    private String lastname;
-    private Calendar birthday;
-    private String imageurl;
-    private List<Presency> presencies;
- 
+	private String lastname;
+	private Calendar birthday;
+	private String imageurl;
+	private List<Attendance> presencies;
+	private boolean isPresent = false;
 
-	public Member(){}
- 
-    public Member(String firstname, String lastname, Date birthday, String imageurl) {
-        presencies = new ArrayList<Presency>();
-    }
+	public Member() {
+	}
+
+	public Member(int id, String firstname, String lastname, Calendar birthday,
+			String imageurl, boolean present) {
+		setId(id);
+		setFirstname(firstname);
+		setLastname(lastname);
+		setBirthday(birthday);
+		setImageurl(imageurl);
+		setPresent(present);
+		presencies = new ArrayList<Attendance>();
+	}
 
 	public Integer getId() {
 		return id;
@@ -53,9 +61,11 @@ public class Member {
 	public void setBirthday(Calendar birthday) {
 		this.birthday = birthday;
 	}
-	
-	public String getBirthdayString(){
-		return getBirthday().get(Calendar.DATE)+"/"+getBirthday().get(Calendar.MONTH)+"/"+getBirthday().get(Calendar.YEAR);
+
+	public String getBirthdayString() {
+		return getBirthday().get(Calendar.DATE) + "/"
+				+ getBirthday().get(Calendar.MONTH) + "/"
+				+ getBirthday().get(Calendar.YEAR);
 	}
 
 	public String getImageurl() {
@@ -65,19 +75,25 @@ public class Member {
 	public void setImageurl(String imageurl) {
 		this.imageurl = imageurl;
 	}
-	
-	public List<Presency> getPresencies() {
+
+	public List<Attendance> getPresencies() {
 		return presencies;
 	}
 
-	public void setPresencies(List<Presency> presencies) {
+	public void setPresencies(List<Attendance> presencies) {
 		this.presencies = presencies;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return firstname + " " + lastname + " /" + birthday;
 	}
-	
-    
-     
+
+	public boolean isPresent() {
+		return isPresent;
+	}
+
+	public void setPresent(boolean isPresent) {
+		this.isPresent = isPresent;
+	}
+
 }

@@ -43,11 +43,11 @@
         android:layout_height="120dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/imageButton1"
+        android:layout_alignTop="@+id/attendancebutton"
         android:layout_toLeftOf="@+id/main_title"
         android:background="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_checkin" />
+        />
 
     <ImageButton
         android:id="@+id/billsbutton"
@@ -60,7 +60,7 @@
         android:src="@drawable/ic_bills" />
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/attendancebutton"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_alignParentBottom="true"
@@ -82,7 +82,7 @@
         android:textSize="30sp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/checktext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/checkinbutton"
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/billsbutton"
         android:layout_alignRight="@+id/gebdatum"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="60dp"
         android:text="@string/bills"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000" />
@@ -106,7 +106,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButton1"
+        android:layout_above="@+id/attendancebutton"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="-10dp"
         android:text="@string/presency"

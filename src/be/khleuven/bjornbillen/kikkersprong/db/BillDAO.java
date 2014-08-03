@@ -7,7 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
-import be.khleuven.bjornbillen.kikkersprong.model.Presency;
+import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 
 import com.hmkcode.android.sqlite.MySQLiteHelper;
 
@@ -21,15 +21,16 @@ public class BillDAO extends MySQLiteHelper {
 	private static final String BILL_PAID = "ispaid";
 
 	private static final String[] BILL_COLUMNS = { BILL_ID, BILL_MEMBERID,
-		BILL_PAYDATE, BILL_PAID};
-	
+			BILL_PAYDATE, BILL_PAID };
+
 	public BillDAO(Context context) {
 		super(context);
 
 	}
-	
+
 	public void addBill(Bill bill) {
-		if (bill == null){} // exception handling
+		if (bill == null) {
+		} // exception handling
 		ContentValues values = new ContentValues();
 		values.put(BILL_ID, bill.getId());
 		values.put(BILL_MEMBERID, bill.getMember().getId());
@@ -45,15 +46,15 @@ public class BillDAO extends MySQLiteHelper {
 	public List<Bill> getAllBills() {
 		List<Object> billobjects = super.getAllObjects(TABLE_BILLS);
 		List<Bill> bills = new ArrayList<Bill>();
-		for (Object o : billobjects){
-			if (o instanceof Presency){
+		for (Object o : billobjects) {
+			if (o instanceof Attendance) {
 				bills.add((Bill) o);
 			}
 		}
 		return bills;
 	}
 
-	// Updating 
+	// Updating
 	public void updateBills(Bill bill) {
 
 		ContentValues values = new ContentValues();
@@ -61,13 +62,13 @@ public class BillDAO extends MySQLiteHelper {
 		values.put(BILL_MEMBERID, bill.getMember().getId());
 		values.put(BILL_PAYDATE, bill.getPaybeforeString());
 		values.put(BILL_PAID, bill.isPaid());
-		
+
 		super.updateObject(TABLE_BILLS, BILL_ID, values, bill.getId());
 	}
 
-	// Deleting 
+	// Deleting
 	public void deleteBill(int id) {
-		super.deleteObject(TABLE_BILLS, BILL_ID, id); 
+		super.deleteObject(TABLE_BILLS, BILL_ID, id);
 
 	}
 }

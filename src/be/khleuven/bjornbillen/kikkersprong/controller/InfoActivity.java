@@ -13,16 +13,17 @@ import android.widget.TextView;
 public class InfoActivity extends Activity {
 	TextView title;
 	Button startbutton;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_info);
 		startbutton = (Button) findViewById(R.id.startbutton);
 		title = (TextView) findViewById(R.id.main_title);
-		if (android.os.Build.VERSION.SDK_INT >= 17){
+		if (android.os.Build.VERSION.SDK_INT >= 17) {
 			title.setTextSize(40);
 		}
-		
+
 		launch();
 	}
 
@@ -32,14 +33,15 @@ public class InfoActivity extends Activity {
 		getMenuInflater().inflate(R.menu.info, menu);
 		return true;
 	}
-	
-	public void launch(){
-		
+
+	public void launch() {
+
 		startbutton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(),MainActivity.class);	
+				Intent i = new Intent(getApplicationContext(),
+						MainActivity.class);
 				startActivity(i);
 			}
 		});

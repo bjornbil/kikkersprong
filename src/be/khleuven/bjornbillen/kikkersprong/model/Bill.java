@@ -7,12 +7,12 @@ public class Bill {
 	private Member member;
 	private Calendar paybefore;
 	private boolean paid;
-	
-	public Bill(){
-		
+
+	public Bill() {
+
 	}
-	
-	public Bill(Integer id, Member member, Calendar paydate){
+
+	public Bill(Integer id, Member member, Calendar paydate) {
 		setId(id);
 		setMember(member);
 		setPaybefore(paydate);
@@ -45,14 +45,15 @@ public class Bill {
 	public Calendar getPaybefore() {
 		return paybefore;
 	}
-	
-	public String getPaybeforeString(){
-		return getPaybefore().get(Calendar.DATE)+"/"+getPaybefore().get(Calendar.MONTH)+"/"+getPaybefore().get(Calendar.YEAR);
+
+	public String getPaybeforeString() {
+		return getPaybefore().get(Calendar.DATE) + "/"
+				+ getPaybefore().get(Calendar.MONTH) + "/"
+				+ getPaybefore().get(Calendar.YEAR);
 	}
 
 	public void setPaybefore(Calendar paybefore) {
 		this.paybefore = paybefore;
 	}
-	
-	
+
 }

@@ -13,7 +13,7 @@ import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 //TODO : exception handling
 
-public class MemberDAO extends MySQLiteHelper {
+public class MemberDAO  {
 	// TABLE name
 	private static final String TABLE_MEMBERS = "members";
 	// Table member Column names
@@ -21,55 +21,85 @@ public class MemberDAO extends MySQLiteHelper {
 	private static final String MEMBER_NAME = "name";
 	private static final String MEMBER_DOB = "birthday";
 	private static final String MEMBER_IMAGEURL = "imgurl";
-	
+	private static final String MEMBER_PRESENT = "present";
+	private int currentid;
+	private MySQLiteHelper db;
+
 	private static final String[] MEMBER_COLUMNS = { MEMBER_ID, MEMBER_NAME,
-		MEMBER_DOB, MEMBER_IMAGEURL };
+			MEMBER_DOB, MEMBER_IMAGEURL, MEMBER_PRESENT };
 
 	public MemberDAO(Context context) {
-		super(context);
+		db = new MySQLiteHelper(context);
 	}
 
 	public void addMember(Member member) {
-		if (member == null){} // exception handling
+		if (member == null) {
+		} // exception handling
 		ContentValues values = new ContentValues();
 		values.put(MEMBER_ID, member.getId());
-		values.put(MEMBER_NAME, member.getFirstname() + " " + member.getLastname());
+		values.put(MEMBER_NAME,
+				member.getFirstname() + " " + member.getLastname());
 		values.put(MEMBER_DOB, member.getBirthdayString());
 		values.put(MEMBER_IMAGEURL, member.getImageurl());
-		super.addObject(TABLE_MEMBERS, values);
+		int present = 0;
+		if(member.isPresent()){
+			present = 1;
+		}
+		else {
+			present = 0;
+		}
+		values.put(MEMBER_PRESENT, present);
+		db.addObject(TABLE_MEMBERS, values);
+	}
+	
+	public int getCurrentMemberID(){
+		return currentid;
+	}
+	
+	public void setCurrentMemberID(int id){
+		this.currentid = id;
 	}
 
 	public Member getMember(int id) {
-		return (Member) super.getObject(id, TABLE_MEMBERS, MEMBER_COLUMNS);
+		return (Member) db.getObject(id, TABLE_MEMBERS, MEMBER_COLUMNS);
 	}
 
 	public List<Member> getAllMembers() {
-		List<Object> members = super.getAllObjects(TABLE_MEMBERS);
+		List<Object> members = db.getAllObjects(TABLE_MEMBERS);
 		List<Member> resmembers = new ArrayList<Member>();
-		for (Object o : members){
-			if (o instanceof Member){
+		for (Object o : members) {
+			if (o instanceof Member) {
 				resmembers.add((Member) o);
 			}
 		}
 		return resmembers;
 	}
 
-	// Updating 
+	// Updating
 	public void updateMember(Member member) {
 
 		ContentValues values = new ContentValues();
 		values.put(MEMBER_ID, member.getId());
-		values.put(MEMBER_NAME, member.getFirstname() + " " + member.getLastname());
+		values.put(MEMBER_NAME,
+				member.getFirstname() + " " + member.getLastname());
 		values.put(MEMBER_DOB, member.getBirthdayString());
 		values.put(MEMBER_IMAGEURL, member.getImageurl());
+		int present = 0;
+		if(member.isPresent()){
+			present = 1;
+		}
+		else {
+			present = 0;
+		}
+		values.put(MEMBER_PRESENT, present);
 
-		super.updateObject(TABLE_MEMBERS, MEMBER_ID, values, member.getId());
+		db.updateObject(TABLE_MEMBERS, MEMBER_ID, values, member.getId());
 	}
 
-	// Deleting 
+	// Deleting
 	public void deleteMember(int id) {
-		super.deleteObject(TABLE_MEMBERS, MEMBER_ID, id);
+		db.deleteObject(TABLE_MEMBERS, MEMBER_ID, id);
 
 	}
-	
+
 }

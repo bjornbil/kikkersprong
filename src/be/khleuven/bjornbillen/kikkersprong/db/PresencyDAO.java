@@ -6,68 +6,70 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
-import be.khleuven.bjornbillen.kikkersprong.model.Presency;
+import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 
 import com.hmkcode.android.sqlite.MySQLiteHelper;
 
 public class PresencyDAO extends MySQLiteHelper {
 
-	private static final String TABLE_PRESENCIES = "presencies";
+	private static final String TABLE_ATTENDANCES = "attendances";
 
 	// Table presencies Column names
-	private static final String PRESENCY_ID = "id";
-	private static final String PRESENCY_MEMBERID = "memberid";
-	private static final String PRESENCY_START = "startdate";
-	private static final String PRESENCY_END = "enddate";
+	private static final String ATTENDANCE_ID = "id";
+	private static final String ATTENDANCE_MEMBERID = "memberid";
+	private static final String ATTENDANCE_START = "startdate";
+	private static final String ATTENDANCE_END = "enddate";
 
-	private static final String[] PRESENCY_COLUMNS = { PRESENCY_ID, PRESENCY_MEMBERID,
-		PRESENCY_START, PRESENCY_END};
-	
+	private static final String[] ATTENDANCE_COLUMNS = { ATTENDANCE_ID,
+			ATTENDANCE_MEMBERID, ATTENDANCE_START, ATTENDANCE_END };
+
 	public PresencyDAO(Context context) {
 		super(context);
 
 	}
-	
-	public void addPresency(Presency presency) {
-		if (presency == null){} // exception handling
+
+	public void addPresency(Attendance attendance) {
+		if (attendance == null) {
+		} // exception handling
 		ContentValues values = new ContentValues();
-		values.put(PRESENCY_ID, presency.getId());
-		values.put(PRESENCY_MEMBERID, presency.getMember().getId());
-		values.put(PRESENCY_START, presency.getStartdateString());
-		values.put(PRESENCY_END, presency.getEnddateString());
-		super.addObject(TABLE_PRESENCIES, values);
+		values.put(ATTENDANCE_ID, attendance.getId());
+		values.put(ATTENDANCE_MEMBERID, attendance.getMember().getId());
+		values.put(ATTENDANCE_START, attendance.getStartdateString());
+		values.put(ATTENDANCE_END, attendance.getEnddateString());
+		super.addObject(TABLE_ATTENDANCES, values);
 	}
 
-	public Presency getPresency(int id) {
-		return (Presency) super.getObject(id, TABLE_PRESENCIES, PRESENCY_COLUMNS);
+	public Attendance getPresency(int id) {
+		return (Attendance) super.getObject(id, TABLE_ATTENDANCES,
+				ATTENDANCE_COLUMNS);
 	}
 
-	public List<Presency> getAllPresencies() {
-		List<Object> presencies = super.getAllObjects(TABLE_PRESENCIES);
-		List<Presency> pres = new ArrayList<Presency>();
-		for (Object o : presencies){
-			if (o instanceof Presency){
-				pres.add((Presency) o);
+	public List<Attendance> getAllAttendances() {
+		List<Object> presencies = super.getAllObjects(TABLE_ATTENDANCES);
+		List<Attendance> pres = new ArrayList<Attendance>();
+		for (Object o : presencies) {
+			if (o instanceof Attendance) {
+				pres.add((Attendance) o);
 			}
 		}
 		return pres;
 	}
 
-	// Updating 
-	public void updatePresency(Presency presency) {
+	// Updating
+	public void updateAttendance(Attendance att) {
 
 		ContentValues values = new ContentValues();
-		values.put(PRESENCY_ID, presency.getId());
-		values.put(PRESENCY_MEMBERID, presency.getMember().getId());
-		values.put(PRESENCY_START, presency.getStartdateString());
-		values.put(PRESENCY_END, presency.getEnddateString());
-		
-		super.updateObject(TABLE_PRESENCIES, PRESENCY_ID, values, presency.getId());
+		values.put(ATTENDANCE_ID, att.getId());
+		values.put(ATTENDANCE_MEMBERID, att.getMember().getId());
+		values.put(ATTENDANCE_START, att.getStartdateString());
+		values.put(ATTENDANCE_END, att.getEnddateString());
+		super.updateObject(TABLE_ATTENDANCES, ATTENDANCE_ID, values,
+				att.getId());
 	}
 
-	// Deleting 
-	public void deleteMember(int id) {
-		super.deleteObject(TABLE_PRESENCIES, PRESENCY_ID, id);
+	// Deleting
+	public void deleteAttendance(int id) {
+		super.deleteObject(TABLE_ATTENDANCES, ATTENDANCE_ID, id);
 
 	}
 

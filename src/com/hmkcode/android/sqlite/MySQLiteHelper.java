@@ -1,14 +1,13 @@
 package com.hmkcode.android.sqlite;
 
-import static com.hmkcode.android.sqlite.MySQLiteHelper.kikkersprongdb;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
-import be.khleuven.bjornbillen.kikkersprong.model.Presency;
+import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -24,88 +23,95 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "KIKKERSPRONGDB";
 
 	private static final String[] MEMBER_COLUMNS = { "id", "firstname",
-		"lastname", "birthday", "imgurl" };
-		
-	// Singleton access
-	private static MySQLiteHelper sInstance;
+			"lastname", "birthday", "imgurl" };
 
-	public static SQLiteDatabase kikkersprongdb;
 
-	public static MySQLiteHelper getInstance(Context context) {
-
-	    // Use the application context, which will ensure that you 
-	    // don't accidentally leak an Activity's context.
-	    // See this article for more information: http://bit.ly/6LRzfx
-	    if (sInstance == null) {
-	      sInstance = new MySQLiteHelper(context.getApplicationContext());
-	    }
-	    return sInstance;
-	  }
+	private SQLiteDatabase db;
 
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		kikkersprongdb = this.getWritableDatabase();
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// SQL statement to create table
-		String CREATE_MEMBER_TABLE = "CREATE TABLE members ( "
-				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT, "
-				+ "birthday TEXT, " + "imgurl TEXT" + " )";
-
-		String CREATE_PRESENCY_TABLE = "CREATE TABLE presency ( "
-				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "memberid INTEGER , " + "start TEXT, "
-				+ "end TEXT,"
-				+ "FOREIGN KEY (memberid) REFERENCES members (id));";
-				
 		
+		String CREATE_MEMBER_TABLE = "CREATE TABLE members ( "
+				+ "id INTEGER PRIMARY KEY, " + "name TEXT, "
+				+ "birthday TEXT, " + "imgurl TEXT," + "present INTEGER"+ " )";
+
+		String CREATE_ATTENDANCE_TABLE = "CREATE TABLE attendances ( "
+				+ "id INTEGER PRIMARY KEY, "
+				+ "memberid INTEGER , " + "start TEXT, " + "end TEXT,"
+				+ "FOREIGN KEY (memberid) REFERENCES members (id));";
+
 		String CREATE_BILL_TABLE = "CREATE TABLE bills ( "
-				+ "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "memberid INTEGER," + "paydate TEXT, "
-				+ "ispaid TEXT,"
+				+ "id INTEGER PRIMARY KEY, "
+				+ "memberid INTEGER," + "paydate TEXT, " + "ispaid TEXT,"
 				+ " FOREIGN KEY (memberid) REFERENCES members (id));";
-				// create table
-		db.execSQL(CREATE_PRESENCY_TABLE);
+		
+		
+		
 		db.execSQL(CREATE_MEMBER_TABLE);
+		db.execSQL(CREATE_ATTENDANCE_TABLE);
 		db.execSQL(CREATE_BILL_TABLE);
+		
+		ContentValues values = new ContentValues();
+		values.put("id", 0);
+		values.put("name","Bjorn Billen");
+		values.put("birthday", "17/02/1992");
+		values.put("imgurl", "url");
+		values.put("present", 0);
+	//	db.insert("members", null, values);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS members");
-		db.execSQL("DROP TABLE IF EXISTS presencies");
+		db.execSQL("DROP TABLE IF EXISTS attendances");
 		db.execSQL("DROP TABLE IF EXISTS bills");
 
 		// create fresh table
 		this.onCreate(db);
 	}
-	
-	public void addObject(String table, ContentValues values){
+
+	public void addObject(String table, ContentValues values) {
+		SQLiteDatabase db = this.getWritableDatabase();
 		if (values != null)
-		kikkersprongdb.insert(table, null, values);
+			db.insert(table, null, values);
 	}
-	private Member pullStringMember(Cursor cursor){
+	private Bill pullStringBill(Cursor cursor){
+		// TODO : bill string pull
+		return null;
+	}
+	private Member pullStringMember(Cursor cursor) {
 		Member member = new Member();
-		member.setId(Integer.parseInt(cursor.getString(0)));
-		member.setFirstname(cursor.getString(1));
-		member.setLastname(cursor.getString(2));
-		String datevalues[] = cursor.getString(3).split("/");
+		member.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("id"))));
+		member.setFirstname(cursor.getString(cursor.getColumnIndex("name")).split(" ")[0]);
+		member.setLastname(cursor.getString(cursor.getColumnIndex("name")).split(" ")[1]);
+		String datevalues[] = cursor.getString(cursor.getColumnIndex("birthday")).split("/");
 		Calendar birthday = Calendar.getInstance();
-		birthday.set(Integer.parseInt(datevalues[2]),
-				Integer.parseInt(datevalues[1]),
-				Integer.parseInt(datevalues[0]));
+		birthday.set(Calendar.YEAR,Integer.parseInt(datevalues[2]));
+		birthday.set(Calendar.MONTH, Integer.parseInt(datevalues[1]));
+		birthday.set(Calendar.DATE, Integer.parseInt(datevalues[0]));
 		member.setBirthday(birthday);
-		member.setImageurl(cursor.getString(4));
+		member.setImageurl(cursor.getString(cursor.getColumnIndex("imgurl")));
+		if (Integer.parseInt(cursor.getString(cursor.getColumnIndex("present"))) == 1){
+		member.setPresent(true);
+		}
+		else {
+			member.setPresent(false);
+		}
 		return member;
 	}
-	
-	private Presency pullStringPresency(Cursor cursor){
-		Presency presency = new Presency();
+
+	private Attendance pullStringPresency(Cursor cursor) {
+		Attendance presency = new Attendance();
 		presency.setId(Integer.parseInt(cursor.getString(0)));
-		presency.setMember((Member) getObject(Integer.parseInt(cursor.getString(1)),"members",MEMBER_COLUMNS));
+		presency.setMember((Member) getObject(
+				Integer.parseInt(cursor.getString(1)), "members",
+				MEMBER_COLUMNS));
 		String calendarvalues[] = cursor.getString(3).split(" ");
 		String datevalues = calendarvalues[0];
 		String timevalues = calendarvalues[1];
@@ -129,33 +135,39 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		presency.setEnddate(cal);
 		return presency;
 	}
-	public Object getObject(int id, String table, String[] columns){
-		Cursor cursor = kikkersprongdb.query(table, // a. table
+
+	public Object getObject(int id, String table, String[] columns) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		String selectQuery = "SELECT  * FROM members WHERE id =" + id;
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		/*Cursor cursor = db.query(table, // a. table
 				columns, // b. column names
-				" id = ?", // c. selections
+				"id = ?", // c. selections
 				new String[] { String.valueOf(id) }, // d. selections args
 				null, // e. group by
 				null, // f. having
 				null, // g. order by
-				null); // h. limit
-
-		if (cursor != null)
-			cursor.moveToFirst();
+				null); // h. limit */
+		
 		Object returnobject = null;
-		if (table.equals("members")){
+		if (cursor != null && cursor.moveToFirst()){
+			
+		
+		if (table.equals("members")) {
 			returnobject = pullStringMember(cursor);
-		}
-		else if (table.equals("presencies")){
+		} else if (table.equals("presencies")) {
 			returnobject = pullStringPresency(cursor);
 		}
-		kikkersprongdb.close();
+		else if (table.equals("bills")){
+			returnobject = pullStringBill(cursor);
+		}
+		}
+		db.close();
 		return returnobject;
 	}
-	
-
-	
 
 	public List<Object> getAllObjects(String table) {
+		
 		List<Object> objects = new ArrayList<Object>();
 
 		// 1. build the query
@@ -163,48 +175,48 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		// 2. get reference to writable DB
 
-		Cursor cursor = kikkersprongdb.rawQuery(query, null);
+		Cursor cursor = db.rawQuery(query, null);
 
 		Object object = null;
 		if (cursor.moveToFirst()) {
-			if (table.equals("members")){
-			do {
-				object = pullStringMember(cursor);
-				objects.add(object);
-			} while (cursor.moveToNext());
-			}
-			else if (table.equals("presencies")){
+			if (table.equals("members")) {
+				do {
+					object = pullStringMember(cursor);
+					objects.add(object);
+				} while (cursor.moveToNext());
+			} else if (table.equals("presencies")) {
 				do {
 					object = pullStringPresency(cursor);
 					objects.add(object);
 				} while (cursor.moveToNext());
-				}
 			}
-		kikkersprongdb.close();
+		}
+		db.close();
 
 		return objects;
 	}
 
-	// Updating 
-	public void updateObject(String table, String memberid, ContentValues values, int memberId) {
-
-		kikkersprongdb.update(table, // table
+	// Updating
+	public void updateObject(String table, String memberid,
+			ContentValues values, int memberId) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.update(table, // table
 				values, // column/value
 				memberid + " = ?", // selections
 				new String[] { String.valueOf(memberId) }); // selection
-																	// args
+															// args
 
-		kikkersprongdb.close();
+		db.close();
 
 	}
 
-	// Deleting 
+	// Deleting
 	public void deleteObject(String table, String memberid, int id) {
-
-		kikkersprongdb.delete(table, memberid + " = ?",
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(table, memberid + " = ?",
 				new String[] { String.valueOf(id) });
 
-		kikkersprongdb.close();
+		db.close();
 
 	}
 }

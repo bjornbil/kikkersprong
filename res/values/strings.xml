@@ -40,5 +40,10 @@
     <string name="qrcodeinfo">Check het kind in (of uit)</string>
     <string name="qrcodeinfo2">Bekijk aanwezigheden en rekeningen</string>
     <string name="textclock"></string>
+    <string name="title_activity_checkin">CheckinActivity</string>
+    <string name="title_activity_bills">BillsActivity</string>
+    <string name="title_activity_attendance">AttendanceActivity</string>
+    <string name="checked">Je bent nu</string>
+    <string name="checkstatus"/>
 
 </resources>
