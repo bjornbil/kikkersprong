@@ -104,7 +104,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		lastcheck.set(Calendar.YEAR, Integer.parseInt(checkdate[0]));
 		lastcheck.set(Calendar.MONTH, Integer.parseInt(checkdate[1]));
 		lastcheck.set(Calendar.DATE, Integer.parseInt(checkdate[2]));
-		lastcheck.set(Calendar.HOUR, Integer.parseInt(checktime[0]));
+		lastcheck.set(Calendar.HOUR_OF_DAY, Integer.parseInt(checktime[0]));
 		lastcheck.set(Calendar.MINUTE, Integer.parseInt(checktime[1]));
 		lastcheck.set(Calendar.SECOND, Integer.parseInt(checktime[2]));
 		member.setLastcheckin(lastcheck);
@@ -126,17 +126,22 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		cal.set(Calendar.YEAR, Integer.parseInt(date[0]));
 		cal.set(Calendar.MONTH, Integer.parseInt(date[1]));
 		cal.set(Calendar.DATE, Integer.parseInt(date[2]));
-		cal.set(Calendar.HOUR, Integer.parseInt(time[0]));
+		cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time[0]));
 		cal.set(Calendar.MINUTE, Integer.parseInt(time[1]));
 		cal.set(Calendar.SECOND, Integer.parseInt(time[2]));
 		presency.setStartdate(cal);
 		calendarvalues = cursor.getString(cursor.getColumnIndex("end")).split(" ");
-		cal.set(Calendar.YEAR, Integer.parseInt(date[0]));
-		cal.set(Calendar.MONTH, Integer.parseInt(date[1]));
-		cal.set(Calendar.DATE, Integer.parseInt(date[2]));
-		cal.set(Calendar.HOUR, Integer.parseInt(time[0]));
-		cal.set(Calendar.MINUTE, Integer.parseInt(time[1]));
-		cal.set(Calendar.SECOND, Integer.parseInt(time[2]));
+		cal = Calendar.getInstance();
+		datevalues = calendarvalues[0];
+		timevalues = calendarvalues[1];
+		String date2[] = datevalues.split("/");
+		String time2[] = timevalues.split(":");
+		cal.set(Calendar.YEAR, Integer.parseInt(date2[0]));
+		cal.set(Calendar.MONTH, Integer.parseInt(date2[1]));
+		cal.set(Calendar.DATE, Integer.parseInt(date2[2]));
+		cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time2[0]));
+		cal.set(Calendar.MINUTE, Integer.parseInt(time2[1]));
+		cal.set(Calendar.SECOND, Integer.parseInt(time2[2]));
 		presency.setEnddate(cal);
 		return presency;
 	}

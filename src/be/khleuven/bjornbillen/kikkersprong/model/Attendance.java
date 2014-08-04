@@ -35,7 +35,7 @@ public class Attendance {
 		return getStartdate().get(Calendar.YEAR) + "/"
 				+ getStartdate().get(Calendar.MONTH) + "/"
 				+ getStartdate().get(Calendar.DATE) + " "
-				+ getStartdate().get(Calendar.HOUR) + ":"
+				+ getStartdate().get(Calendar.HOUR_OF_DAY) + ":"
 				+ getStartdate().get(Calendar.MINUTE) + ":"
 				+ getStartdate().get(Calendar.SECOND);
 	}
@@ -52,7 +52,7 @@ public class Attendance {
 		return getEnddate().get(Calendar.YEAR) + "/"
 				+ getEnddate().get(Calendar.MONTH) + "/"
 				+ getEnddate().get(Calendar.DATE) + " "
-				+ getEnddate().get(Calendar.HOUR) + ":"
+				+ getEnddate().get(Calendar.HOUR_OF_DAY) + ":"
 				+ getEnddate().get(Calendar.MINUTE) + ":"
 				+ getEnddate().get(Calendar.SECOND);
 	}
@@ -70,8 +70,10 @@ public class Attendance {
 	}
 	
 	public String toString(){
-		double hoursofattendance = getEnddate().get(Calendar.HOUR) + getEnddate().get(Calendar.MINUTE)/60 - getStartdate().get(Calendar.HOUR) + getStartdate().get(Calendar.MINUTE)/60;
-		double result = Math.round(hoursofattendance);
+		double endhour = getEnddate().get(Calendar.HOUR_OF_DAY) + (getEnddate().get(Calendar.MINUTE)/60);
+		double starthour = getStartdate().get(Calendar.HOUR_OF_DAY) + (getStartdate().get(Calendar.MINUTE)/60);
+		double hoursofattendance = endhour - starthour;
+		int result = (int) Math.round(hoursofattendance);
 		return getStartdate().get(Calendar.YEAR) + "/" + (getStartdate().get(Calendar.MONTH)+1) + "/" + getStartdate().get(Calendar.DATE) + "     (" + result + "u" + ")" ;
 	}
 }

@@ -97,7 +97,7 @@ public class Member {
 	}
 	
 	public String getLastCheckinString(){
-		return getLastcheckin().get(Calendar.YEAR) + "/" + getLastcheckin().get(Calendar.MONTH) + "/" + getLastcheckin().get(Calendar.DATE) + " " + getLastcheckin().get(Calendar.HOUR) + ":" + getLastcheckin().get(Calendar.MINUTE) + ":" + getLastcheckin().get(Calendar.SECOND);
+		return getLastcheckin().get(Calendar.YEAR) + "/" + getLastcheckin().get(Calendar.MONTH) + "/" + getLastcheckin().get(Calendar.DATE) + " " + getLastcheckin().get(Calendar.HOUR_OF_DAY) + ":" + getLastcheckin().get(Calendar.MINUTE) + ":" + getLastcheckin().get(Calendar.SECOND);
 
 	}
 
