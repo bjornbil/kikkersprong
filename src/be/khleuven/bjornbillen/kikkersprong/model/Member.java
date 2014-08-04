@@ -13,21 +13,21 @@ public class Member {
 	private String lastname;
 	private Calendar birthday;
 	private String imageurl;
-	private List<Attendance> presencies;
+	private Calendar lastcheckin; 
 	private boolean isPresent = false;
 
 	public Member() {
 	}
 
 	public Member(int id, String firstname, String lastname, Calendar birthday,
-			String imageurl, boolean present) {
+			String imageurl, boolean present, Calendar lastcheckin) {
 		setId(id);
 		setFirstname(firstname);
 		setLastname(lastname);
 		setBirthday(birthday);
 		setImageurl(imageurl);
 		setPresent(present);
-		presencies = new ArrayList<Attendance>();
+		setLastcheckin(lastcheckin);
 	}
 
 	public Integer getId() {
@@ -63,9 +63,9 @@ public class Member {
 	}
 
 	public String getBirthdayString() {
-		return getBirthday().get(Calendar.DATE) + "/"
+		return getBirthday().get(Calendar.YEAR) + "/"
 				+ getBirthday().get(Calendar.MONTH) + "/"
-				+ getBirthday().get(Calendar.YEAR);
+				+ getBirthday().get(Calendar.DATE);
 	}
 
 	public String getImageurl() {
@@ -74,14 +74,6 @@ public class Member {
 
 	public void setImageurl(String imageurl) {
 		this.imageurl = imageurl;
-	}
-
-	public List<Attendance> getPresencies() {
-		return presencies;
-	}
-
-	public void setPresencies(List<Attendance> presencies) {
-		this.presencies = presencies;
 	}
 
 	public String toString() {
@@ -94,6 +86,19 @@ public class Member {
 
 	public void setPresent(boolean isPresent) {
 		this.isPresent = isPresent;
+	}
+
+	public Calendar getLastcheckin() {
+		return lastcheckin;
+	}
+
+	public void setLastcheckin(Calendar lastcheckin) {
+		this.lastcheckin = lastcheckin;
+	}
+	
+	public String getLastCheckinString(){
+		return getLastcheckin().get(Calendar.YEAR) + "/" + getLastcheckin().get(Calendar.MONTH) + "/" + getLastcheckin().get(Calendar.DATE) + " " + getLastcheckin().get(Calendar.HOUR) + ":" + getLastcheckin().get(Calendar.MINUTE) + ":" + getLastcheckin().get(Calendar.SECOND);
+
 	}
 
 }

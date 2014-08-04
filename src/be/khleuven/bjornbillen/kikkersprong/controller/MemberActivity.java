@@ -60,7 +60,15 @@ public class MemberActivity extends Activity implements OnClickListener {
 		int id = bundle.getInt("id");
 		membercontroller.setCurrentMemberID(id);
 		String naam = bundle.getString("name");
-		membercontroller.addMember(new Member(0,"Bjorn","Billen",Calendar.getInstance(),"test",true));
+		
+		// HARDCODED ENTRY
+		Calendar birthday = Calendar.getInstance();
+		birthday.set(Calendar.DATE, 17);
+		birthday.set(Calendar.MONTH, 2);
+		birthday.set(Calendar.YEAR, 92);
+		membercontroller.addMember(new Member(0,"Bjorn","Billen",birthday,"test",true,Calendar.getInstance()));
+		/// END HARDCODE ENTRY
+		
 		Member m = membercontroller.getMember(id);
 		String dbnaam = m.getFirstname() + " " + m.getLastname();
 		if (naam.equals(dbnaam)){
@@ -117,7 +125,6 @@ public class MemberActivity extends Activity implements OnClickListener {
 					CheckinActivity.class);
 			i.putExtra("id", membercontroller.getCurrentMemberID());
 			this.startActivity(i);
-			updateCheckin();
 			break;
 		case R.id.attendancebutton:
 			Intent i2 = new Intent(getApplicationContext(),

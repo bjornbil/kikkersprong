@@ -22,14 +22,19 @@ public class MemberDAO  {
 	private static final String MEMBER_DOB = "birthday";
 	private static final String MEMBER_IMAGEURL = "imgurl";
 	private static final String MEMBER_PRESENT = "present";
+	private static final String MEMBER_LASTCHECK = "checkin";
 	private int currentid;
 	private MySQLiteHelper db;
 
 	private static final String[] MEMBER_COLUMNS = { MEMBER_ID, MEMBER_NAME,
-			MEMBER_DOB, MEMBER_IMAGEURL, MEMBER_PRESENT };
+			MEMBER_DOB, MEMBER_IMAGEURL, MEMBER_PRESENT, MEMBER_LASTCHECK };
 
 	public MemberDAO(Context context) {
 		db = new MySQLiteHelper(context);
+	}
+	
+	public int getSize(){
+		return getAllMembers().size();
 	}
 
 	public void addMember(Member member) {
@@ -49,6 +54,7 @@ public class MemberDAO  {
 			present = 0;
 		}
 		values.put(MEMBER_PRESENT, present);
+		values.put(MEMBER_LASTCHECK, member.getLastCheckinString());
 		db.addObject(TABLE_MEMBERS, values);
 	}
 	
@@ -92,6 +98,7 @@ public class MemberDAO  {
 			present = 0;
 		}
 		values.put(MEMBER_PRESENT, present);
+		values.put(MEMBER_LASTCHECK, member.getLastCheckinString());
 
 		db.updateObject(TABLE_MEMBERS, MEMBER_ID, values, member.getId());
 	}

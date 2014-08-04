@@ -38,7 +38,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		
 		String CREATE_MEMBER_TABLE = "CREATE TABLE members ( "
 				+ "id INTEGER PRIMARY KEY, " + "name TEXT, "
-				+ "birthday TEXT, " + "imgurl TEXT," + "present INTEGER"+ " )";
+				+ "birthday TEXT, " + "imgurl TEXT," + "present INTEGER,"+ "checkin TEXT" +" )";
 
 		String CREATE_ATTENDANCE_TABLE = "CREATE TABLE attendances ( "
 				+ "id INTEGER PRIMARY KEY, "
@@ -56,13 +56,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_ATTENDANCE_TABLE);
 		db.execSQL(CREATE_BILL_TABLE);
 		
-		ContentValues values = new ContentValues();
-		values.put("id", 0);
-		values.put("name","Bjorn Billen");
-		values.put("birthday", "17/02/1992");
-		values.put("imgurl", "url");
-		values.put("present", 0);
-	//	db.insert("members", null, values);
 	}
 
 	@Override
@@ -81,6 +74,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		if (values != null)
 			db.insert(table, null, values);
 	}
+	
 	private Bill pullStringBill(Cursor cursor){
 		// TODO : bill string pull
 		return null;
@@ -92,9 +86,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		member.setLastname(cursor.getString(cursor.getColumnIndex("name")).split(" ")[1]);
 		String datevalues[] = cursor.getString(cursor.getColumnIndex("birthday")).split("/");
 		Calendar birthday = Calendar.getInstance();
-		birthday.set(Calendar.YEAR,Integer.parseInt(datevalues[2]));
+		birthday.set(Calendar.YEAR,Integer.parseInt(datevalues[0]));
 		birthday.set(Calendar.MONTH, Integer.parseInt(datevalues[1]));
-		birthday.set(Calendar.DATE, Integer.parseInt(datevalues[0]));
+		birthday.set(Calendar.DATE, Integer.parseInt(datevalues[2]));
 		member.setBirthday(birthday);
 		member.setImageurl(cursor.getString(cursor.getColumnIndex("imgurl")));
 		if (Integer.parseInt(cursor.getString(cursor.getColumnIndex("present"))) == 1){
@@ -103,32 +97,43 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		else {
 			member.setPresent(false);
 		}
+		Calendar lastcheck = Calendar.getInstance();
+		String checkvalues[] = cursor.getString(cursor.getColumnIndex("checkin")).split(" ");
+		String checkdate[] = checkvalues[0].split("/");
+		String checktime[] = checkvalues[1].split(":");
+		lastcheck.set(Calendar.YEAR, Integer.parseInt(checkdate[0]));
+		lastcheck.set(Calendar.MONTH, Integer.parseInt(checkdate[1]));
+		lastcheck.set(Calendar.DATE, Integer.parseInt(checkdate[2]));
+		lastcheck.set(Calendar.HOUR, Integer.parseInt(checktime[0]));
+		lastcheck.set(Calendar.MINUTE, Integer.parseInt(checktime[1]));
+		lastcheck.set(Calendar.SECOND, Integer.parseInt(checktime[2]));
+		member.setLastcheckin(lastcheck);
 		return member;
 	}
 
-	private Attendance pullStringPresency(Cursor cursor) {
+	private Attendance pullStringAttendance(Cursor cursor) {
 		Attendance presency = new Attendance();
-		presency.setId(Integer.parseInt(cursor.getString(0)));
+		presency.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("id"))));
 		presency.setMember((Member) getObject(
-				Integer.parseInt(cursor.getString(1)), "members",
+				Integer.parseInt(cursor.getString(cursor.getColumnIndex("memberid"))), "members",
 				MEMBER_COLUMNS));
-		String calendarvalues[] = cursor.getString(3).split(" ");
+		String calendarvalues[] = cursor.getString(cursor.getColumnIndex("start")).split(" ");
 		String datevalues = calendarvalues[0];
 		String timevalues = calendarvalues[1];
 		String date[] = datevalues.split("/");
 		String time[] = timevalues.split(":");
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.DATE, Integer.parseInt(date[0]));
+		cal.set(Calendar.YEAR, Integer.parseInt(date[0]));
 		cal.set(Calendar.MONTH, Integer.parseInt(date[1]));
-		cal.set(Calendar.YEAR, Integer.parseInt(date[2]));
+		cal.set(Calendar.DATE, Integer.parseInt(date[2]));
 		cal.set(Calendar.HOUR, Integer.parseInt(time[0]));
 		cal.set(Calendar.MINUTE, Integer.parseInt(time[1]));
 		cal.set(Calendar.SECOND, Integer.parseInt(time[2]));
 		presency.setStartdate(cal);
-		calendarvalues = cursor.getString(4).split(" ");
-		cal.set(Calendar.DATE, Integer.parseInt(date[0]));
+		calendarvalues = cursor.getString(cursor.getColumnIndex("end")).split(" ");
+		cal.set(Calendar.YEAR, Integer.parseInt(date[0]));
 		cal.set(Calendar.MONTH, Integer.parseInt(date[1]));
-		cal.set(Calendar.YEAR, Integer.parseInt(date[2]));
+		cal.set(Calendar.DATE, Integer.parseInt(date[2]));
 		cal.set(Calendar.HOUR, Integer.parseInt(time[0]));
 		cal.set(Calendar.MINUTE, Integer.parseInt(time[1]));
 		cal.set(Calendar.SECOND, Integer.parseInt(time[2]));
@@ -155,8 +160,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		
 		if (table.equals("members")) {
 			returnobject = pullStringMember(cursor);
-		} else if (table.equals("presencies")) {
-			returnobject = pullStringPresency(cursor);
+		} else if (table.equals("attendances")) {
+			returnobject = pullStringAttendance(cursor);
 		}
 		else if (table.equals("bills")){
 			returnobject = pullStringBill(cursor);
@@ -167,11 +172,11 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 
 	public List<Object> getAllObjects(String table) {
-		
+		SQLiteDatabase db = this.getWritableDatabase();
 		List<Object> objects = new ArrayList<Object>();
 
 		// 1. build the query
-		String query = "SELECT  * FROM " + table;
+		String query = "SELECT * FROM " + table;
 
 		// 2. get reference to writable DB
 
@@ -184,9 +189,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 					object = pullStringMember(cursor);
 					objects.add(object);
 				} while (cursor.moveToNext());
-			} else if (table.equals("presencies")) {
+			} else if (table.equals("attendances")) {
 				do {
-					object = pullStringPresency(cursor);
+					object = pullStringAttendance(cursor);
+					objects.add(object);
+				} while (cursor.moveToNext());
+			}
+			else if (table.equals("attendances")){
+				do{
+					object = pullStringBill(cursor);
 					objects.add(object);
 				} while (cursor.moveToNext());
 			}

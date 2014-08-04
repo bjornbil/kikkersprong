@@ -44,6 +44,11 @@
     <string name="title_activity_bills">BillsActivity</string>
     <string name="title_activity_attendance">AttendanceActivity</string>
     <string name="checked">Je bent nu</string>
-    <string name="checkstatus"/>
+    <string name="checkstatus" />
+
+    <color name="checkedin">#14E009</color>
+    <color name="checkedout">#FF0000</color>
+
+    <string name="title_activity_add_member">AddMemberActivity</string>
 
 </resources>

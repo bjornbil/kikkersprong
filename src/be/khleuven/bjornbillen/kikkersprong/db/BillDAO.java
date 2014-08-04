@@ -27,6 +27,10 @@ public class BillDAO extends MySQLiteHelper {
 		super(context);
 
 	}
+	
+	public int getSize(){
+		return getAllBills().size();
+	}
 
 	public void addBill(Bill bill) {
 		if (bill == null) {

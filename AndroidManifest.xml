@@ -62,6 +62,10 @@
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.AttendanceActivity"
             android:label="@string/title_activity_attendance" >
         </activity>
+        <activity
+            android:name="be.khleuven.bjornbillen.kikkersprong.controller.AddMemberActivity"
+            android:label="@string/title_activity_add_member" >
+        </activity>
     </application>
 
 </manifest>

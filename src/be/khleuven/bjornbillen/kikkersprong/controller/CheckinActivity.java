@@ -1,6 +1,10 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
+import java.util.Calendar;
+
+import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
@@ -10,12 +14,14 @@ import com.example.kikkersprong.R.menu;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -27,6 +33,8 @@ import android.widget.TextView;
 public class CheckinActivity extends Activity {
 	TextView checkstatus;
 	MemberDAO membercontroller;
+	AttendanceDAO attendancecontroller;
+
 	@SuppressLint("ResourceAsColor")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +42,44 @@ public class CheckinActivity extends Activity {
 		setContentView(R.layout.activity_checkin);
 		checkstatus = (TextView) findViewById(R.id.checkstatus);
 		membercontroller = new MemberDAO(getApplicationContext());
+		attendancecontroller = new AttendanceDAO(getApplicationContext());
 		Bundle bundle = getIntent().getExtras();
 		int id = bundle.getInt("id");
 		Member m = membercontroller.getMember(id);
-		if (m.isPresent() == true){
-		checkstatus.setText("Ingecheckt");
-		checkstatus.setTextColor(R.color.slogancolor);
+		if (m.isPresent() == true) {
+			checkstatus.setTextColor(R.color.checkedin);
+			checkstatus.setText("Ingecheckt");
+			Calendar startdate = Calendar.getInstance();
+			m.setLastcheckin(startdate);
+			membercontroller.updateMember(m);
+
+		} else {
+			checkstatus.setTextColor(R.color.checkedout);
+			checkstatus.setText("Uitgecheckt");
+			Calendar enddate = Calendar.getInstance();
+			Attendance nieuw = new Attendance(attendancecontroller.getSize(),m,m.getLastcheckin(),enddate);
+			attendancecontroller.addAttendance(nieuw);
 		}
-		else{
-		checkstatus.setText("Uitgecheckt");
-		checkstatus.setTextColor(R.color.bgcolor);
+
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			Intent i = new Intent(getApplicationContext(), MemberActivity.class);
+			i.putExtra("id", membercontroller.getCurrentMemberID());
+			i.putExtra(
+					"name",
+					membercontroller.getMember(
+							membercontroller.getCurrentMemberID())
+							.getFirstname()
+							+ " "
+							+ membercontroller.getMember(
+									membercontroller.getCurrentMemberID())
+									.getLastname());
+			startActivity(i);
 		}
-		
-		
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override
@@ -55,8 +88,7 @@ public class CheckinActivity extends Activity {
 		getMenuInflater().inflate(R.menu.checkin, menu);
 		checkstatus = (TextView) findViewById(R.id.checkstatus);
 		membercontroller = new MemberDAO(getApplicationContext());
-		
-		
+
 		return true;
 	}
 
