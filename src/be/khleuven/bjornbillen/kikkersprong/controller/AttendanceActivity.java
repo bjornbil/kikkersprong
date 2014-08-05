@@ -15,6 +15,7 @@ import com.example.kikkersprong.R.layout;
 import com.example.kikkersprong.R.menu;
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,9 +57,18 @@ public class AttendanceActivity extends Activity {
 		end.set(Calendar.MONTH, 6);
 		end.set(Calendar.HOUR_OF_DAY, 12);
 		attendancecontroller.addAttendance(new Attendance(0, m, start, end));
+		Calendar start2 = Calendar.getInstance();
+		start2.set(Calendar.DATE, 3);
+		start2.set(Calendar.MONTH, 7);
+		start2.set(Calendar.HOUR_OF_DAY,9);
+		Calendar end2 = Calendar.getInstance();
+		end2.set(Calendar.DATE, 3);
+		end2.set(Calendar.MONTH, 7);
+		end2.set(Calendar.HOUR_OF_DAY,15);
+		attendancecontroller.addAttendance(new Attendance(1, m, start2, end2));
 		// END HARDCODED TEST VALUE
-		showAll();
 		attendances = attendancecontroller.getAllAttendances();
+		showAll();
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -124,20 +134,22 @@ public class AttendanceActivity extends Activity {
 			Log.d("date","" + date.toString());
 			Calendar weekstart, weekend;
 			weekstart = Calendar.getInstance();
-			while(weekstart.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY){
+			
+			while(weekstart.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
 				weekstart.add(Calendar.DATE, -1);
 			}
 			weekstart.set(Calendar.HOUR_OF_DAY, 0);
 			weekstart.set(Calendar.HOUR, 0);
 			weekstart.set(Calendar.MINUTE, 0);
+			weekstart.set(Calendar.SECOND, 0);
+			weekstart.set(Calendar.MILLISECOND, 0);
 			Log.d("date","" + weekstart.toString());
-			weekend = weekstart;
-			weekend.add(Calendar.DATE,6);
-			weekend.add(Calendar.HOUR,11);
-			weekend.set(Calendar.HOUR_OF_DAY, 23);
-			weekend.set(Calendar.MINUTE,59);
-
-			if (date.compareTo(weekstart) == 1 && date.compareTo(weekend) == -1)
+			weekend = Calendar.getInstance();
+			weekend.set(Calendar.DATE, weekstart.get(Calendar.DATE));
+			weekend.set(Calendar.MONTH, weekstart.get(Calendar.MONTH));
+			weekend.add(Calendar.DATE,7);
+			
+			if (date.after(weekstart) && date.before(weekend))
 				valuelist.add(attendances.get(i).toString());
 			
 		}
