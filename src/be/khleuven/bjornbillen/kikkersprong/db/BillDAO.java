@@ -5,31 +5,46 @@ import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 
 import com.hmkcode.android.sqlite.MySQLiteHelper;
 
-public class BillDAO extends MySQLiteHelper {
-	private static final String TABLE_BILLS = "presencies";
+public class BillDAO  {
+	private static final String TABLE_BILLS = "bills";
 
 	// Table presencies Column names
 	private static final String BILL_ID = "id";
+	private static final String BILL_AMOUNT = "amount";
 	private static final String BILL_MEMBERID = "memberid";
 	private static final String BILL_PAYDATE = "paydate";
 	private static final String BILL_PAID = "ispaid";
+	private MySQLiteHelper db;
+	
+	private double priceperhour = 10.0;
 
-	private static final String[] BILL_COLUMNS = { BILL_ID, BILL_MEMBERID,
+	private static final String[] BILL_COLUMNS = { BILL_ID, BILL_AMOUNT, BILL_MEMBERID,
 			BILL_PAYDATE, BILL_PAID };
 
 	public BillDAO(Context context) {
-		super(context);
-
+		db = new MySQLiteHelper(context);
 	}
 	
 	public int getSize(){
 		return getAllBills().size();
+	}
+	
+	public void setPricePerHour(double price){
+		if (price > 0)
+		this.priceperhour = price;
+	}
+	
+	public double getPricePerHour(){
+		return priceperhour;
 	}
 
 	public void addBill(Bill bill) {
@@ -37,21 +52,32 @@ public class BillDAO extends MySQLiteHelper {
 		} // exception handling
 		ContentValues values = new ContentValues();
 		values.put(BILL_ID, bill.getId());
+		values.put(BILL_AMOUNT, bill.getAmount());
 		values.put(BILL_MEMBERID, bill.getMember().getId());
 		values.put(BILL_PAYDATE, bill.getPaybeforeString());
 		values.put(BILL_PAID, bill.isPaid());
-		super.addObject(TABLE_BILLS, values);
+		db.addObject(TABLE_BILLS, values);
 	}
 
 	public Bill getBill(int id) {
-		return (Bill) super.getObject(id, TABLE_BILLS, BILL_COLUMNS);
+		return (Bill) db.getObject(id, TABLE_BILLS, BILL_COLUMNS);
 	}
-
+	
+	
+	public List<Bill> getBills(int memberid){
+		List<Bill> memberbills = new ArrayList<Bill>();
+		for (Bill b : getAllBills()){
+			if (b.getMember().getId() == memberid){
+				memberbills.add(b);
+			}
+		}
+		return memberbills;
+	}
 	public List<Bill> getAllBills() {
-		List<Object> billobjects = super.getAllObjects(TABLE_BILLS);
+		List<Object> billobjects = db.getAllObjects(TABLE_BILLS);
 		List<Bill> bills = new ArrayList<Bill>();
 		for (Object o : billobjects) {
-			if (o instanceof Attendance) {
+			if (o instanceof Bill) {
 				bills.add((Bill) o);
 			}
 		}
@@ -63,16 +89,17 @@ public class BillDAO extends MySQLiteHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(BILL_ID, bill.getId());
+		values.put(BILL_AMOUNT, bill.getAmount());
 		values.put(BILL_MEMBERID, bill.getMember().getId());
 		values.put(BILL_PAYDATE, bill.getPaybeforeString());
 		values.put(BILL_PAID, bill.isPaid());
 
-		super.updateObject(TABLE_BILLS, BILL_ID, values, bill.getId());
+		db.updateObject(TABLE_BILLS, BILL_ID, values, bill.getId());
 	}
 
 	// Deleting
 	public void deleteBill(int id) {
-		super.deleteObject(TABLE_BILLS, BILL_ID, id);
+		db.deleteObject(TABLE_BILLS, BILL_ID, id);
 
 	}
 }

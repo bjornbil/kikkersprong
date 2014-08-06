@@ -3,8 +3,10 @@ package be.khleuven.bjornbillen.kikkersprong.controller;
 import java.util.Calendar;
 
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
+import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
@@ -42,6 +44,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	LinearLayout lin;
 	MemberDAO membercontroller;
 	AttendanceDAO attendancecontroller;
+	BillDAO billcontroller;
 	
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -52,6 +55,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 		membercontroller = new MemberDAO(getApplicationContext());
 		attendancecontroller = new AttendanceDAO(getApplicationContext());
+		billcontroller = new BillDAO(getApplicationContext());
 		infobutton = (Button) findViewById(R.id.infobutton);
 		scanbutton = (Button) findViewById(R.id.scanbutton);
 		scan = (TextView) findViewById(R.id.begroeting);
@@ -81,14 +85,19 @@ public class MainActivity extends Activity implements OnClickListener {
 			lin.addView(textclock);
 			title.setTextSize(40);
 		}
+		
+		// HARDCODED TEST VALUES
 		Calendar birthday = Calendar.getInstance();
 		birthday.set(Calendar.DATE, 17);
 		birthday.set(Calendar.MONTH, 2);
-		birthday.set(Calendar.YEAR, 92);
-		membercontroller.addMember(new Member(0,"Bjorn","Billen",birthday,"test",true,Calendar.getInstance()));
-		// HARDCODED TEST VALUE
-		int id = membercontroller.getCurrentMemberID();
-		Member m = membercontroller.getMember(id);
+		birthday.set(Calendar.YEAR, 2008);
+		membercontroller.addMember(new Member(0,"Jan","Jaap",birthday,"test",false,Calendar.getInstance()));
+		Calendar birthday2 = Calendar.getInstance();
+		birthday2.set(Calendar.DATE, 20);
+		birthday2.set(Calendar.MONTH, 5);
+		birthday2.set(Calendar.YEAR, 2008);
+		membercontroller.addMember(new Member(1,"Kim","Pims",birthday2,"test",false,Calendar.getInstance()));
+		Member m = membercontroller.getMember(0);
 		Calendar start = Calendar.getInstance();
 		start.set(Calendar.DATE, 26);
 		start.set(Calendar.MONTH, 6);
@@ -98,6 +107,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		end.set(Calendar.MONTH, 6);
 		end.set(Calendar.HOUR_OF_DAY, 12);
 		attendancecontroller.addAttendance(new Attendance(0, m, start, end));
+		Member m2 = membercontroller.getMember(1);
 		Calendar start2 = Calendar.getInstance();
 		start2.set(Calendar.DATE, 3);
 		start2.set(Calendar.MONTH, 7);
@@ -106,7 +116,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		end2.set(Calendar.DATE, 3);
 		end2.set(Calendar.MONTH, 7);
 		end2.set(Calendar.HOUR_OF_DAY,15);
-		attendancecontroller.addAttendance(new Attendance(1, m, start2, end2));
+		attendancecontroller.addAttendance(new Attendance(1, m2, start2, end2));
+		Calendar paydate = Calendar.getInstance();
+		paydate.set(Calendar.DATE, 31);
+		// AMOUNT = 240 IS HARDCODED HERE, need to be sum of all attendances x priceperhour
+		billcontroller.addBill(new Bill(0,240,m,paydate,true));
 		// END HARDCODED TEST VALUE
 		launch();
 	}
@@ -154,10 +168,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			i.putExtra("name", name);
 			this.startActivity(i);
 		}
-		else {
-			Intent i = new Intent(getApplicationContext(),MainActivity.class);
-			this.startActivity(i);
-		}
+		else finish();
 	}
 
 	@Override
@@ -170,7 +181,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			Intent i = new
 			 Intent(getApplicationContext(),MemberActivity.class);
 			 i.putExtra("id", 0);
-			 i.putExtra("name", "Bjorn Billen");
+			 i.putExtra("name", "Jan Jaap");
 			 this.startActivity(i);
 			break;
 		case R.id.infobutton:

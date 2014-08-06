@@ -69,10 +69,6 @@ public class MemberActivity extends Activity implements OnClickListener {
 		geboortedatum.setText(m.getBirthdayString());
 		foto.setImageResource(R.drawable.ic_nopic);
 		}
-		else {
-		Intent i = new Intent(getApplicationContext(),MainActivity.class);
-	  i.putExtra("ERROR", "Er is geen persoon gevonden");
-		 }
 		updateCheckin();
 	}
 	

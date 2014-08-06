@@ -9,6 +9,7 @@ import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
+
 import com.example.kikkersprong.R;
 import com.example.kikkersprong.R.id;
 import com.example.kikkersprong.R.layout;
@@ -34,6 +35,7 @@ public class AttendanceActivity extends Activity {
 	Spinner selectperiod;
 	AttendanceDAO attendancecontroller;
 	MemberDAO membercontroller;
+	CustomAttendanceListAdapter listadapter;
 	String[] values;
 	List<Attendance> attendances;
 	ArrayAdapter<String> adapter;
@@ -45,14 +47,14 @@ public class AttendanceActivity extends Activity {
 		membercontroller = new MemberDAO(getApplicationContext());
 		int id = membercontroller.getCurrentMemberID();
 		Member m = membercontroller.getMember(id);
-		listView = (ListView) findViewById(R.id.listView1);
+		listView = (ListView) findViewById(R.id.listViewAttendance);
 		membername = (TextView) findViewById(R.id.membername);
 		// Defined Array values to show in ListView
 		selectperiod = (Spinner) findViewById(R.id.spinner1);
 		attendances = new ArrayList<Attendance>();
 		membername.setText(membercontroller.getMember(id).getFirstname() + " " + membercontroller.getMember(id).getLastname());
 	
-		attendances = attendancecontroller.getAllAttendances();
+		attendances = attendancecontroller.getAttendances(membercontroller.getCurrentMemberID());
 		showAll();
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -60,16 +62,21 @@ public class AttendanceActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				// ListView Clicked item index
-				int itemPosition = position;
-
-				// ListView Clicked item value
-				String itemValue = (String) listView
-						.getItemAtPosition(position);
-
-				// Show Alert
+							// Show Alert
+				String datum = listView.getAdapter().getItem(position).toString().split(" ")[0];
+				Attendance result = null;
+				String aanwezigheid = "Niet gevonden";
+				
+				for (Attendance a : attendancecontroller.getAttendances(membercontroller.getCurrentMemberID())){
+					if (a.getStartdate().get(Calendar.DATE) == Integer.parseInt(datum.split("/")[2]) && (a.getStartdate().get(Calendar.MONTH)+1) == Integer.parseInt(datum.split("/")[1]) && a.getStartdate().get(Calendar.YEAR) == Integer.parseInt(datum.split("/")[0])){
+						result = a;
+					}
+				}
+				if (result != null){
+				aanwezigheid = result.getStartdate().get(Calendar.HOUR_OF_DAY) + "u - " + result.getEnddate().get(Calendar.HOUR_OF_DAY) + "u";
+				}
 				Toast.makeText(getApplicationContext(),
-						"Index :" + itemPosition + "  Datum : " + itemValue,
+						"Datum : " + datum + " (" + aanwezigheid + ")",
 						Toast.LENGTH_LONG).show();
 
 			}
@@ -78,7 +85,7 @@ public class AttendanceActivity extends Activity {
 		String[] spinner = new String[3];
 		spinner[0] = "Deze week";
 		spinner[1] = "Deze maand";
-		spinner[2] = "Alles";
+		spinner[2] = "Alles          ";
 
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		ArrayAdapter spinneradapter = new ArrayAdapter(this,
@@ -138,17 +145,11 @@ public class AttendanceActivity extends Activity {
 				valuelist.add(attendances.get(i).toString());
 			
 		}
-		values = new String[valuelist.size()];
-		for (int i = 0; i < valuelist.size(); i++){
-			values[i] = valuelist.get(i);
-		}
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-		listView.setAdapter(adapter);
-		listView.setVisibility(0);
-		listView.setVisibility(1);
-		Log.d("size",values.length + " ");
+		listadapter = new CustomAttendanceListAdapter(getApplicationContext(),valuelist);
+
+		listView.setAdapter(listadapter);
+		
 	}
 	
 	private void showThisMonth(){
@@ -160,29 +161,23 @@ public class AttendanceActivity extends Activity {
 				valuelist.add(attendances.get(i).toString());
 			
 		}
-		values = new String[valuelist.size()];
-		for (int i = 0; i < valuelist.size(); i++){
-			values[i] = valuelist.get(i);
-		}
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, values);
+		
+		listadapter = new CustomAttendanceListAdapter(getApplicationContext(),valuelist);
 
-		listView.setAdapter(adapter);
+		listView.setAdapter(listadapter);
 		
 			
 		
 	}
 	
 	private void showAll(){
-		values = new String[attendances.size()];
-		for (int i = 0; i < attendances.size(); i++){
-			values[i] = attendances.get(i).toString();
+		List<String> valuelist = new ArrayList<String>();
+		for (Attendance a : attendances){
+			valuelist.add(a.toString());
 		}
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, values);
+		listadapter = new CustomAttendanceListAdapter(getApplicationContext(),valuelist);
 
-		listView.setAdapter(adapter);
-		Log.d("size",values.length + " ");
+		listView.setAdapter(listadapter);
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

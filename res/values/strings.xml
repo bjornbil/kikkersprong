@@ -53,5 +53,11 @@
     <string name="checkindate"/>
     <string name="membername"/>
     <string name="aanwezigheden">Aanwezigheden</string>
+    <string name="listviewdate">DATE</string>
+    <string name="aantaluur">6u</string>
+    <string name="datum">Datum</string>
+    <string name="aantalu">Aantal u</string>
+    <string name="betaald">Betaald</string>
+    <string name="amount">Bedrag</string>
 
 </resources>

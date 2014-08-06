@@ -22,12 +22,14 @@
         android:src="@drawable/ic_launcher" />
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/listViewAttendance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/imageView1"
-        android:layout_marginTop="24dp" >
+        android:layout_marginTop="40dp" 
+
+        android:listSelector="@drawable/list_selector">
     </ListView>
 
     <Spinner
@@ -47,6 +49,7 @@
         android:layout_below="@+id/imageView1"
         android:layout_marginLeft="5dp"
         android:text="@string/membername"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -59,5 +62,15 @@
         android:textStyle="bold"
         android:text="@string/aanwezigheden"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/membername"
+        android:layout_alignBottom="@+id/membername"
+        android:layout_alignRight="@+id/listViewAttendance"
+        android:text="@string/aantalu"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

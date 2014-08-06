@@ -47,6 +47,16 @@ public class AttendanceDAO {
 		return (Attendance) db.getObject(id, TABLE_ATTENDANCES,
 				ATTENDANCE_COLUMNS);
 	}
+	
+	public List<Attendance> getAttendances(int memberid){
+		List<Attendance> attendances = new ArrayList<Attendance>();
+		for (Attendance a : getAllAttendances()){
+			if (a.getMember().getId() == memberid){
+				attendances.add(a);
+			}
+		}
+		return attendances;
+	}
 
 	public List<Attendance> getAllAttendances() {
 		List<Object> presencies = db.getAllObjects(TABLE_ATTENDANCES);

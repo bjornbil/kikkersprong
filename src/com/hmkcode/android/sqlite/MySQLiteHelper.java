@@ -22,8 +22,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	// Database Name
 	private static final String DATABASE_NAME = "KIKKERSPRONGDB";
 
-	private static final String[] MEMBER_COLUMNS = { "id", "firstname",
-			"lastname", "birthday", "imgurl" };
+	private static final String[] MEMBER_COLUMNS = { "id", "name",
+			"birthday", "imgurl","present","checkin" };
 
 
 	private SQLiteDatabase db;
@@ -47,6 +47,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 		String CREATE_BILL_TABLE = "CREATE TABLE bills ( "
 				+ "id INTEGER PRIMARY KEY, "
+				+ "amount DOUBLE,"
 				+ "memberid INTEGER," + "paydate TEXT, " + "ispaid TEXT,"
 				+ " FOREIGN KEY (memberid) REFERENCES members (id));";
 		
@@ -76,8 +77,30 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	}
 	
 	private Bill pullStringBill(Cursor cursor){
-		// TODO : bill string pull
-		return null;
+		Bill bill = new Bill();
+		bill.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("id"))));
+		bill.setMember((Member) getObject(
+				Integer.parseInt(cursor.getString(cursor.getColumnIndex("memberid"))), "members",
+				MEMBER_COLUMNS));
+		String datevalue = cursor.getString(cursor.getColumnIndex("paydate"));
+		int day,month,year;
+		day = Integer.parseInt(datevalue.split("/")[0]);
+		month = Integer.parseInt(datevalue.split("/")[1]);
+		year = Integer.parseInt(datevalue.split("/")[2]);
+		Calendar paydate = Calendar.getInstance();
+		paydate.set(Calendar.DATE, day);
+		paydate.set(Calendar.MONTH,month);
+		paydate.set(Calendar.YEAR,year);
+		bill.setPaybefore(paydate);
+		String ispaid = cursor.getString(cursor.getColumnIndex("ispaid"));
+		if (ispaid.equals("true")){
+			bill.setPaid(true);
+		}
+		else {
+			bill.setPaid(false);
+		}
+		bill.setAmount(Integer.parseInt(cursor.getString(cursor.getColumnIndex("amount"))));
+		return bill;
 	}
 	private Member pullStringMember(Cursor cursor) {
 		Member member = new Member();
@@ -200,7 +223,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 					objects.add(object);
 				} while (cursor.moveToNext());
 			}
-			else if (table.equals("attendances")){
+			else if (table.equals("bills")){
 				do{
 					object = pullStringBill(cursor);
 					objects.add(object);

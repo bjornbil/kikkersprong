@@ -7,15 +7,18 @@ public class Bill {
 	private Member member;
 	private Calendar paybefore;
 	private boolean paid;
+	private double amount;
 
 	public Bill() {
 
 	}
 
-	public Bill(Integer id, Member member, Calendar paydate) {
+	public Bill(Integer id, double amount, Member member, Calendar paydate, boolean paid) {
 		setId(id);
 		setMember(member);
 		setPaybefore(paydate);
+		setPaid(paid);
+		setAmount(amount);
 	}
 
 	public boolean isPaid() {
@@ -42,6 +45,14 @@ public class Bill {
 		this.member = member;
 	}
 
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
 	public Calendar getPaybefore() {
 		return paybefore;
 	}
@@ -54,6 +65,12 @@ public class Bill {
 
 	public void setPaybefore(Calendar paybefore) {
 		this.paybefore = paybefore;
+	}
+	
+	public String toString(){
+		return getPaybefore().get(Calendar.DATE) + "/"
+				+ getPaybefore().get(Calendar.MONTH) + "/"
+				+ getPaybefore().get(Calendar.YEAR) + " " + getAmount() + " " + isPaid();
 	}
 
 }

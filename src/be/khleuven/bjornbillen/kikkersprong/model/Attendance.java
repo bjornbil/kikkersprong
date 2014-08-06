@@ -69,11 +69,15 @@ public class Attendance {
 		this.member = member;
 	}
 	
-	public String toString(){
+	public int getDuration(){
 		double endhour = getEnddate().get(Calendar.HOUR_OF_DAY) + (getEnddate().get(Calendar.MINUTE)/60);
 		double starthour = getStartdate().get(Calendar.HOUR_OF_DAY) + (getStartdate().get(Calendar.MINUTE)/60);
 		double hoursofattendance = endhour - starthour;
 		int result = (int) Math.round(hoursofattendance);
-		return getStartdate().get(Calendar.YEAR) + "/" + (getStartdate().get(Calendar.MONTH)+1) + "/" + getStartdate().get(Calendar.DATE) + "     (" + result + "u" + ")" ;
+		return result;
+	}
+	public String toString(){
+		int duration = getDuration();
+		return getStartdate().get(Calendar.YEAR) + "/" + (getStartdate().get(Calendar.MONTH)+1) + "/" + getStartdate().get(Calendar.DATE) + " " + duration + "u";
 	}
 }
