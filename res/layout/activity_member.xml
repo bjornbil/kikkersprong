@@ -6,48 +6,16 @@
     android:gravity="fill"
     tools:context=".MemberActivity" >
 
-    <TextView
-        android:id="@+id/gebdatum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/naam"
-        android:layout_below="@+id/naam"
-        android:padding="10dp"
-        android:text="@string/dob"
-        android:textColor="#FFFFFF" />
-
-    <TextView
-        android:id="@+id/naam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/TextView01"
-        android:layout_marginTop="22dp"
-        android:layout_toRightOf="@+id/imageView2"
-        android:padding="10dp"
-        android:text="@string/naam"
-        android:textColor="#000000"
-        android:textSize="25sp" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_alignTop="@+id/naam"
-        android:layout_marginLeft="28dp"
-        android:src="@drawable/ic_nopic" />
-
     <ImageButton
         android:id="@+id/checkinbutton"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/imageView1"
         android:layout_alignTop="@+id/attendancebutton"
-        android:layout_toLeftOf="@+id/main_title"
         android:background="@null"
-        android:scaleType="fitXY"
-        />
+        android:scaleType="fitXY" />
 
     <ImageButton
         android:id="@+id/billsbutton"
@@ -55,7 +23,7 @@
         android:layout_height="120dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@null"
+                android:background="@null"
         android:scaleType="fitXY"
         android:src="@drawable/ic_bills" />
 
@@ -70,35 +38,12 @@
         android:src="@drawable/ic_presency" />
 
     <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:text="@string/welkom"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp" />
-
-    <TextView
         android:id="@+id/checktext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/checkinbutton"
         android:layout_marginLeft="20dp"
         android:text="@string/checkin"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#000000" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/billsbutton"
-        android:layout_alignRight="@+id/gebdatum"
-        android:layout_marginLeft="60dp"
-        android:text="@string/bills"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000" />
 
@@ -113,32 +58,13 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000" />
 
-    <LinearLayout
-        android:id="@+id/clockspace2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/main_title"
-        android:layout_marginTop="18dp"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_alignBottom="@+id/clockspace2"
         android:layout_alignParentEnd="false"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
+        android:layout_alignParentStart="true"
         android:layout_marginLeft="15dp"
         android:scaleType="fitStart"
         android:src="@drawable/ic_launcher" />
@@ -155,16 +81,77 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="30sp" />
 
+    <LinearLayout
+        android:id="@+id/clockspace2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_marginLeft="20dp"
+        android:layout_alignRight="@+id/main_title"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignLeft="@+id/checktext"
+        android:layout_alignTop="@+id/name"
+        android:src="@drawable/ic_nopic" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
+        android:layout_above="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="19dp"
         android:text="@string/memberinfo"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/betalingen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/billsbutton"
+        android:layout_alignRight="@+id/clockspace2"
+        android:text="@string/bills"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/gebdatum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        android:text="@string/dob"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gebdatum"
+        android:layout_alignRight="@+id/clockspace2"
+        android:padding="10dp"
+        android:text="@string/naam"
+        android:textColor="#000000"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/welkombericht"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/main_title"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="14dp"
+        android:text="@string/welkom"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
 
 </RelativeLayout>

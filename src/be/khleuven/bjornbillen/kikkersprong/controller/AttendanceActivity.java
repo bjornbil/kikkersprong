@@ -25,10 +25,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AttendanceActivity extends Activity {
 	ListView listView;
+	TextView membername, aanwezigheden;
 	Spinner selectperiod;
 	AttendanceDAO attendancecontroller;
 	MemberDAO membercontroller;
@@ -44,29 +46,12 @@ public class AttendanceActivity extends Activity {
 		int id = membercontroller.getCurrentMemberID();
 		Member m = membercontroller.getMember(id);
 		listView = (ListView) findViewById(R.id.listView1);
+		membername = (TextView) findViewById(R.id.membername);
 		// Defined Array values to show in ListView
 		selectperiod = (Spinner) findViewById(R.id.spinner1);
 		attendances = new ArrayList<Attendance>();
-		// HARDCODED TEST VALUE
-		Calendar start = Calendar.getInstance();
-		start.set(Calendar.DATE, 26);
-		start.set(Calendar.MONTH, 6);
-		start.set(Calendar.HOUR_OF_DAY,9);
-		Calendar end = Calendar.getInstance();
-		end.set(Calendar.DATE, 26);
-		end.set(Calendar.MONTH, 6);
-		end.set(Calendar.HOUR_OF_DAY, 12);
-		attendancecontroller.addAttendance(new Attendance(0, m, start, end));
-		Calendar start2 = Calendar.getInstance();
-		start2.set(Calendar.DATE, 3);
-		start2.set(Calendar.MONTH, 7);
-		start2.set(Calendar.HOUR_OF_DAY,9);
-		Calendar end2 = Calendar.getInstance();
-		end2.set(Calendar.DATE, 3);
-		end2.set(Calendar.MONTH, 7);
-		end2.set(Calendar.HOUR_OF_DAY,15);
-		attendancecontroller.addAttendance(new Attendance(1, m, start2, end2));
-		// END HARDCODED TEST VALUE
+		membername.setText(membercontroller.getMember(id).getFirstname() + " " + membercontroller.getMember(id).getLastname());
+	
 		attendances = attendancecontroller.getAllAttendances();
 		showAll();
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -135,7 +120,7 @@ public class AttendanceActivity extends Activity {
 			Calendar weekstart, weekend;
 			weekstart = Calendar.getInstance();
 			
-			while(weekstart.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
+			while(weekstart.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY){
 				weekstart.add(Calendar.DATE, -1);
 			}
 			weekstart.set(Calendar.HOUR_OF_DAY, 0);

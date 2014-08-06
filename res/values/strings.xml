@@ -50,5 +50,8 @@
     <color name="checkedout">#FF0000</color>
 
     <string name="title_activity_add_member">AddMemberActivity</string>
+    <string name="checkindate"/>
+    <string name="membername"/>
+    <string name="aanwezigheden">Aanwezigheden</string>
 
 </resources>

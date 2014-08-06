@@ -1,5 +1,12 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
+import java.util.Calendar;
+
+import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
+import be.khleuven.bjornbillen.kikkersprong.model.Member;
+
 import com.example.kikkersprong.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -33,6 +40,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	TextView scan, title;
 	ImageView qr, in, out;
 	LinearLayout lin;
+	MemberDAO membercontroller;
+	AttendanceDAO attendancecontroller;
+	
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	@SuppressLint({ "ShowToast", "NewApi" })
@@ -40,9 +50,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		membercontroller = new MemberDAO(getApplicationContext());
+		attendancecontroller = new AttendanceDAO(getApplicationContext());
 		infobutton = (Button) findViewById(R.id.infobutton);
 		scanbutton = (Button) findViewById(R.id.scanbutton);
-		scan = (TextView) findViewById(R.id.textView1);
+		scan = (TextView) findViewById(R.id.begroeting);
 		title = (TextView) findViewById(R.id.main_title);
 		qr = (ImageView) findViewById(R.id.imageView2);
 		if (android.os.Build.VERSION.SDK_INT >= 17) {
@@ -69,6 +81,33 @@ public class MainActivity extends Activity implements OnClickListener {
 			lin.addView(textclock);
 			title.setTextSize(40);
 		}
+		Calendar birthday = Calendar.getInstance();
+		birthday.set(Calendar.DATE, 17);
+		birthday.set(Calendar.MONTH, 2);
+		birthday.set(Calendar.YEAR, 92);
+		membercontroller.addMember(new Member(0,"Bjorn","Billen",birthday,"test",true,Calendar.getInstance()));
+		// HARDCODED TEST VALUE
+		int id = membercontroller.getCurrentMemberID();
+		Member m = membercontroller.getMember(id);
+		Calendar start = Calendar.getInstance();
+		start.set(Calendar.DATE, 26);
+		start.set(Calendar.MONTH, 6);
+		start.set(Calendar.HOUR_OF_DAY,9);
+		Calendar end = Calendar.getInstance();
+		end.set(Calendar.DATE, 26);
+		end.set(Calendar.MONTH, 6);
+		end.set(Calendar.HOUR_OF_DAY, 12);
+		attendancecontroller.addAttendance(new Attendance(0, m, start, end));
+		Calendar start2 = Calendar.getInstance();
+		start2.set(Calendar.DATE, 3);
+		start2.set(Calendar.MONTH, 7);
+		start2.set(Calendar.HOUR_OF_DAY,9);
+		Calendar end2 = Calendar.getInstance();
+		end2.set(Calendar.DATE, 3);
+		end2.set(Calendar.MONTH, 7);
+		end2.set(Calendar.HOUR_OF_DAY,15);
+		attendancecontroller.addAttendance(new Attendance(1, m, start2, end2));
+		// END HARDCODED TEST VALUE
 		launch();
 	}
 
@@ -125,9 +164,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.scanbutton:
+			
 			//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
 			//scanIntegrator.initiateScan();
-			 Intent i = new
+			Intent i = new
 			 Intent(getApplicationContext(),MemberActivity.class);
 			 i.putExtra("id", 0);
 			 i.putExtra("name", "Bjorn Billen");

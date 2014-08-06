@@ -4,22 +4,23 @@
     android:layout_height="fill_parent"
     android:background="@drawable/ic_kikker"
     android:gravity="top|center"
-    android:orientation="vertical" >
+   	android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/begroeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/checked"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/checkstatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/checkstatus"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

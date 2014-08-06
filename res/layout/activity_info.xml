@@ -63,7 +63,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_above="@+id/check2"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/begroeting"
         android:layout_marginBottom="27dp"
         android:src="@drawable/checkicon" />
 
@@ -79,7 +79,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/begroeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/check1"

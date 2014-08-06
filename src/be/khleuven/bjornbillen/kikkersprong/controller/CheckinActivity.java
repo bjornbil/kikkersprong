@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -31,7 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CheckinActivity extends Activity {
-	TextView checkstatus;
+	TextView checkstatus, checkdate, begroeting;
 	MemberDAO membercontroller;
 	AttendanceDAO attendancecontroller;
 
@@ -41,26 +42,41 @@ public class CheckinActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_checkin);
 		checkstatus = (TextView) findViewById(R.id.checkstatus);
+		begroeting = (TextView) findViewById(R.id.begroeting);
 		membercontroller = new MemberDAO(getApplicationContext());
 		attendancecontroller = new AttendanceDAO(getApplicationContext());
 		Bundle bundle = getIntent().getExtras();
 		int id = bundle.getInt("id");
 		Member m = membercontroller.getMember(id);
 		if (m.isPresent() == true) {
-			checkstatus.setTextColor(R.color.checkedin);
+			
+			checkstatus.setTextColor(Color.GREEN);
 			checkstatus.setText("Ingecheckt");
 			Calendar startdate = Calendar.getInstance();
+			if (startdate.get(Calendar.HOUR_OF_DAY) < 12){
+				begroeting.setText("Goedemorgen, je bent nu");
+			}
+			else {
+				begroeting.setText("Goeiedag, je bent nu");
+			}
 			m.setLastcheckin(startdate);
 			membercontroller.updateMember(m);
 
 		} else {
-			checkstatus.setTextColor(R.color.checkedout);
+			checkstatus.setTextColor(Color.RED);
 			checkstatus.setText("Uitgecheckt");
 			Calendar enddate = Calendar.getInstance();
+			if (enddate.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
+				begroeting.setText("Goed weekend, je bent nu");
+			}
+			else {
+				begroeting.setText("Goede avond, je bent nu");
+			}
 			Attendance nieuw = new Attendance(attendancecontroller.getSize(),m,m.getLastcheckin(),enddate);
 			attendancecontroller.addAttendance(nieuw);
 		}
-
+		
+		checkstatus.invalidate();
 	}
 
 	@Override

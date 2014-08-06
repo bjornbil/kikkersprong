@@ -1,4 +1,4 @@
-package be.khleuven.bjornbillen.kikkersprong.controller;
+   package be.khleuven.bjornbillen.kikkersprong.controller;
 
 import java.util.Calendar;
 
@@ -37,9 +37,10 @@ public class MemberActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_member);
 		membercontroller = new MemberDAO(getApplicationContext());
-		txtnaam = (TextView) findViewById(R.id.naam);
+		txtnaam = (TextView) findViewById(R.id.name);
 		geboortedatum = (TextView) findViewById(R.id.gebdatum);
 		foto = (ImageView) findViewById(R.id.imageView2);
+		
 		if (android.os.Build.VERSION.SDK_INT >= 17) {
 			lin = (LinearLayout) findViewById(R.id.clockspace2);
 			TextClock textclock;
@@ -60,15 +61,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 		int id = bundle.getInt("id");
 		membercontroller.setCurrentMemberID(id);
 		String naam = bundle.getString("name");
-		
-		// HARDCODED ENTRY
-		Calendar birthday = Calendar.getInstance();
-		birthday.set(Calendar.DATE, 17);
-		birthday.set(Calendar.MONTH, 2);
-		birthday.set(Calendar.YEAR, 92);
-		membercontroller.addMember(new Member(0,"Bjorn","Billen",birthday,"test",true,Calendar.getInstance()));
-		/// END HARDCODE ENTRY
-		
+
 		Member m = membercontroller.getMember(id);
 		String dbnaam = m.getFirstname() + " " + m.getLastname();
 		if (naam.equals(dbnaam)){
@@ -93,7 +86,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 		else{
 			checkin.setImageResource(R.drawable.ic_checkin);
 			checktext.setText("Inchecken");
-		}
+			}
 		checkin.refreshDrawableState();
 	}
 

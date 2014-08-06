@@ -25,7 +25,7 @@
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
+            android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/imageView1"
         android:layout_marginTop="24dp" >
     </ListView>
@@ -36,7 +36,28 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageView1"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:layout_toRightOf="@+id/imageView1" />
+
+    <TextView
+        android:id="@+id/membername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginLeft="5dp"
+        android:text="@string/membername"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/aanwezigheden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/spinner1"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginLeft="35dp"
+        android:textStyle="bold"
+        android:text="@string/aanwezigheden"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
