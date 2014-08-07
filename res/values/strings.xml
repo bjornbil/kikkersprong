@@ -7,7 +7,7 @@
 
     <color name="bgcolor">#84C185</color>
 
-    <string name="title_activity_info">InfoActivity</string>
+    <string name="title_activity_info">Info</string>
     <string name="kikkersprong">Kikkersprong</string>
 
     <color name="btncolor">#ff6b35</color>
@@ -28,7 +28,7 @@
     <string name="info4">Automatische berekening van de kost(en) op basis van aanwezigheden en controle op betaling</string>
     <string name="startpagina">Startpagina</string>
     <string name="started">false</string>
-    <string name="title_activity_member">MemberActivity</string>
+    <string name="title_activity_member">MemberPage</string>
     <string name="picture">Foto</string>
     <string name="checkin">Inchecken</string>
     <string name="presency">Aanwezigheden</string>
@@ -40,9 +40,9 @@
     <string name="qrcodeinfo">Check het kind in (of uit)</string>
     <string name="qrcodeinfo2">Bekijk aanwezigheden en rekeningen</string>
     <string name="textclock"></string>
-    <string name="title_activity_checkin">CheckinActivity</string>
-    <string name="title_activity_bills">BillsActivity</string>
-    <string name="title_activity_attendance">AttendanceActivity</string>
+    <string name="title_activity_checkin">CheckinPage</string>
+    <string name="title_activity_bills">BillsPage</string>
+    <string name="title_activity_attendance">AttendancePage</string>
     <string name="checked">Je bent nu</string>
     <string name="checkstatus" />
 
@@ -50,8 +50,8 @@
     <color name="checkedout">#FF0000</color>
 
     <string name="title_activity_add_member">AddMemberActivity</string>
-    <string name="checkindate"/>
-    <string name="membername"/>
+    <string name="checkindate" />
+    <string name="membername" />
     <string name="aanwezigheden">Aanwezigheden</string>
     <string name="listviewdate">DATE</string>
     <string name="aantaluur">6u</string>
@@ -59,5 +59,6 @@
     <string name="aantalu">Aantal u</string>
     <string name="betaald">Betaald</string>
     <string name="amount">Bedrag</string>
+    <string name="title_activity_admin">AdminActivity</string>
 
 </resources>

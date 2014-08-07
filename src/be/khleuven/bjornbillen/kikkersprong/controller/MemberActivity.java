@@ -13,6 +13,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -70,6 +71,13 @@ public class MemberActivity extends Activity implements OnClickListener {
 		foto.setImageResource(R.drawable.ic_nopic);
 		}
 		updateCheckin();
+	}
+	
+	@Override
+	public void onBackPressed() {
+	   Log.d("CDA", "onBackPressed Called");
+	   Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);
+	   startActivity(setIntent);
 	}
 	
 	public void updateCheckin(){

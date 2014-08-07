@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/checkinview"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/ic_kikker"
+    android:gravity="top|center"
+   	android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/begroeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/checked"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/checkstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkstatus"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</LinearLayout>

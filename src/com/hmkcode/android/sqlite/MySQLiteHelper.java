@@ -93,7 +93,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		paydate.set(Calendar.YEAR,year);
 		bill.setPaybefore(paydate);
 		String ispaid = cursor.getString(cursor.getColumnIndex("ispaid"));
-		if (ispaid.equals("true")){
+		
+		if (ispaid.equals("1")){
 			bill.setPaid(true);
 		}
 		else {

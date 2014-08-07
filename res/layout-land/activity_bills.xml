@@ -21,58 +21,57 @@
         android:scaleType="fitStart"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:id="@+id/betalingen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_marginBottom="36dp"
-        android:layout_marginLeft="44dp"
-        android:layout_toRightOf="@+id/imageView1"
-        android:text="@string/bills"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
-
     <ListView
         android:id="@+id/listViewBills"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="40dp"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/betalingen"
         android:listSelector="@drawable/list_selector" >
+
     </ListView>
-
-    <TextView
-        android:id="@+id/billname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/listView1"
-        android:layout_below="@+id/imageView1"
-        android:text="@string/membername"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/betaald"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/billname"
-        android:layout_alignBottom="@+id/billname"
-        android:layout_alignRight="@+id/listViewBills"
-        android:text="@string/betaald"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/betaald"
-        android:layout_alignBottom="@+id/betaald"
-        android:layout_toLeftOf="@+id/betaald"
-        android:layout_marginRight="20dp"
+        android:layout_alignRight="@+id/listViewBills"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginRight="80dp"
         android:text="@string/amount"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/betaald"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignRight="@+id/listViewBills"
+        android:text="@string/betaald"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/billname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginLeft="17dp"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="@string/membername"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/betalingen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageView1"
+        android:text="@string/bills"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
 </RelativeLayout>

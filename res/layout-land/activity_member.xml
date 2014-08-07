@@ -1,0 +1,153 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/btncolor"
+    android:gravity="fill"
+    tools:context=".MemberActivity" >
+
+    <ImageButton
+        android:id="@+id/attendancebutton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_presency" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imageView2"
+        android:padding="10dp"
+        android:text="@string/naam"
+        android:textColor="#000000"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/kikkersprong"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/welkombericht"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_below="@+id/imageView1"
+        android:text="@string/welkom"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/name"
+        android:layout_centerHorizontal="true"
+        android:text="@string/memberinfo"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/clockspace2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_title"
+        android:layout_toLeftOf="@+id/name"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/checkinbutton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/imageView1"
+        android:background="@null"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/gebdatum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/betalingen"
+        android:layout_alignParentRight="true"
+        android:padding="10dp"
+        android:text="@string/dob"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/welkombericht"
+        android:layout_alignLeft="@+id/name"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/ic_nopic" />
+
+    <TextView
+        android:id="@+id/betalingen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/billsbutton"
+        android:layout_toLeftOf="@+id/name"
+        android:layout_marginLeft="20dp"
+        android:text="@string/bills"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000" />
+
+    <ImageButton
+        android:id="@+id/billsbutton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/name"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_bills" />
+
+    <TextView
+        android:id="@+id/aanw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/attendancebutton"
+        android:layout_centerHorizontal="true"
+        android:text="@string/presency"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/checktext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/checkinbutton"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="@string/checkin"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000" />
+
+</RelativeLayout>

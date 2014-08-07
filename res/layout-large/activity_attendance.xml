@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.BillsActivity" >
+    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.AttendanceActivity" >
 
     <ImageView
         android:id="@+id/imageView1"
@@ -21,58 +21,56 @@
         android:scaleType="fitStart"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:id="@+id/betalingen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_marginBottom="36dp"
-        android:layout_marginLeft="44dp"
-        android:layout_toRightOf="@+id/imageView1"
-        android:text="@string/bills"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
-
     <ListView
-        android:id="@+id/listViewBills"
+        android:id="@+id/listViewAttendance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/imageView1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="40dp"
-        android:listSelector="@drawable/list_selector" >
+        android:layout_marginTop="40dp" 
+
+        android:listSelector="@drawable/list_selector">
     </ListView>
 
-    <TextView
-        android:id="@+id/billname"
+    <Spinner
+        android:id="@+id/spinner1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/listView1"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/imageView1" />
+
+    <TextView
+        android:id="@+id/membername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/imageView1"
+        android:layout_marginLeft="5dp"
         android:text="@string/membername"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/betaald"
+        android:id="@+id/aanwezigheden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/billname"
-        android:layout_alignBottom="@+id/billname"
-        android:layout_alignRight="@+id/listViewBills"
-        android:text="@string/betaald"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_alignRight="@+id/spinner1"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginLeft="35dp"
+        android:textStyle="bold"
+        android:text="@string/aanwezigheden"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/betaald"
-        android:layout_alignBottom="@+id/betaald"
-        android:layout_toLeftOf="@+id/betaald"
-        android:layout_marginRight="20dp"
-        android:text="@string/amount"
+        android:layout_alignBaseline="@+id/membername"
+        android:layout_alignBottom="@+id/membername"
+        android:layout_alignRight="@+id/listViewAttendance"
+        android:text="@string/aantalu"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

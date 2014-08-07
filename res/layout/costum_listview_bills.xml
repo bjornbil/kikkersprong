@@ -22,7 +22,7 @@
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/ic_paystatus" />
+        />
 
     <TextView
         android:id="@+id/prijslistview"
