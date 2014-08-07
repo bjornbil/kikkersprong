@@ -51,9 +51,18 @@ class CustomBillListAdapter extends BaseAdapter {
         final TextView date= (TextView) view.findViewById(R.id.paydatelistview);
         final TextView hours= (TextView) view.findViewById(R.id.prijslistview);
         final ImageView imgview = (ImageView) view.findViewById(R.id.paystatus);
-        
+        String prijs = "";
         date.setText(mList.get(position).split(" ")[0]);
-        hours.setText(mList.get(position).split(" ")[1]);
+        double prijsdouble = Double.parseDouble(mList.get(position).split(" ")[1]);
+        if (prijsdouble % 2 == 0){
+			int prijsrond = (int) Math.round(prijsdouble);
+			prijs = "€ " + prijsrond ;
+		}
+		else {
+			prijs = "€ " + prijs + "0";
+		}
+        
+        hours.setText(prijs);
         String betaald = mList.get(position).split(" ")[2];
         Log.d("ok",betaald);
         if (betaald.equals("true")){

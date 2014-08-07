@@ -78,6 +78,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 	   Log.d("CDA", "onBackPressed Called");
 	   Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);
 	   startActivity(setIntent);
+	   MemberActivity.this.finish();
 	}
 	
 	public void updateCheckin(){
@@ -122,17 +123,20 @@ public class MemberActivity extends Activity implements OnClickListener {
 					CheckinActivity.class);
 			i.putExtra("id", membercontroller.getCurrentMemberID());
 			this.startActivity(i);
+			MemberActivity.this.finish();
 			break;
 		case R.id.attendancebutton:
 			Intent i2 = new Intent(getApplicationContext(),
 					AttendanceActivity.class);
 			i2.putExtra("id", membercontroller.getCurrentMemberID());
 			this.startActivity(i2);
+			MemberActivity.this.finish();
 			break;
 		case R.id.billsbutton:
 			Intent i3 = new Intent(getApplicationContext(), BillsActivity.class);
 			i3.putExtra("id", membercontroller.getCurrentMemberID());
 			this.startActivity(i3);
+			MemberActivity.this.finish();
 			break;
 		}
 

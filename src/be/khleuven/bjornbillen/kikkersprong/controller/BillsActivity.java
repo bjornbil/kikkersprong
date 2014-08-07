@@ -9,6 +9,7 @@ import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
+import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
 import com.example.kikkersprong.R.id;
@@ -16,7 +17,9 @@ import com.example.kikkersprong.R.layout;
 import com.example.kikkersprong.R.menu;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,7 +59,15 @@ public class BillsActivity extends Activity {
 							// Show Alert
 				String datum = listView.getAdapter().getItem(position).toString().split(" ")[0];
 				String prijs = listView.getAdapter().getItem(position).toString().split(" ")[1];
-								
+				double prijsdouble = Double.parseDouble(prijs);
+				
+				if (prijsdouble % 2 == 0){
+					int prijsrond = (int) Math.round(prijsdouble);
+					prijs = "€" + prijsrond ;
+				}
+				else {
+					prijs = "€" + prijs + "0";
+				}
 				Toast.makeText(getApplicationContext(),
 						"Datum : " + datum + " (" + prijs + ")",
 						Toast.LENGTH_LONG).show();
@@ -71,6 +82,18 @@ public class BillsActivity extends Activity {
 
 		listView.setAdapter(listadapter);
 	}
+	
+	@Override
+	public void onBackPressed() {
+	   Log.d("CDA", "onBackPressed Called");
+	   Intent setIntent = new Intent(getApplicationContext(),MemberActivity.class);
+	   setIntent.putExtra("id", membercontroller.getCurrentMemberID());
+	   Member m = membercontroller.getMember(membercontroller.getCurrentMemberID());
+	   setIntent.putExtra("name", m.getFirstname() + " " + m.getLastname());
+	   startActivity(setIntent);
+	   BillsActivity.this.finish();
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -32,7 +32,7 @@
     <string name="picture">Foto</string>
     <string name="checkin">Inchecken</string>
     <string name="presency">Aanwezigheden</string>
-    <string name="bills">Betalingen</string>
+    <string name="bills">Rekenigen</string>
     <string name="naam">Bjorn Billen</string>
     <string name="dob">17/02/1992</string>
     <string name="memberinfo">Wat wil je doen?</string>
@@ -60,5 +60,13 @@
     <string name="betaald">Betaald</string>
     <string name="amount">Bedrag</string>
     <string name="title_activity_admin">AdminActivity</string>
+    <string name="beheerder">Beheerder</string>
+    <string name="addmember">Kind toevoegen</string>
+    <string name="setpriceperhour">Prijs per uur aanpassen</string>
+    <string name="exportbills">Exporteer rekeningen</string>
+    <string name="viewmembers">Alle kinderen</string>
+    <string name="viewaanwezigheden">Alle aanwezigheden</string>
+    <string name="viewbet">Alle rekeningen</string>
+    <string name="adminname"/>
 
 </resources>

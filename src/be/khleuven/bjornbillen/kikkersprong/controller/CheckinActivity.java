@@ -49,14 +49,13 @@ public class CheckinActivity extends Activity {
 		int id = bundle.getInt("id");
 		Member m = membercontroller.getMember(id);
 		if (m.isPresent() == true) {
-			
+
 			checkstatus.setTextColor(Color.GREEN);
 			checkstatus.setText("Ingecheckt");
 			Calendar startdate = Calendar.getInstance();
-			if (startdate.get(Calendar.HOUR_OF_DAY) < 12){
+			if (startdate.get(Calendar.HOUR_OF_DAY) < 12) {
 				begroeting.setText("Goedemorgen, je bent nu");
-			}
-			else {
+			} else {
 				begroeting.setText("Goeiedag, je bent nu");
 			}
 			m.setLastcheckin(startdate);
@@ -66,16 +65,18 @@ public class CheckinActivity extends Activity {
 			checkstatus.setTextColor(Color.RED);
 			checkstatus.setText("Uitgecheckt");
 			Calendar enddate = Calendar.getInstance();
-			if (enddate.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
+			if (enddate.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
 				begroeting.setText("Goed weekend, je bent nu");
-			}
-			else {
+			} else {
 				begroeting.setText("Goede avond, je bent nu");
 			}
-			Attendance nieuw = new Attendance(attendancecontroller.getSize(),m,m.getLastcheckin(),enddate);
-			attendancecontroller.addAttendance(nieuw);
+			Attendance nieuw = new Attendance(attendancecontroller.getSize(),
+					m, m.getLastcheckin(), enddate);
+			if (nieuw.getDuration() > 1) {
+				attendancecontroller.addAttendance(nieuw);
+			}
 		}
-		
+
 		checkstatus.invalidate();
 	}
 
@@ -95,6 +96,7 @@ public class CheckinActivity extends Activity {
 									.getLastname());
 			startActivity(i);
 		}
+		CheckinActivity.this.finish();
 		return super.onKeyDown(keyCode, event);
 	}
 

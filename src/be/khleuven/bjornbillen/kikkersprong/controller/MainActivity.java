@@ -131,6 +131,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	@Override
+	public void onBackPressed() {
+	   finish();
+	}
 
 	public void launch() {
 		infobutton.setOnClickListener(this);
@@ -163,10 +168,18 @@ public class MainActivity extends Activity implements OnClickListener {
 			int id = Integer.parseInt(idarray[1]);
 			String namearray[] = contentarray[1].split("=");
 			String name = namearray[1] + " " + contentarray[2];
+			if (id == -1){
+				Intent i1 = new Intent(getApplicationContext(), AdminActivity.class);
+				i1.putExtra("id",id);
+				i1.putExtra("name",name);
+				startActivity(i1);
+			}
+			else {
 			Intent i = new Intent(getApplicationContext(), MemberActivity.class);
 			i.putExtra("id", id);
 			i.putExtra("name", name);
 			this.startActivity(i);
+			}
 		}
 		else finish();
 	}
@@ -176,17 +189,20 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.scanbutton:
 			
-			//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-			//scanIntegrator.initiateScan();
-			Intent i = new
-			 Intent(getApplicationContext(),MemberActivity.class);
-			 i.putExtra("id", 0);
-			 i.putExtra("name", "Jan Jaap");
+			IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+			scanIntegrator.initiateScan();
+			/*Intent i = new
+			 Intent(getApplicationContext(),AdminActivity.class);
+			 i.putExtra("id", -1);
+			 i.putExtra("name", "Bjorn Billen");
 			 this.startActivity(i);
+			 MainActivity.this.finish();
+			 */
 			break;
 		case R.id.infobutton:
 			Intent i2 = new Intent(getApplicationContext(), InfoActivity.class);
 			this.startActivity(i2);
+			MainActivity.this.finish();
 			break;
 		}
 	}

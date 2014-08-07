@@ -2,10 +2,137 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/infcolor"
+    android:focusable="false"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="be.khleuven.bjornbillen.kikkersprong.controller.AdminActivity" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/welkombericht"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_below="@+id/imageView1"
+        android:text="@string/welkom"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_marginBottom="32dp"
+        android:layout_toRightOf="@+id/welkombericht"
+        android:text="@string/kikkersprong"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/main_title"
+        android:layout_alignRight="@+id/main_title"
+        android:text="@string/beheerder"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/add_member"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignLeft="@+id/welkombericht"
+        android:layout_alignRight="@+id/main_title"
+        android:layout_below="@+id/welkombericht"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/list_bg"
+        android:text="@string/addmember" />
+
+      <Button
+          android:id="@+id/pphbutton"
+          style="@drawable/list_bg"
+          android:layout_width="wrap_content"
+          android:layout_height="30dp"
+          android:layout_alignLeft="@+id/exportbills"
+          android:layout_alignRight="@+id/exportbills"
+          android:layout_below="@+id/exportbills"
+          android:background="@drawable/list_bg"
+          android:layout_marginBottom="10dp"
+          android:text="@string/setpriceperhour" />
+
+          <Button
+              android:id="@+id/view_members"
+              style="@drawable/list_bg"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_alignLeft="@+id/pphbutton"
+              android:layout_alignRight="@+id/pphbutton"
+              android:layout_below="@+id/pphbutton"
+              android:layout_marginBottom="10dp"
+              android:background="@drawable/list_bg"
+              android:text="@string/viewmembers" />
+
+          <Button
+              android:id="@+id/view_bet"
+              style="@drawable/list_bg"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_marginBottom="10dp"
+              android:layout_alignLeft="@+id/view_members"
+              android:layout_alignRight="@+id/view_members"
+              android:layout_below="@+id/view_members"
+              android:background="@drawable/list_bg"
+              android:text="@string/viewbet" />
+
+          <Button
+              android:id="@+id/view_aanw"
+              style="@drawable/list_bg"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_alignLeft="@+id/view_bet"
+              android:layout_alignRight="@+id/view_bet"
+ 
+              android:layout_below="@+id/view_bet"
+              android:layout_marginBottom="10dp"
+              android:background="@drawable/list_bg"
+              android:text="@string/viewaanwezigheden" />
+
+          <TextView
+              android:id="@+id/adminnaam"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_alignRight="@+id/add_member"
+              android:layout_alignTop="@+id/welkombericht"
+              android:text="@string/adminname"
+              android:textAppearance="?android:attr/textAppearanceMedium" />
+
+          <Button
+              android:id="@+id/exportbills"
+              style="@drawable/list_bg"
+              android:layout_marginBottom="10dp"
+              android:layout_width="wrap_content"
+              android:layout_height="30dp"
+              android:layout_alignLeft="@+id/add_member"
+              android:layout_alignRight="@+id/add_member"
+              android:layout_below="@+id/add_member"
+              android:background="@drawable/list_bg"
+              android:text="@string/exportbills" />
 
 </RelativeLayout>

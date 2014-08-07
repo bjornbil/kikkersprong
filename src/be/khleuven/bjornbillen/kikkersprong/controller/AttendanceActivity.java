@@ -15,6 +15,7 @@ import com.example.kikkersprong.R.id;
 import com.example.kikkersprong.R.layout;
 import com.example.kikkersprong.R.menu;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -150,6 +151,17 @@ public class AttendanceActivity extends Activity {
 
 		listView.setAdapter(listadapter);
 		
+	}
+	
+	@Override
+	public void onBackPressed() {
+	   Log.d("CDA", "onBackPressed Called");
+	   Intent setIntent = new Intent(getApplicationContext(),MemberActivity.class);
+	   setIntent.putExtra("id", membercontroller.getCurrentMemberID());
+	   Member m = membercontroller.getMember(membercontroller.getCurrentMemberID());
+	   setIntent.putExtra("name", m.getFirstname() + " " + m.getLastname());
+	   startActivity(setIntent);
+	   AttendanceActivity.this.finish();
 	}
 	
 	private void showThisMonth(){

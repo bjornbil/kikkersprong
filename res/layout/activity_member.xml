@@ -79,7 +79,7 @@
         android:layout_toRightOf="@+id/imageView1"
         android:text="@string/kikkersprong"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="35sp" />
+        android:textSize="30sp" />
 
     <LinearLayout
         android:id="@+id/clockspace2"

@@ -16,7 +16,8 @@
         <activity
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" >
+            android:configChanges="orientation"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +27,7 @@
         <activity
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.InfoActivity"
             android:label="@string/title_activity_info"
+            android:configChanges="orientation"
              >
         </activity>
         <activity
@@ -48,11 +50,13 @@
         <activity
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity"
             android:label="@string/title_activity_member"
+            android:configChanges="orientation"
              >
         </activity>
         <activity
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.CheckinActivity"
             android:label="@string/title_activity_checkin" 
+            android:configChanges="orientation"
             
             >
             
@@ -60,21 +64,25 @@
         <activity
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.BillsActivity"
             android:label="@string/title_activity_bills"
+            android:configChanges="orientation"
              >
         </activity>
         <activity
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.AttendanceActivity"
             android:label="@string/title_activity_attendance"
+            android:configChanges="orientation"
              >
         </activity>
         <activity
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.AddMemberActivity"
             android:label="@string/title_activity_add_member"
+            android:configChanges="orientation"
              >
         </activity>
         <activity
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.AdminActivity"
             android:label="@string/title_activity_admin"
+            android:configChanges="orientation"
              >
         </activity>
     </application>
