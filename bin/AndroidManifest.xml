@@ -31,6 +31,17 @@
             android:label="@string/title_activity_info" >
         </activity>
         <activity
+            android:name="be.khleuven.bjornbillen.kikkersprong.controller.admin.ViewAttendancesActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_admin" >
+        </activity>
+        <activity
+            android:name="be.khleuven.bjornbillen.kikkersprong.controller.admin.ViewBillsActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_admin" >
+        </activity>
+       
+        <activity
             android:name="com.google.zxing.client.android.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class CostumMemberListAdapter extends BaseAdapter {
         final ImageView foto = (ImageView) view.findViewById(R.id.viewmemberfoto);
         final TextView id = (TextView) view.findViewById(R.id.viewmemberid);
         final ImageButton go = (ImageButton) view.findViewById(R.id.gomemberpage);
+        final ImageButton goqr = (ImageButton) view.findViewById(R.id.goqr);
         
         naam.setText(mList.get(position).split(" ")[0] + " " + mList.get(position).split(" ")[1]);
         id.setText(mList.get(position).split(" ")[2]);
@@ -107,7 +109,13 @@ public class CostumMemberListAdapter extends BaseAdapter {
 			}
         	
         });	
-        
+        goqr.setOnClickListener(new OnClickListener(){
+        	@Override
+			public void onClick(View v) {
+        		Intent i2 = new Intent(Intent.ACTION_VIEW, Uri.parse("http://chart.apis.google.com/chart?chs=200x200&cht=qr&chld=|1&chl=id%3D" + id + "%20name%3D"+membername.split(" ")[0]+"%20" + membername.split(" ")[1]));
+        		parent.getContext().startActivity(i2);
+			}
+        });
         
         return view;
     }

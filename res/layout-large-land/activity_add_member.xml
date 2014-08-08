@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/textView1"
+        android:layout_alignRight="@+id/memberbillname"
         android:layout_below="@+id/input_gebdatum"
         android:background="@color/btncolor"
 		android:textSize="25sp"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/form_naam"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_toRightOf="@+id/memberbillname"
         android:layout_marginLeft="50dp"
         android:ems="10"
         android:inputType="textPersonName" />
@@ -72,7 +72,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/memberbillname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/form_gebdatum"

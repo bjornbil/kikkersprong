@@ -70,4 +70,13 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#000000" />
 
+    <ImageButton
+        android:id="@+id/goqr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/gomemberpage"
+        android:layout_toLeftOf="@+id/gomemberpage"
+        android:background="@null"
+        android:src="@drawable/ic_qr" />
+
 </RelativeLayout>  

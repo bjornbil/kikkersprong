@@ -79,5 +79,6 @@
     <string name="viewmemberid"></string>
     <string name="viewmembername"/>
     <string name="viewmemberdob"/>
+    <string name="attendancename"/>
 
 </resources>
