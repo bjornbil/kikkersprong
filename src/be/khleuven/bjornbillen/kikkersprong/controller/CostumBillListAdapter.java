@@ -13,12 +13,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class CustomBillListAdapter extends BaseAdapter {
+public class CostumBillListAdapter extends BaseAdapter {
 
     Context mContext;
     List<String> mList;
 
-    public CustomBillListAdapter (Context context, List<String> list) {
+    public CostumBillListAdapter (Context context, List<String> list) {
         mList = list;
         mContext = context;
     }

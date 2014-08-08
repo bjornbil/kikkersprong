@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bgcolor"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <ImageView
+        android:id="@+id/paystatus"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        />
+
+    <ImageView
+        android:id="@+id/viewmemberfoto"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/paystatus"
+        android:src="@drawable/ic_nopic" />
+
+    <ImageView
+        android:id="@+id/viewmembercheckin"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitXY"
+        android:layout_alignLeft="@+id/paystatus"
+        android:layout_alignTop="@+id/viewmemberid"
+        android:src="@drawable/ic_ispaid" />
+
+    <TextView
+        android:id="@+id/viewmembername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/viewmemberid"
+        android:layout_below="@+id/viewmemberid"
+        android:text="@string/viewmembername"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000" />
+
+    <ImageButton
+        android:id="@+id/gomemberpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/viewmemberfoto"
+        android:layout_alignRight="@+id/paystatus"
+        android:background="@null"
+        android:src="@drawable/ic_go" />
+
+    <TextView
+        android:id="@+id/viewmemberdob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewmembername"
+        android:layout_alignLeft="@+id/viewmembername"
+        android:text="@string/viewmemberdob"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/viewmemberid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/viewmemberfoto"
+        android:layout_toRightOf="@+id/viewmemberfoto"
+        android:text="@string/viewmemberid"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000" />
+
+</RelativeLayout>  

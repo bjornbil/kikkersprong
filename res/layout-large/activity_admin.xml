@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.AdminActivity" >
+    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.admin.AdminActivity" >
 
     <ImageView
         android:id="@+id/imageView1"
@@ -24,13 +24,13 @@
     <TextView
         android:id="@+id/welkombericht"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/imageView1"
         android:text="@string/welkom"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#FFFFFF"
-        android:textSize="30sp" />
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/main_title"
@@ -41,7 +41,7 @@
         android:layout_toRightOf="@+id/welkombericht"
         android:text="@string/kikkersprong"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30sp" />
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/textView1"
@@ -50,25 +50,27 @@
         android:layout_above="@+id/main_title"
         android:layout_alignRight="@+id/main_title"
         android:text="@string/beheerder"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:id="@+id/add_member"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/welkombericht"
-        android:layout_alignRight="@+id/main_title"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/welkombericht"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="17dp"
         android:background="@drawable/list_bg"
+        android:textSize="20sp"
         android:text="@string/addmember" />
 
       <Button
           android:id="@+id/pphbutton"
           style="@drawable/list_bg"
           android:layout_width="wrap_content"
-          android:layout_height="30dp"
+          android:layout_height="50dp"
+          android:textSize="20sp"
           android:layout_alignLeft="@+id/exportbills"
           android:layout_alignRight="@+id/exportbills"
           android:layout_below="@+id/exportbills"
@@ -80,7 +82,8 @@
               android:id="@+id/view_members"
               style="@drawable/list_bg"
               android:layout_width="wrap_content"
-              android:layout_height="30dp"
+              android:layout_height="50dp"
+              android:textSize="20sp"
               android:layout_alignLeft="@+id/pphbutton"
               android:layout_alignRight="@+id/pphbutton"
               android:layout_below="@+id/pphbutton"
@@ -92,7 +95,8 @@
               android:id="@+id/view_bet"
               style="@drawable/list_bg"
               android:layout_width="wrap_content"
-              android:layout_height="30dp"
+              android:layout_height="50dp"
+              android:textSize="20sp"
               android:layout_marginBottom="10dp"
               android:layout_alignLeft="@+id/view_members"
               android:layout_alignRight="@+id/view_members"
@@ -104,7 +108,8 @@
               android:id="@+id/view_aanw"
               style="@drawable/list_bg"
               android:layout_width="wrap_content"
-              android:layout_height="30dp"
+              android:layout_height="50dp"
+              android:textSize="20sp"
               android:layout_alignLeft="@+id/view_bet"
               android:layout_alignRight="@+id/view_bet"
  
@@ -128,11 +133,24 @@
               style="@drawable/list_bg"
               android:layout_marginBottom="10dp"
               android:layout_width="wrap_content"
-              android:layout_height="30dp"
+              android:layout_height="50dp"
               android:layout_alignLeft="@+id/add_member"
               android:layout_alignRight="@+id/add_member"
               android:layout_below="@+id/add_member"
               android:background="@drawable/list_bg"
+              android:textSize="20sp"
               android:text="@string/exportbills" />
+
+          <TextView
+              android:id="@+id/updatetext"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignLeft="@+id/view_aanw"
+              android:layout_alignParentBottom="true"
+              android:layout_marginBottom="30dp"
+              android:layout_marginLeft="24dp"
+              android:text="@string/onupdatetext"
+              android:textColor="@color/btncolor"
+              android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

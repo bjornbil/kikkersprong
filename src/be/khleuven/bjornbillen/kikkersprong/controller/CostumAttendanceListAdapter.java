@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-class CustomAttendanceListAdapter extends BaseAdapter {
+public class CostumAttendanceListAdapter extends BaseAdapter {
 
     Context mContext;
     List<String> mList;
 
-    public CustomAttendanceListAdapter (Context context, List<String> list) {
+    public CostumAttendanceListAdapter (Context context, List<String> list) {
         mList = list;
         mContext = context;
     }

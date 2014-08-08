@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.AdminActivity" >
+    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.admin.AdminActivity" >
 
     <ImageView
         android:id="@+id/imageView1"
@@ -52,87 +52,102 @@
         android:text="@string/beheerder"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <Button
-        android:id="@+id/add_member"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignLeft="@+id/welkombericht"
-        android:layout_alignRight="@+id/main_title"
-        android:layout_below="@+id/welkombericht"
-        android:layout_marginTop="17dp"
-        android:background="@drawable/list_bg"
-        android:text="@string/addmember" />
-
       <Button
           android:id="@+id/pphbutton"
           style="@drawable/list_bg"
           android:layout_width="wrap_content"
-          android:layout_height="30dp"
+          android:layout_height="50dp"
           android:layout_alignLeft="@+id/exportbills"
           android:layout_alignRight="@+id/exportbills"
           android:layout_below="@+id/exportbills"
           android:background="@drawable/list_bg"
           android:layout_marginBottom="10dp"
+          android:layout_marginTop="10dp"
+          android:textSize="20sp"
           android:text="@string/setpriceperhour" />
 
           <Button
               android:id="@+id/view_members"
               style="@drawable/list_bg"
               android:layout_width="wrap_content"
-              android:layout_height="30dp"
+              android:layout_height="50dp"
               android:layout_alignLeft="@+id/pphbutton"
               android:layout_alignRight="@+id/pphbutton"
               android:layout_below="@+id/pphbutton"
               android:layout_marginBottom="10dp"
               android:background="@drawable/list_bg"
+              android:textSize="20sp"
               android:text="@string/viewmembers" />
 
           <Button
               android:id="@+id/view_bet"
               style="@drawable/list_bg"
               android:layout_width="wrap_content"
-              android:layout_height="30dp"
+              android:layout_height="50dp"
               android:layout_marginBottom="10dp"
               android:layout_alignLeft="@+id/view_members"
               android:layout_alignRight="@+id/view_members"
               android:layout_below="@+id/view_members"
               android:background="@drawable/list_bg"
+              android:textSize="20sp"
               android:text="@string/viewbet" />
 
           <Button
               android:id="@+id/view_aanw"
               style="@drawable/list_bg"
               android:layout_width="wrap_content"
-              android:layout_height="30dp"
+              android:layout_height="50dp"
               android:layout_alignLeft="@+id/view_bet"
               android:layout_alignRight="@+id/view_bet"
  
               android:layout_below="@+id/view_bet"
               android:layout_marginBottom="10dp"
               android:background="@drawable/list_bg"
+              android:textSize="20sp"
               android:text="@string/viewaanwezigheden" />
+
+          <Button
+              android:id="@+id/add_member"
+              android:layout_width="wrap_content"
+              android:layout_height="50dp"
+              android:layout_alignParentRight="true"
+              android:layout_alignTop="@+id/textView1"
+              android:layout_marginLeft="42dp"
+              android:layout_marginBottom="10dp"
+              android:layout_toRightOf="@+id/main_title"
+              android:background="@drawable/list_bg"
+              android:textSize="20sp"
+              android:text="@string/addmember" />
+
+          <Button
+              android:id="@+id/exportbills"
+              style="@drawable/list_bg"
+              android:layout_width="wrap_content"
+              android:layout_height="50dp"
+              android:layout_alignLeft="@+id/add_member"
+              android:layout_alignRight="@+id/add_member"
+              android:layout_below="@+id/add_member"
+              android:background="@drawable/list_bg"
+              android:textSize="20sp"
+              android:text="@string/exportbills" />
+
+          <TextView
+              android:id="@+id/updatetext"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignBottom="@+id/view_aanw"
+              android:layout_toLeftOf="@+id/main_title"
+              android:text="@string/onupdatetext"
+              android:textColor="@color/btncolor"
+              android:textAppearance="?android:attr/textAppearanceMedium" />
 
           <TextView
               android:id="@+id/adminnaam"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginBottom="10dp"
-              android:layout_alignRight="@+id/add_member"
-              android:layout_alignTop="@+id/welkombericht"
+              android:layout_alignLeft="@+id/textView2"
+              android:layout_centerVertical="true"
               android:text="@string/adminname"
               android:textAppearance="?android:attr/textAppearanceMedium" />
-
-          <Button
-              android:id="@+id/exportbills"
-              style="@drawable/list_bg"
-              android:layout_marginBottom="10dp"
-              android:layout_width="wrap_content"
-              android:layout_height="30dp"
-              android:layout_alignLeft="@+id/add_member"
-              android:layout_alignRight="@+id/add_member"
-              android:layout_below="@+id/add_member"
-              android:background="@drawable/list_bg"
-              android:text="@string/exportbills" />
 
 </RelativeLayout>

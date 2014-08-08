@@ -35,7 +35,7 @@ public class BillsActivity extends Activity {
 	TextView membername, betaald;
 	BillDAO billcontroller;
 	MemberDAO membercontroller;
-	CustomBillListAdapter listadapter;
+	CostumBillListAdapter listadapter;
 	List<Bill> bills;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class BillsActivity extends Activity {
 		for (Bill b : bills){
 			valuelist.add(b.toString());
 		}
-		listadapter = new CustomBillListAdapter(getApplicationContext(),valuelist);
+		listadapter = new CostumBillListAdapter(getApplicationContext(),valuelist);
 
 		listView.setAdapter(listadapter);
 	}

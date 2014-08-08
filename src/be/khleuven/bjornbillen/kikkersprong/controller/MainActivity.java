@@ -2,6 +2,7 @@ package be.khleuven.bjornbillen.kikkersprong.controller;
 
 import java.util.Calendar;
 
+import be.khleuven.bjornbillen.kikkersprong.controller.admin.AdminActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
@@ -91,7 +92,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		birthday.set(Calendar.DATE, 17);
 		birthday.set(Calendar.MONTH, 2);
 		birthday.set(Calendar.YEAR, 2008);
-		membercontroller.addMember(new Member(0,"Jan","Jaap",birthday,"test",false,Calendar.getInstance()));
+		membercontroller.addMember(new Member(0,"Jan","Jaap",birthday,"http://pureenergies.com/us/files/2013/02/solar-kid.jpg",false,Calendar.getInstance()));
 		Calendar birthday2 = Calendar.getInstance();
 		birthday2.set(Calendar.DATE, 20);
 		birthday2.set(Calendar.MONTH, 5);
@@ -189,15 +190,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.scanbutton:
 			
-			IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-			scanIntegrator.initiateScan();
-			/*Intent i = new
+			//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+		//scanIntegrator.initiateScan();
+			Intent i = new
 			 Intent(getApplicationContext(),AdminActivity.class);
 			 i.putExtra("id", -1);
 			 i.putExtra("name", "Bjorn Billen");
 			 this.startActivity(i);
 			 MainActivity.this.finish();
-			 */
+			 
 			break;
 		case R.id.infobutton:
 			Intent i2 = new Intent(getApplicationContext(), InfoActivity.class);

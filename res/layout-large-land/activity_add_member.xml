@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/infcolor"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.admin.AddMemberActivity" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_launcher" />
+
+    <Button
+        android:id="@+id/add_member_button"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_below="@+id/input_gebdatum"
+        android:background="@color/btncolor"
+		android:textSize="25sp"
+        android:text="@string/toevoegen" />
+
+    <EditText
+        android:id="@+id/input_naam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/form_naam"
+        android:layout_toRightOf="@+id/textView1"
+        android:layout_marginLeft="50dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/input_imgurl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/form_imageurl"
+        android:layout_alignRight="@+id/input_gebdatum"
+        android:layout_below="@+id/form_imageurl"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/form_naam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/input_naam"
+        android:layout_alignTop="@+id/imageView1"
+        android:text="@string/form_naam"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/form_gebdatum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/input_naam"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="23dp"
+        android:text="@string/form_gebdatum"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/form_gebdatum"
+        android:layout_alignLeft="@+id/imageView1"
+        android:text="@string/kindtoevoegen"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40sp" />
+
+    <EditText
+        android:id="@+id/input_gebdatum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/form_gebdatum"
+        android:layout_alignRight="@+id/input_naam"
+        android:layout_below="@+id/form_gebdatum"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/form_imageurl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/input_gebdatum"
+        android:layout_below="@+id/button1"
+        android:text="@string/form_imageurl"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

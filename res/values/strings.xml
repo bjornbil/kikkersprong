@@ -67,6 +67,17 @@
     <string name="viewmembers">Alle kinderen</string>
     <string name="viewaanwezigheden">Alle aanwezigheden</string>
     <string name="viewbet">Alle rekeningen</string>
-    <string name="adminname"/>
+    <string name="adminname" />
+    <string name="kindtoevoegen">Kind toevoegen</string>
+    <string name="form_imageurl">URL voor foto (niet verplicht)</string>
+    <string name="form_naam">Voornaam en Naam</string>
+    <string name="form_gebdatum">Geboortedatum (dd/mm/yyyy)</string>
+    <string name="toevoegen">Toevoegen</string>
+    <string name="onupdatetext" />
+    <string name="title_activity_view_members">ViewMembersActivity</string>
+    <string name="kinderen">Kinderen</string>
+    <string name="viewmemberid"></string>
+    <string name="viewmembername"/>
+    <string name="viewmemberdob"/>
 
 </resources>

@@ -74,6 +74,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		if (values != null)
 			db.insert(table, null, values);
+		db.close();
 	}
 	
 	private Bill pullStringBill(Cursor cursor){

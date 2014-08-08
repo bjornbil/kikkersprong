@@ -80,6 +80,16 @@ public class MemberDAO  {
 		}
 		return resmembers;
 	}
+	
+	public boolean existMember(String firstname, String lastname){
+		boolean exists = false;
+		for (Member member : getAllMembers()){
+			if (member.getFirstname().equals(firstname) && member.getLastname().equals(lastname)){
+				exists = true;
+			}
+		}
+		return exists;
+	}
 
 	// Updating
 	public void updateMember(Member member) {

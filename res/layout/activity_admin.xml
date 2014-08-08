@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.AdminActivity" >
+    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.admin.AdminActivity" >
 
     <ImageView
         android:id="@+id/imageView1"
@@ -134,5 +134,15 @@
               android:layout_below="@+id/add_member"
               android:background="@drawable/list_bg"
               android:text="@string/exportbills" />
+
+          <TextView
+              android:id="@+id/updatetext"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_alignRight="@+id/imageView1"
+              android:layout_marginBottom="17dp"
+              android:text="@string/onupdatetext"
+              android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

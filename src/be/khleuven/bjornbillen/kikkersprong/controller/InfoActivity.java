@@ -43,6 +43,7 @@ public class InfoActivity extends Activity {
 				Intent i = new Intent(getApplicationContext(),
 						MainActivity.class);
 				startActivity(i);
+				InfoActivity.this.finish();
 			}
 		});
 	}

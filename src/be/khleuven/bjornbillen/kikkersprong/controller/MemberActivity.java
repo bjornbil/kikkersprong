@@ -1,5 +1,12 @@
    package be.khleuven.bjornbillen.kikkersprong.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
@@ -12,6 +19,8 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -68,10 +77,29 @@ public class MemberActivity extends Activity implements OnClickListener {
 		if (naam.equals(dbnaam)){
 		txtnaam.setText(naam);
 		geboortedatum.setText(m.getBirthdayString());
-		foto.setImageResource(R.drawable.ic_nopic);
+		URL newurl;
+		Bitmap fotobitmap = null;
+		try {
+			newurl = new URL(m.getImageurl());
+			fotobitmap = BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
+		} catch (MalformedURLException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		} 
+		if (fotobitmap != null){
+		foto.setImageBitmap(fotobitmap);
+		}
+		else {
+			foto.setImageResource(R.drawable.ic_nopic);
+		}
 		}
 		updateCheckin();
 	}
+	
+
 	
 	@Override
 	public void onBackPressed() {

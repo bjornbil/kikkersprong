@@ -36,7 +36,7 @@ public class AttendanceActivity extends Activity {
 	Spinner selectperiod;
 	AttendanceDAO attendancecontroller;
 	MemberDAO membercontroller;
-	CustomAttendanceListAdapter listadapter;
+	CostumAttendanceListAdapter listadapter;
 	String[] values;
 	List<Attendance> attendances;
 	ArrayAdapter<String> adapter;
@@ -147,7 +147,7 @@ public class AttendanceActivity extends Activity {
 			
 		}
 
-		listadapter = new CustomAttendanceListAdapter(getApplicationContext(),valuelist);
+		listadapter = new CostumAttendanceListAdapter(getApplicationContext(),valuelist);
 
 		listView.setAdapter(listadapter);
 		
@@ -174,7 +174,7 @@ public class AttendanceActivity extends Activity {
 			
 		}
 		
-		listadapter = new CustomAttendanceListAdapter(getApplicationContext(),valuelist);
+		listadapter = new CostumAttendanceListAdapter(getApplicationContext(),valuelist);
 
 		listView.setAdapter(listadapter);
 		
@@ -187,7 +187,7 @@ public class AttendanceActivity extends Activity {
 		for (Attendance a : attendances){
 			valuelist.add(a.toString());
 		}
-		listadapter = new CustomAttendanceListAdapter(getApplicationContext(),valuelist);
+		listadapter = new CostumAttendanceListAdapter(getApplicationContext(),valuelist);
 
 		listView.setAdapter(listadapter);
 	}

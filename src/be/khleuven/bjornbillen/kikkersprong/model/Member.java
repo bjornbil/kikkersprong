@@ -75,9 +75,15 @@ public class Member {
 	public void setImageurl(String imageurl) {
 		this.imageurl = imageurl;
 	}
-
+	
+	// 0 = name
+	// 1 = id
+	// 2 = bday
+	// 3 = checkedin
+	// 4 = imgurl
+	
 	public String toString() {
-		return firstname + " " + lastname + " /" + birthday;
+		return getFirstname() + " " + getLastname() + " " + getId() + " " + getBirthdayString() + " " + isPresent() + " " + getImageurl();
 	}
 
 	public boolean isPresent() {
