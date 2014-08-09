@@ -82,9 +82,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			textclock = new TextClock(getApplicationContext());
 			textclock.setTimeZone("GMT+0200");
 			textclock.setFormat12Hour("MMM dd, yyyy k:mm:ss");
+			textclock.setFormat24Hour("MMM dd, yyyy k:mm:ss");
 			textclock.setTextColor(Color.BLACK);
 			lin.addView(textclock);
-			title.setTextSize(40);
+			title.setTextSize(38);
 		}
 		
 		// HARDCODED TEST VALUES
@@ -92,12 +93,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		birthday.set(Calendar.DATE, 17);
 		birthday.set(Calendar.MONTH, 2);
 		birthday.set(Calendar.YEAR, 2008);
-		membercontroller.addMember(new Member(0,"Jan","Jaap",birthday,"http://pureenergies.com/us/files/2013/02/solar-kid.jpg",false,Calendar.getInstance()));
+		membercontroller.addMember(new Member(0,"Jan","Jaap",birthday,"http://liverichly.me/wp-content/uploads/2013/08/child-angry.jpg",false,Calendar.getInstance()));
 		Calendar birthday2 = Calendar.getInstance();
 		birthday2.set(Calendar.DATE, 20);
 		birthday2.set(Calendar.MONTH, 5);
 		birthday2.set(Calendar.YEAR, 2008);
-		membercontroller.addMember(new Member(1,"Kim","Pims",birthday2,"test",false,Calendar.getInstance()));
+		membercontroller.addMember(new Member(1,"Kim","Pims",birthday2,"http://i.telegraph.co.uk/multimedia/archive/02102/baby_2102889c.jpg",false,Calendar.getInstance()));
 		Member m = membercontroller.getMember(0);
 		Calendar start = Calendar.getInstance();
 		start.set(Calendar.DATE, 26);
@@ -179,7 +180,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			Intent i = new Intent(getApplicationContext(), MemberActivity.class);
 			i.putExtra("id", id);
 			i.putExtra("name", name);
-			this.startActivity(i);
+			startActivity(i);
 			}
 		}
 		else finish();
@@ -190,14 +191,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.scanbutton:
 			
-			//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-		//scanIntegrator.initiateScan();
-			Intent i = new
+		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+		scanIntegrator.initiateScan();
+		/*Intent i = new
 			 Intent(getApplicationContext(),AdminActivity.class);
 			 i.putExtra("id", -1);
 			 i.putExtra("name", "Bjorn Billen");
-			 this.startActivity(i);
-			 MainActivity.this.finish();
+			 startActivity(i);
+			 
+			 MainActivity.this.finish();*/
 			 
 			break;
 		case R.id.infobutton:

@@ -59,6 +59,7 @@ public class AddMemberActivity extends Activity implements OnClickListener {
 	   Intent setIntent = new Intent(getApplicationContext(),AdminActivity.class);
 	   setIntent.putExtra("id", membercontroller.getCurrentMemberID());
 	   setIntent.putExtra("name", adminnaam);
+	   startActivity(setIntent);
 	   AddMemberActivity.this.finish();
 	}
 	
@@ -73,14 +74,22 @@ public class AddMemberActivity extends Activity implements OnClickListener {
 				Calendar dob = Calendar.getInstance();
 				Integer day, month, year;
 				day = Integer.parseInt(gebdatum.getText().toString().split("/")[0]);
-				month = Integer.parseInt(gebdatum.getText().toString().split("/")[1]) - 1;
+				month = Integer.parseInt(gebdatum.getText().toString().split("/")[1]);
 				year = Integer.parseInt(gebdatum.getText().toString().split("/")[2]);
 				dob.set(Calendar.DATE, day);
 				dob.set(Calendar.MONTH, month);
 				dob.set(Calendar.YEAR, year);
 				Intent i = new Intent(getApplicationContext(), AdminActivity.class);
+				String img;
+				if (imgurl.getText().toString() == null || imgurl.getText().toString().equals(" ") || imgurl.getText().toString().equals("")){
+					img = "nopic";
+				}
+				else {
+					img = imgurl.getText().toString();
+				}
 				if (!membercontroller.existMember(firstname,lastname)){
-				membercontroller.addMember(new Member(membercontroller.getSize(),firstname, lastname,dob,imgurl.getText().toString(),false,Calendar.getInstance()));
+					
+				membercontroller.addMember(new Member(membercontroller.getSize(),firstname, lastname,dob,img,false,Calendar.getInstance()));
 				i.putExtra("updatetext", firstname + " Succesvol toegevoegd");
 				}
 				else{

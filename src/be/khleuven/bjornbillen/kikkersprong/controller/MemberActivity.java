@@ -9,10 +9,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
+
+import android.net.http.AndroidHttpClient;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -35,10 +43,11 @@ import android.widget.TextView;
 
 public class MemberActivity extends Activity implements OnClickListener {
 	MemberDAO membercontroller;
-	TextView txtnaam, geboortedatum,checktext;
+	TextView txtnaam, geboortedatum,checktext,title;
 	LinearLayout lin;
 	ImageView foto;
 	ImageButton checkin, attendances, bills;
+	Bitmap fotobitmap;
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	@SuppressLint("NewApi")
@@ -50,6 +59,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 		txtnaam = (TextView) findViewById(R.id.name);
 		geboortedatum = (TextView) findViewById(R.id.gebdatum);
 		foto = (ImageView) findViewById(R.id.imageView2);
+		title = (TextView) findViewById(R.id.main_title);
 		
 		if (android.os.Build.VERSION.SDK_INT >= 17) {
 			lin = (LinearLayout) findViewById(R.id.clockspace2);
@@ -57,8 +67,10 @@ public class MemberActivity extends Activity implements OnClickListener {
 			textclock = new TextClock(getApplicationContext());
 			textclock.setTimeZone("GMT+0200");
 			textclock.setFormat12Hour("MMM dd, yyyy k:mm:ss");
+			textclock.setFormat24Hour("MMM dd, yyyy k:mm:ss");
 			textclock.setTextColor(Color.BLACK);
 			lin.addView(textclock);
+			title.setTextSize(38);
 		}
 		checkin = (ImageButton) findViewById(R.id.checkinbutton);
 		bills = (ImageButton) findViewById(R.id.billsbutton);
@@ -77,29 +89,18 @@ public class MemberActivity extends Activity implements OnClickListener {
 		if (naam.equals(dbnaam)){
 		txtnaam.setText(naam);
 		geboortedatum.setText(m.getBirthdayString());
-		URL newurl;
-		Bitmap fotobitmap = null;
-		try {
-			newurl = new URL(m.getImageurl());
-			fotobitmap = BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
-		} catch (MalformedURLException e) {
-			
-			e.printStackTrace();
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		} 
-		if (fotobitmap != null){
-		foto.setImageBitmap(fotobitmap);
+		if (m.getImageurl() != null && m.getImageurl().contains("http")){
+		new DownloadImageTask(foto).execute(m.getImageurl());
 		}
 		else {
 			foto.setImageResource(R.drawable.ic_nopic);
 		}
-		}
 		updateCheckin();
+		}
+		
 	}
 	
-
+	
 	
 	@Override
 	public void onBackPressed() {
@@ -131,7 +132,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 		return true;
 	}
 	
-
+	
 
 	@Override
 	public void onClick(View v) {
@@ -169,5 +170,29 @@ public class MemberActivity extends Activity implements OnClickListener {
 		}
 
 	}
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		  ImageView bmImage;
 
+		  public DownloadImageTask(ImageView bmImage) {
+		      this.bmImage = bmImage;
+		  }
+
+		  protected Bitmap doInBackground(String... urls) {
+		      String urldisplay = urls[0];
+		      Bitmap mIcon11 = null;
+		      try {
+		        InputStream in = new java.net.URL(urldisplay).openStream();
+		        mIcon11 = BitmapFactory.decodeStream(in);
+		      } catch (Exception e) {
+		          Log.e("Error", e.getMessage());
+		          e.printStackTrace();
+		      }
+		      return mIcon11;
+		  }
+
+		  protected void onPostExecute(Bitmap result) {
+		      bmImage.setImageBitmap(result);
+		  }
+		}
 }
+
