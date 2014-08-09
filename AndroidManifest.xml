@@ -40,7 +40,6 @@
             android:configChanges="orientation"
             android:label="@string/title_activity_admin" >
         </activity>
-       
         <activity
             android:name="com.google.zxing.client.android.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -91,6 +90,10 @@
         <activity
             android:name="be.khleuven.bjornbillen.kikkersprong.controller.admin.ViewMembersActivity"
             android:label="@string/title_activity_view_members" >
+        </activity>
+        <activity
+            android:name="be.khleuven.bjornbillen.kikkersprong.controller.admin.EditMemberActivity"
+            android:label="@string/title_activity_edit_member" >
         </activity>
     </application>
 

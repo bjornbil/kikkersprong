@@ -28,7 +28,7 @@ public class AdminActivity extends Activity implements OnClickListener {
 	AttendanceDAO attendancecontroller;
 	BillDAO billcontroller;
 	TextView adminnaam;
-	Button addmember, viewmembers, viewbills, viewattendances;
+	Button addmember, viewmembers, viewbills, viewattendances, editmembers;
 	
 	@SuppressLint("ShowToast")
 	@Override
@@ -41,6 +41,8 @@ public class AdminActivity extends Activity implements OnClickListener {
 		adminnaam = (TextView) findViewById(R.id.adminnaam);
 		addmember = (Button) findViewById(R.id.add_member);
 		viewmembers = (Button) findViewById(R.id.view_members);
+		editmembers = (Button) findViewById(R.id.editmembers);
+		editmembers.setOnClickListener(this);
 		viewbills = (Button) findViewById(R.id.view_bet);
 		viewbills.setOnClickListener(this);
 		viewattendances = (Button) findViewById(R.id.view_aanw);
@@ -98,6 +100,11 @@ public class AdminActivity extends Activity implements OnClickListener {
 			this.startActivity(i4);
 			AdminActivity.this.finish();
 			break;
+		case R.id.editmembers:
+			Intent i5 = new Intent(getApplicationContext(), EditMemberActivity.class);
+			i5.putExtra("name", adminnaam.getText());
+			this.startActivity(i5);
+			AdminActivity.this.finish();
 	}
 	}
 

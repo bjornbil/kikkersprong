@@ -77,8 +77,13 @@
     <string name="title_activity_view_members">ViewMembersActivity</string>
     <string name="kinderen">Kinderen</string>
     <string name="viewmemberid"></string>
-    <string name="viewmembername"/>
-    <string name="viewmemberdob"/>
-    <string name="attendancename"/>
+    <string name="viewmembername" />
+    <string name="viewmemberdob" />
+    <string name="attendancename" />
+    <string name="instellingen">Instellingen</string>
+    <string name="editmember">Kind wijzigen</string>
+    <string name="title_activity_edit_member">EditMemberActivity</string>
+    <string name="editmembers">Kinderen wijzigen</string>
+    <string name="wijzigen">Wijzigen</string>
 
 </resources>

@@ -28,20 +28,19 @@
         android:layout_marginLeft="18dp"
         android:layout_marginTop="18dp"
         android:layout_toRightOf="@+id/imageView1"
-        android:text="@string/kindtoevoegen"
+        android:text="@string/editmember"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/input_naam"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/form_naam"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/form_naam"
         android:layout_marginTop="22dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="10sp" >
+        android:inputType="textPersonName" >
 
         <requestFocus />
     </EditText>
@@ -54,19 +53,18 @@
         android:layout_below="@+id/input_naam"
         android:layout_marginTop="22dp"
         android:text="@string/form_gebdatum"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/input_gebdatum"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/form_imageurl"
-        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/input_imgurl"
         android:layout_below="@+id/form_gebdatum"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="10sp" />
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/form_imageurl"
@@ -76,7 +74,7 @@
         android:layout_below="@+id/input_gebdatum"
         android:layout_marginTop="17dp"
         android:text="@string/form_imageurl"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/form_naam"
@@ -85,28 +83,36 @@
         android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/imageView1"
         android:text="@string/form_naam"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/input_imgurl"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/form_imageurl"
-        android:layout_alignRight="@+id/input_gebdatum"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/form_imageurl"
         android:layout_marginTop="18dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="10sp" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/edit_member_button"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/input_imgurl"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@color/btncolor"
-        android:text="@string/toevoegen" />
+        android:textSize="30sp"
+        android:text="@string/wijzigen" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignLeft="@+id/memberbillname"
+        android:layout_below="@+id/memberbillname" />
 
 </RelativeLayout>

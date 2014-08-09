@@ -21,43 +21,15 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/form_imageurl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/form_gebdatum"
-        android:layout_below="@+id/input_gebdatum"
-        android:layout_marginTop="17dp"
-        android:text="@string/form_imageurl"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
         android:id="@+id/memberbillname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="@string/kindtoevoegen"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/form_naam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/imageView1"
-        android:layout_marginRight="100dp"
-        android:text="@string/form_naam"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <Button
-        android:id="@+id/edit_member_button"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/memberbillname"
-        android:layout_below="@+id/input_gebdatum"
-        android:background="@color/btncolor"
-        android:text="@string/toevoegen" />
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="@string/editmember"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/input_naam"
@@ -66,17 +38,7 @@
         android:layout_alignLeft="@+id/form_naam"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/form_naam"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="10sp" />
-
-    <EditText
-        android:id="@+id/input_gebdatum"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_alignLeft="@+id/form_gebdatum"
-        android:layout_alignRight="@+id/input_naam"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="22dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="10sp" >
@@ -88,9 +50,41 @@
         android:id="@+id/form_gebdatum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/input_gebdatum"
         android:layout_alignLeft="@+id/input_naam"
+        android:layout_below="@+id/input_naam"
+        android:layout_marginTop="22dp"
         android:text="@string/form_gebdatum"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/input_gebdatum"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/form_imageurl"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/form_gebdatum"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/form_imageurl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/form_gebdatum"
+        android:layout_below="@+id/input_gebdatum"
+        android:layout_marginTop="17dp"
+        android:text="@string/form_imageurl"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/form_naam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_below="@+id/imageView1"
+        android:text="@string/form_naam"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
@@ -100,8 +94,27 @@
         android:layout_alignLeft="@+id/form_imageurl"
         android:layout_alignRight="@+id/input_gebdatum"
         android:layout_below="@+id/form_imageurl"
+        android:layout_marginTop="18dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/edit_member_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/input_imgurl"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/btncolor"
+        android:text="@string/wijzigen" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imageView1"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_below="@+id/memberbillname" />
 
 </RelativeLayout>

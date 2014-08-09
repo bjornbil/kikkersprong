@@ -31,12 +31,12 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/memberbillname"
+        android:id="@+id/editmembers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:text="@string/kindtoevoegen"
+        android:text="@string/editmember"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -54,10 +54,10 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/memberbillname"
+        android:layout_alignRight="@+id/editmembers"
         android:layout_below="@+id/input_gebdatum"
         android:background="@color/btncolor"
-        android:text="@string/toevoegen" />
+        android:text="@string/wijzigen" />
 
     <EditText
         android:id="@+id/input_naam"
@@ -103,5 +103,13 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="10sp" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_toLeftOf="@+id/form_naam"
+        android:layout_toRightOf="@+id/editmembers" />
 
 </RelativeLayout>

@@ -48,9 +48,9 @@
         style="@drawable/list_bg"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_alignLeft="@+id/pphbutton"
-        android:layout_alignRight="@+id/pphbutton"
-        android:layout_below="@+id/pphbutton"
+        android:layout_alignLeft="@+id/editmembers"
+        android:layout_alignRight="@+id/editmembers"
+        android:layout_below="@+id/editmembers"
         android:layout_marginBottom="5dp"
         android:background="@drawable/list_bg"
         android:text="@string/viewmembers" />
@@ -103,7 +103,7 @@
         android:text="@string/exportbills" />
 
     <Button
-        android:id="@+id/pphbutton"
+        android:id="@+id/editmembers"
         style="@drawable/list_bg"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -113,7 +113,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/list_bg"
-        android:text="@string/setpriceperhour" />
+        android:text="@string/editmembers" />
 
     <TextView
         android:id="@+id/memberbillname"

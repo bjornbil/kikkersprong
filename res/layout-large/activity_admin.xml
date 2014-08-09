@@ -66,17 +66,17 @@
         android:text="@string/addmember" />
 
       <Button
-          android:id="@+id/pphbutton"
+          android:id="@+id/editmembers"
           style="@drawable/list_bg"
           android:layout_width="wrap_content"
           android:layout_height="50dp"
-          android:textSize="20sp"
           android:layout_alignLeft="@+id/exportbills"
           android:layout_alignRight="@+id/exportbills"
           android:layout_below="@+id/exportbills"
-          android:background="@drawable/list_bg"
           android:layout_marginBottom="10dp"
-          android:text="@string/setpriceperhour" />
+          android:background="@drawable/list_bg"
+          android:text="@string/editmembers"
+          android:textSize="20sp" />
 
           <Button
               android:id="@+id/view_members"
@@ -84,9 +84,9 @@
               android:layout_width="wrap_content"
               android:layout_height="50dp"
               android:textSize="20sp"
-              android:layout_alignLeft="@+id/pphbutton"
-              android:layout_alignRight="@+id/pphbutton"
-              android:layout_below="@+id/pphbutton"
+              android:layout_alignLeft="@+id/editmembers"
+              android:layout_alignRight="@+id/editmembers"
+              android:layout_below="@+id/editmembers"
               android:layout_marginBottom="10dp"
               android:background="@drawable/list_bg"
               android:text="@string/viewmembers" />

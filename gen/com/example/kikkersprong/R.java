@@ -1126,7 +1126,6 @@ containing a value of this type.
         public static final int action_settings=0x7f050085;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int add_member=0x7f050048;
-        public static final int add_member_button=0x7f050044;
         public static final int adminnaam=0x7f05004e;
         public static final int always=0x7f05000b;
         public static final int attendancebutton=0x7f050070;
@@ -1154,7 +1153,9 @@ containing a value of this type.
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
+        public static final int edit_member_button=0x7f050044;
         public static final int edit_query=0x7f050030;
+        public static final int editmembers=0x7f050049;
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
@@ -1197,7 +1198,6 @@ containing a value of this type.
         public static final int normal=0x7f050000;
         public static final int paydatelistview=0x7f05007b;
         public static final int paystatus=0x7f05007c;
-        public static final int pphbutton=0x7f050049;
         public static final int prijslistview=0x7f05007d;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
@@ -1298,16 +1298,17 @@ containing a value of this type.
         public static final int activity_attendance=0x7f03001a;
         public static final int activity_bills=0x7f03001b;
         public static final int activity_checkin=0x7f03001c;
-        public static final int activity_info=0x7f03001d;
-        public static final int activity_main=0x7f03001e;
-        public static final int activity_member=0x7f03001f;
-        public static final int activity_view_members=0x7f030020;
-        public static final int costum_listview=0x7f030021;
-        public static final int costum_listview_adminattendance=0x7f030022;
-        public static final int costum_listview_adminbills=0x7f030023;
-        public static final int costum_listview_bills=0x7f030024;
-        public static final int costum_listview_members=0x7f030025;
-        public static final int support_simple_spinner_dropdown_item=0x7f030026;
+        public static final int activity_edit_member=0x7f03001d;
+        public static final int activity_info=0x7f03001e;
+        public static final int activity_main=0x7f03001f;
+        public static final int activity_member=0x7f030020;
+        public static final int activity_view_members=0x7f030021;
+        public static final int costum_listview=0x7f030022;
+        public static final int costum_listview_adminattendance=0x7f030023;
+        public static final int costum_listview_adminbills=0x7f030024;
+        public static final int costum_listview_bills=0x7f030025;
+        public static final int costum_listview_members=0x7f030026;
+        public static final int support_simple_spinner_dropdown_item=0x7f030027;
     }
     public static final class menu {
         public static final int add_member=0x7f0c0000;
@@ -1315,10 +1316,11 @@ containing a value of this type.
         public static final int attendance=0x7f0c0002;
         public static final int bills=0x7f0c0003;
         public static final int checkin=0x7f0c0004;
-        public static final int info=0x7f0c0005;
-        public static final int main=0x7f0c0006;
-        public static final int member=0x7f0c0007;
-        public static final int view_members=0x7f0c0008;
+        public static final int edit_member=0x7f0c0005;
+        public static final int info=0x7f0c0006;
+        public static final int main=0x7f0c0007;
+        public static final int member=0x7f0c0008;
+        public static final int view_members=0x7f0c0009;
     }
     public static final class string {
         public static final int aantalu=0x7f0a0034;
@@ -1379,6 +1381,8 @@ containing a value of this type.
         public static final int checkstatus=0x7f0a002c;
         public static final int datum=0x7f0a0033;
         public static final int dob=0x7f0a0022;
+        public static final int editmember=0x7f0a004d;
+        public static final int editmembers=0x7f0a004f;
         public static final int exportbills=0x7f0a003b;
         public static final int form_gebdatum=0x7f0a0043;
         public static final int form_imageurl=0x7f0a0041;
@@ -1389,6 +1393,7 @@ containing a value of this type.
         public static final int info2=0x7f0a0017;
         public static final int info3=0x7f0a0018;
         public static final int info4=0x7f0a0019;
+        public static final int instellingen=0x7f0a004c;
         public static final int kikkersprong=0x7f0a0011;
         public static final int kinderen=0x7f0a0047;
         public static final int kindtoevoegen=0x7f0a0040;
@@ -1413,6 +1418,7 @@ containing a value of this type.
         public static final int title_activity_attendance=0x7f0a002a;
         public static final int title_activity_bills=0x7f0a0029;
         public static final int title_activity_checkin=0x7f0a0028;
+        public static final int title_activity_edit_member=0x7f0a004e;
         public static final int title_activity_info=0x7f0a0010;
         public static final int title_activity_member=0x7f0a001c;
         public static final int title_activity_view_members=0x7f0a0046;
@@ -1424,6 +1430,7 @@ containing a value of this type.
         public static final int viewmembername=0x7f0a0049;
         public static final int viewmembers=0x7f0a003c;
         public static final int welkom=0x7f0a0014;
+        public static final int wijzigen=0x7f0a0050;
     }
     public static final class style {
         /** 
