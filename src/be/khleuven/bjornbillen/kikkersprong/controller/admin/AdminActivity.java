@@ -1,10 +1,13 @@
 package be.khleuven.bjornbillen.kikkersprong.controller.admin;
 
+import java.io.IOException;
+
 import be.khleuven.bjornbillen.kikkersprong.controller.AttendanceActivity;
 import be.khleuven.bjornbillen.kikkersprong.controller.BillsActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
@@ -80,6 +83,13 @@ public class AdminActivity extends Activity implements OnClickListener {
 			AdminActivity.this.finish();
 			break;
 		case R.id.view_members:
+			XMLDatabase xml = new XMLDatabase(getApplicationContext());
+			try {
+				xml.loadFromXML();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Intent i2 = new Intent(getApplicationContext(),
 					ViewMembersActivity.class);
 			i2.putExtra("name", adminnaam.getText());

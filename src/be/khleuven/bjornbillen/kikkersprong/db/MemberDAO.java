@@ -1,5 +1,6 @@
 package be.khleuven.bjornbillen.kikkersprong.db;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -31,6 +32,7 @@ public class MemberDAO  {
 
 	public MemberDAO(Context context) {
 		db = new MySQLiteHelper(context);
+		
 	}
 	
 	public int getSize(){
@@ -111,6 +113,7 @@ public class MemberDAO  {
 		values.put(MEMBER_LASTCHECK, member.getLastCheckinString());
 
 		db.updateObject(TABLE_MEMBERS, MEMBER_ID, values, member.getId());
+		
 	}
 
 	// Deleting

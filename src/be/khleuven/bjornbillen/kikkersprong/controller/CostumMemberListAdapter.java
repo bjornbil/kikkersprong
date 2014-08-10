@@ -21,6 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.net.http.AndroidHttpClient;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -35,7 +36,7 @@ public class CostumMemberListAdapter extends BaseAdapter {
 
 	Context mContext;
 	List<String> mList;
-	int memberid;
+	
 
 	public CostumMemberListAdapter(Context context, List<String> list) {
 		mList = list;
@@ -76,14 +77,15 @@ public class CostumMemberListAdapter extends BaseAdapter {
 				.findViewById(R.id.viewmembercheckin);
 		final ImageView foto = (ImageView) view
 				.findViewById(R.id.viewmemberfoto);
-		final TextView id = (TextView) view.findViewById(R.id.viewmemberid);
+		final TextView textid = (TextView) view.findViewById(R.id.viewmemberid);
 		final ImageButton go = (ImageButton) view
 				.findViewById(R.id.gomemberpage);
 		final ImageButton goqr = (ImageButton) view.findViewById(R.id.goqr);
 
 		naam.setText(mList.get(position).split(" ")[0] + " "
 				+ mList.get(position).split(" ")[1]);
-		id.setText(mList.get(position).split(" ")[2]);
+		textid.setText(mList.get(position).split(" ")[2]);
+		
 		gebdatum.setText(mList.get(position).split(" ")[3]);
 		if (mList.get(position).split(" ")[4].equals("true")) {
 			present.setImageResource(R.drawable.ic_ispaid);
@@ -96,15 +98,17 @@ public class CostumMemberListAdapter extends BaseAdapter {
 		else {
 			foto.setImageResource(R.drawable.ic_nopic);
 		}
-		memberid = Integer.parseInt(id.getText().toString());
+		final int memberid = Integer.parseInt(textid.getText().toString());
+		textid.setText(" ");
 		final String membername = naam.getText().toString();
 		go.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(view.getContext(), MemberActivity.class);
-				i.putExtra("id", "" + memberid);
-				i.putExtra("name", membername);
+				Log.d("idcostum","id costum : " + memberid);
+				i.putExtra("id", memberid);
+				i.putExtra("name",membername);
 				parent.getContext().startActivity(i);
 				((Activity) parent.getContext()).finish();
 
@@ -117,7 +121,7 @@ public class CostumMemberListAdapter extends BaseAdapter {
 				Intent i2 = new Intent(
 						Intent.ACTION_VIEW,
 						Uri.parse("http://chart.apis.google.com/chart?chs=200x200&cht=qr&chld=|1&chl=id%3D"
-								+ id
+								+ memberid
 								+ "%20name%3D"
 								+ membername.split(" ")[0]
 								+ "%20" + membername.split(" ")[1]));

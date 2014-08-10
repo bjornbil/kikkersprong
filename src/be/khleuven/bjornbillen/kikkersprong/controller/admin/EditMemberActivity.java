@@ -1,9 +1,11 @@
 package be.khleuven.bjornbillen.kikkersprong.controller.admin;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
@@ -124,6 +126,19 @@ public class EditMemberActivity extends Activity implements OnClickListener {
 			    int id = selectmember.getSelectedItemPosition();
 				membercontroller.updateMember(new Member(id,firstname, lastname,dob,img,false,Calendar.getInstance()));
 				i.putExtra("updatetext", firstname + " Succesvol gewijzigd");
+				XMLDatabase xml = new XMLDatabase(getApplicationContext());
+				try {
+					xml.writetoXML();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				}
 				else{
 					i.putExtra("updatetext", "Dit kind werd niet gevonden");

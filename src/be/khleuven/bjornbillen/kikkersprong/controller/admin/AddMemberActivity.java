@@ -1,11 +1,13 @@
 package be.khleuven.bjornbillen.kikkersprong.controller.admin;
 
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
 import be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
@@ -91,6 +93,19 @@ public class AddMemberActivity extends Activity implements OnClickListener {
 					
 				membercontroller.addMember(new Member(membercontroller.getSize(),firstname, lastname,dob,img,false,Calendar.getInstance()));
 				i.putExtra("updatetext", firstname + " Succesvol toegevoegd");
+				XMLDatabase xml = new XMLDatabase(getApplicationContext());
+				try {
+					xml.writetoXML();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				}
 				else{
 					i.putExtra("updatetext", "Dit kind staat al in de database");

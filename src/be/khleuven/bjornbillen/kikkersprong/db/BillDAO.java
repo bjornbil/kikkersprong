@@ -1,5 +1,6 @@
 package be.khleuven.bjornbillen.kikkersprong.db;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,6 @@ public class BillDAO  {
 	private static final String BILL_PAYDATE = "paydate";
 	private static final String BILL_PAID = "ispaid";
 	private MySQLiteHelper db;
-	
 	private double priceperhour = 10.0;
 
 	private static final String[] BILL_COLUMNS = { BILL_ID, BILL_AMOUNT, BILL_MEMBERID,
@@ -57,6 +57,17 @@ public class BillDAO  {
 		values.put(BILL_PAYDATE, bill.getPaybeforeString());
 		values.put(BILL_PAID, bill.isPaid());
 		db.addObject(TABLE_BILLS, values);
+		
+	}
+	
+	public boolean hasBill(Bill b){
+		boolean result = false;
+		for (Bill bill : getAllBills()){
+			if (b.getId() == bill.getId() && b.getMember().getId() == bill.getMember().getId()){
+				result = true;
+			}
+		}
+		return result;
 	}
 
 	public Bill getBill(int id) {
@@ -85,7 +96,7 @@ public class BillDAO  {
 	}
 
 	// Updating
-	public void updateBills(Bill bill) {
+	public void updateBill(Bill bill) {
 
 		ContentValues values = new ContentValues();
 		values.put(BILL_ID, bill.getId());
@@ -95,6 +106,7 @@ public class BillDAO  {
 		values.put(BILL_PAID, bill.isPaid());
 
 		db.updateObject(TABLE_BILLS, BILL_ID, values, bill.getId());
+		
 	}
 
 	// Deleting

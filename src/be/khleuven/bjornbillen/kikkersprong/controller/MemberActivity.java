@@ -48,6 +48,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 	ImageView foto;
 	ImageButton checkin, attendances, bills;
 	Bitmap fotobitmap;
+	int id;
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	@SuppressLint("NewApi")
@@ -80,9 +81,9 @@ public class MemberActivity extends Activity implements OnClickListener {
 		attendances.setOnClickListener(this);
 		checktext = (TextView) findViewById(R.id.checktext);
 		Bundle bundle = getIntent().getExtras();
-		int id = bundle.getInt("id");
+		id = bundle.getInt("id");
 		membercontroller.setCurrentMemberID(id);
-		String naam = bundle.getString("name");
+				String naam = bundle.getString("name");
 
 		Member m = membercontroller.getMember(id);
 		String dbnaam = m.getFirstname() + " " + m.getLastname();
@@ -111,8 +112,8 @@ public class MemberActivity extends Activity implements OnClickListener {
 	}
 	
 	public void updateCheckin(){
-		int id = membercontroller.getCurrentMemberID();
 		
+		Log.d("id",id + "");
 		if(membercontroller.getMember(id).isPresent()){
 			checkin.setImageResource(R.drawable.ic_checkout);
 			checktext.setText("Uitchecken");
@@ -121,7 +122,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 			checkin.setImageResource(R.drawable.ic_checkin);
 			checktext.setText("Inchecken");
 			}
-		checkin.refreshDrawableState();
+		
 	}
 
 	@Override

@@ -1,24 +1,61 @@
 package com.hmkcode.android.sqlite;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlSerializer;
+
+import com.example.kikkersprong.R;
 
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.DocumentsContract.Document;
 import android.util.Log;
+import android.util.Xml;
+import android.webkit.WebView.FindListener;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	// Database Version
 	private static final int DATABASE_VERSION = 1;
+	private Context context;
 	// Database Name
 	private static final String DATABASE_NAME = "KIKKERSPRONGDB";
 
@@ -30,6 +67,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
 	}
 
 	@Override
@@ -52,13 +90,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ " FOREIGN KEY (memberid) REFERENCES members (id));";
 		
 		
-		
 		db.execSQL(CREATE_MEMBER_TABLE);
 		db.execSQL(CREATE_ATTENDANCE_TABLE);
 		db.execSQL(CREATE_BILL_TABLE);
 		
+		
 	}
-
+	
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
@@ -70,6 +109,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		this.onCreate(db);
 	}
 
+	
 	public void addObject(String table, ContentValues values) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		if (values != null)
@@ -77,6 +117,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	
+	
+	
+
 	private Bill pullStringBill(Cursor cursor){
 		Bill bill = new Bill();
 		bill.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("id"))));
@@ -245,11 +289,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				values, // column/value
 				memberid + " = ?", // selections
 				new String[] { String.valueOf(memberId) }); // selection
-															// args
-
+		
+		
 		db.close();
 
 	}
+	
+	
 
 	// Deleting
 	public void deleteObject(String table, String memberid, int id) {
@@ -260,4 +306,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.close();
 
 	}
+	
+	
 }

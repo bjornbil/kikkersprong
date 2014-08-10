@@ -1,11 +1,13 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import be.khleuven.bjornbillen.kikkersprong.controller.admin.AdminActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
@@ -89,7 +91,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		
 		// HARDCODED TEST VALUES
-		Calendar birthday = Calendar.getInstance();
+		/*Calendar birthday = Calendar.getInstance();
 		birthday.set(Calendar.DATE, 17);
 		birthday.set(Calendar.MONTH, 2);
 		birthday.set(Calendar.YEAR, 2008);
@@ -122,8 +124,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		Calendar paydate = Calendar.getInstance();
 		paydate.set(Calendar.DATE, 31);
 		// AMOUNT = 240 IS HARDCODED HERE, need to be sum of all attendances x priceperhour
-		billcontroller.addBill(new Bill(0,240,m,paydate,true));
-		// END HARDCODED TEST VALUE
+		billcontroller.addBill(new Bill(0,240,m,paydate,true));*/
+		// END HARDCODED TEST VALUE++
+		XMLDatabase db = new XMLDatabase(getApplicationContext());
+		try {
+			db.loadFromXML();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		launch();
 	}
 
@@ -153,6 +162,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			Intent i = new Intent(getApplicationContext(), InfoActivity.class);
 			startActivity(i);
 		}
+		
 	}
 
 	// TODO : need to test this on device
@@ -183,7 +193,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			startActivity(i);
 			}
 		}
-		else finish();
+		else if (resultCode != RESULT_OK){
+			Intent i2 = new Intent(getApplicationContext(),MainActivity.class);
+			startActivity(i2);
+		}
 	}
 
 	@Override
@@ -192,7 +205,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.scanbutton:
 			
 		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-		scanIntegrator.initiateScan();
+	scanIntegrator.initiateScan();
 		/*Intent i = new
 			 Intent(getApplicationContext(),AdminActivity.class);
 			 i.putExtra("id", -1);
