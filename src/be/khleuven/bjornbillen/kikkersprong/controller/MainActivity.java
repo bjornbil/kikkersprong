@@ -90,45 +90,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			title.setTextSize(38);
 		}
 		
-		// HARDCODED TEST VALUES
-		/*Calendar birthday = Calendar.getInstance();
-		birthday.set(Calendar.DATE, 17);
-		birthday.set(Calendar.MONTH, 2);
-		birthday.set(Calendar.YEAR, 2008);
-		membercontroller.addMember(new Member(0,"Jan","Jaap",birthday,"http://liverichly.me/wp-content/uploads/2013/08/child-angry.jpg",false,Calendar.getInstance()));
-		Calendar birthday2 = Calendar.getInstance();
-		birthday2.set(Calendar.DATE, 20);
-		birthday2.set(Calendar.MONTH, 5);
-		birthday2.set(Calendar.YEAR, 2008);
-		membercontroller.addMember(new Member(1,"Kim","Pims",birthday2,"http://i.telegraph.co.uk/multimedia/archive/02102/baby_2102889c.jpg",false,Calendar.getInstance()));
-		Member m = membercontroller.getMember(0);
-		Calendar start = Calendar.getInstance();
-		start.set(Calendar.DATE, 26);
-		start.set(Calendar.MONTH, 6);
-		start.set(Calendar.HOUR_OF_DAY,9);
-		Calendar end = Calendar.getInstance();
-		end.set(Calendar.DATE, 26);
-		end.set(Calendar.MONTH, 6);
-		end.set(Calendar.HOUR_OF_DAY, 12);
-		attendancecontroller.addAttendance(new Attendance(0, m, start, end));
-		Member m2 = membercontroller.getMember(1);
-		Calendar start2 = Calendar.getInstance();
-		start2.set(Calendar.DATE, 3);
-		start2.set(Calendar.MONTH, 7);
-		start2.set(Calendar.HOUR_OF_DAY,9);
-		Calendar end2 = Calendar.getInstance();
-		end2.set(Calendar.DATE, 3);
-		end2.set(Calendar.MONTH, 7);
-		end2.set(Calendar.HOUR_OF_DAY,15);
-		attendancecontroller.addAttendance(new Attendance(1, m2, start2, end2));
-		Calendar paydate = Calendar.getInstance();
-		paydate.set(Calendar.DATE, 31);
-		// AMOUNT = 240 IS HARDCODED HERE, need to be sum of all attendances x priceperhour
-		billcontroller.addBill(new Bill(0,240,m,paydate,true));*/
-		// END HARDCODED TEST VALUE++
 		XMLDatabase db = new XMLDatabase(getApplicationContext());
 		try {
 			db.loadFromXML();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -202,15 +167,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.scanbutton:
 			
-		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-	scanIntegrator.initiateScan();
-		/*Intent i = new
+		//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+	//scanIntegrator.initiateScan();
+		Intent i = new
 			 Intent(getApplicationContext(),AdminActivity.class);
 			 i.putExtra("id", -1);
 			 i.putExtra("name", "Bjorn Billen");
 			 startActivity(i);
 			 
-			 MainActivity.this.finish();*/
+			 MainActivity.this.finish();
 			 
 			break;
 		case R.id.infobutton:
