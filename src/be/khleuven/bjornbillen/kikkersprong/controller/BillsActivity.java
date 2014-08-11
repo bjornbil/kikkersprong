@@ -43,7 +43,9 @@ public class BillsActivity extends Activity {
 		setContentView(R.layout.activity_bills);
 		billcontroller = new BillDAO(getApplicationContext());
 		membercontroller = new MemberDAO(getApplicationContext());
-		int id = membercontroller.getCurrentMemberID();
+		Bundle bundle = getIntent().getExtras();
+		int id = bundle.getInt("id");
+		membercontroller.setCurrentMemberID(id);
 		membername = (TextView) findViewById(R.id.billname);
 		betaald = (TextView) findViewById(R.id.betaald);
 		listView = (ListView) findViewById(R.id.listViewBills);

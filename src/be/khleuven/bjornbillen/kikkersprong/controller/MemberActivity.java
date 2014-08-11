@@ -59,7 +59,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 		membercontroller = new MemberDAO(getApplicationContext());
 		txtnaam = (TextView) findViewById(R.id.name);
 		geboortedatum = (TextView) findViewById(R.id.gebdatum);
-		foto = (ImageView) findViewById(R.id.imageView2);
+		foto = (ImageView) findViewById(R.id.qrexample);
 		title = (TextView) findViewById(R.id.main_title);
 		
 		if (android.os.Build.VERSION.SDK_INT >= 17) {
@@ -71,7 +71,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 			textclock.setFormat24Hour("MMM dd, yyyy k:mm:ss");
 			textclock.setTextColor(Color.BLACK);
 			lin.addView(textclock);
-			title.setTextSize(38);
+			
 		}
 		checkin = (ImageButton) findViewById(R.id.checkinbutton);
 		bills = (ImageButton) findViewById(R.id.billsbutton);
@@ -81,8 +81,11 @@ public class MemberActivity extends Activity implements OnClickListener {
 		attendances.setOnClickListener(this);
 		checktext = (TextView) findViewById(R.id.checktext);
 		Bundle bundle = getIntent().getExtras();
+		
 		id = bundle.getInt("id");
+		Log.d("debug","id = " + id);
 		membercontroller.setCurrentMemberID(id);
+		Log.d("debug","membercontroller id = " + membercontroller.getCurrentMemberID());
 				String naam = bundle.getString("name");
 
 		Member m = membercontroller.getMember(id);
@@ -139,7 +142,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.checkinbutton:
-			int id = membercontroller.getCurrentMemberID();
+			Log.d("debug","id = " + id);
 			Member m = membercontroller.getMember(id);
 			if (m.isPresent()){
 				m.setPresent(false);
@@ -151,14 +154,14 @@ public class MemberActivity extends Activity implements OnClickListener {
 			
 			Intent i = new Intent(getApplicationContext(),
 					CheckinActivity.class);
-			i.putExtra("id", membercontroller.getCurrentMemberID());
+			i.putExtra("id", id);
 			this.startActivity(i);
 			MemberActivity.this.finish();
 			break;
 		case R.id.attendancebutton:
 			Intent i2 = new Intent(getApplicationContext(),
 					AttendanceActivity.class);
-			i2.putExtra("id", membercontroller.getCurrentMemberID());
+			i2.putExtra("id", id);
 			this.startActivity(i2);
 			MemberActivity.this.finish();
 			break;

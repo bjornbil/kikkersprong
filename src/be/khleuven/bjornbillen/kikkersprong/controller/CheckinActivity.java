@@ -1,9 +1,11 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
@@ -47,6 +49,7 @@ public class CheckinActivity extends Activity {
 		attendancecontroller = new AttendanceDAO(getApplicationContext());
 		Bundle bundle = getIntent().getExtras();
 		int id = bundle.getInt("id");
+		membercontroller.setCurrentMemberID(id);
 		Member m = membercontroller.getMember(id);
 		if (m.isPresent() == true) {
 
@@ -60,6 +63,19 @@ public class CheckinActivity extends Activity {
 			}
 			m.setLastcheckin(startdate);
 			membercontroller.updateMember(m);
+			XMLDatabase xml = new XMLDatabase(getApplicationContext());
+			try {
+				xml.writetoXML();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else {
 			checkstatus.setTextColor(Color.RED);
@@ -74,7 +90,21 @@ public class CheckinActivity extends Activity {
 					m, m.getLastcheckin(), enddate);
 			if (nieuw.getDuration() > 1) {
 				attendancecontroller.addAttendance(nieuw);
+				XMLDatabase xml = new XMLDatabase(getApplicationContext());
+				try {
+					xml.writetoXML();
+				} catch (IllegalArgumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			
 		}
 
 		checkstatus.invalidate();

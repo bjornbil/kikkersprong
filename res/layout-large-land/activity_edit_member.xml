@@ -100,4 +100,12 @@
         android:text="@string/form_imageurl"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/input_imgurl"
+        android:layout_alignBottom="@+id/input_imgurl"
+        android:layout_toLeftOf="@+id/input_naam" />
+
 </RelativeLayout>

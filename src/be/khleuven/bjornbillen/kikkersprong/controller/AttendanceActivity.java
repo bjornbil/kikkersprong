@@ -46,7 +46,9 @@ public class AttendanceActivity extends Activity {
 		setContentView(R.layout.activity_attendance);
 		attendancecontroller = new AttendanceDAO(getApplicationContext());
 		membercontroller = new MemberDAO(getApplicationContext());
-		int id = membercontroller.getCurrentMemberID();
+		Bundle b = getIntent().getExtras();
+		int id = b.getInt("id");
+		membercontroller.setCurrentMemberID(id);
 		Member m = membercontroller.getMember(id);
 		listView = (ListView) findViewById(R.id.listViewAttendance);
 		membername = (TextView) findViewById(R.id.membername);

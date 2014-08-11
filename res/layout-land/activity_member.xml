@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/qrexample"
         android:padding="10dp"
         android:text="@string/naam"
         android:textColor="#000000"
@@ -91,7 +91,7 @@
         android:scaleType="fitXY" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/qrexample"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_above="@+id/welkombericht"

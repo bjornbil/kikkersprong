@@ -63,22 +63,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		scanbutton = (Button) findViewById(R.id.scanbutton);
 		scan = (TextView) findViewById(R.id.begroeting);
 		title = (TextView) findViewById(R.id.main_title);
-		qr = (ImageView) findViewById(R.id.imageView2);
+		qr = (ImageView) findViewById(R.id.qrexample);
 		if (android.os.Build.VERSION.SDK_INT >= 17) {
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.WRAP_CONTENT,
-					RelativeLayout.LayoutParams.WRAP_CONTENT);
-			params.addRule(RelativeLayout.BELOW, R.id.imageView1);
-			params.setMargins(55, 0, 0, 0);
-			infobutton.setLayoutParams(params);
-			infobutton.getLayoutParams().height = 35;
-			RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.WRAP_CONTENT,
-					RelativeLayout.LayoutParams.WRAP_CONTENT);
-			params2.setMargins(20, 80, 0, 0);
-			params2.addRule(RelativeLayout.BELOW, R.id.infobutton);
-			scan.setLayoutParams(params2);
-
+			
 			lin = (LinearLayout) findViewById(R.id.clockspace);
 			TextClock textclock;
 			textclock = new TextClock(getApplicationContext());
@@ -87,9 +74,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			textclock.setFormat24Hour("MMM dd, yyyy k:mm:ss");
 			textclock.setTextColor(Color.BLACK);
 			lin.addView(textclock);
-			title.setTextSize(38);
 		}
 		
+		billcontroller.setPricePerHour(10);
 		XMLDatabase db = new XMLDatabase(getApplicationContext());
 		try {
 			db.loadFromXML();
@@ -170,8 +157,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
 	//scanIntegrator.initiateScan();
 		Intent i = new
-			 Intent(getApplicationContext(),AdminActivity.class);
-			 i.putExtra("id", -1);
+			 Intent(getApplicationContext(),MemberActivity.class);
+			 i.putExtra("id", 0);
 			 i.putExtra("name", "Bjorn Billen");
 			 startActivity(i);
 			 

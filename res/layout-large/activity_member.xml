@@ -58,47 +58,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="15dp"
-        android:scaleType="fitStart"
-        android:src="@drawable/ic_launcher" />
-
-    <TextView
-        android:id="@+id/main_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="27dp"
-        android:layout_toRightOf="@+id/imageView1"
-        android:text="@string/kikkersprong"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="50sp" />
-
-    <LinearLayout
-        android:id="@+id/clockspace2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_marginLeft="20dp"
-        android:layout_alignRight="@+id/main_title"
-        android:orientation="vertical" >
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignLeft="@+id/checktext"
-        android:layout_alignTop="@+id/name"
-        android:src="@drawable/ic_nopic" />
-
     <TextView
         android:id="@+id/gebdatum"
         android:layout_width="wrap_content"
@@ -111,39 +70,6 @@
         android:textColor="#FFFFFF" />
 
     <TextView
-        android:id="@+id/welkombericht"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/main_title"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginTop="14dp"
-        android:text="@string/welkom"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FFFFFF"
-        android:textSize="40sp" />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/gebdatum"
-        android:layout_alignLeft="@+id/welkombericht"
-        android:padding="10dp"
-        android:text="@string/naam"
-        android:textColor="#000000"
-        android:textSize="40sp" />
-
-    <TextView
-        android:id="@+id/betalingen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/billsbutton"
-        android:layout_alignRight="@+id/clockspace2"
-        android:text="@string/bills"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000000" />
-
-    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -154,5 +80,79 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#FFFFFF"
         android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignLeft="@+id/checktext"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="31dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/clockspace2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/kikkersprong"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50sp" />
+
+    <LinearLayout
+        android:id="@+id/clockspace2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/welkombericht"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/welkom"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/qrexample"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_alignTop="@+id/name"
+        android:layout_marginLeft="37dp"
+        android:src="@drawable/ic_nopic" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gebdatum"
+        android:layout_toRightOf="@+id/qrexample"
+        android:padding="10dp"
+        android:text="@string/naam"
+        android:textColor="#000000"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/betalingen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/billsbutton"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="@string/bills"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
 
 </RelativeLayout>

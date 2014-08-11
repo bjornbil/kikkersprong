@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageView3"
-        android:layout_toLeftOf="@+id/imageView2"
+        android:layout_toLeftOf="@+id/qrexample"
         android:layout_marginLeft="10dp"
         android:text="@string/qrcodeinfo"
         android:textSize="15sp" />
@@ -114,12 +114,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/main_title"
-        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignTop="@+id/qrexample"
         android:text="@string/qrcode"
         android:textSize="15sp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/qrexample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageView1"
@@ -139,7 +139,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/infobutton"
-        android:layout_toRightOf="@+id/imageView2"
+        android:layout_toRightOf="@+id/qrexample"
         android:src="@drawable/ic_checkout" />
 
     <ImageView

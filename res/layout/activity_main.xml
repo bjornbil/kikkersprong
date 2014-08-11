@@ -120,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/scanbutton"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/qrexample"
         android:layout_marginTop="2dp"
         android:src="@drawable/ic_checkin" />
 
@@ -139,17 +139,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView4"
-        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignTop="@+id/qrexample"
         android:text="@string/qrcode"
         android:textSize="15sp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/qrexample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/infobutton"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/imageView6"
+        android:layout_marginTop="17dp"
+        android:layout_toLeftOf="@+id/imageView5"
         android:src="@drawable/ic_qr" />
 
 </RelativeLayout>

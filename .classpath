@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Bejarn/Downloads/org.apache.commons.net_2.0.0.v200905272248.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Bejarn/Desktop/kikkersprong/itextg-5.5.2.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
