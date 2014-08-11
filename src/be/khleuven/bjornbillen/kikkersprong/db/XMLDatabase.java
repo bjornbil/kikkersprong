@@ -75,7 +75,7 @@ public class XMLDatabase {
 		List<Member> members = membercontroller.getAllMembers();
 		List<Attendance> attendances = attendancecontroller.getAllAttendances();
 		List<Bill> bills = billcontroller.getAllBills();
-		serializer.startTag(null, "members");
+		serializer.startTag(null, "root");
 		for (Member m : members) {
 			serializer.startTag(null, "member");
 			serializer.startTag(null, "id");
@@ -98,8 +98,7 @@ public class XMLDatabase {
 			serializer.endTag(null, "checkin");
 			serializer.endTag(null, "member");
 		}
-		serializer.endTag(null, "members");
-		serializer.startTag(null, "attendances");
+		
 		for (Attendance a : attendances) {
 			serializer.startTag(null, "attendance");
 			serializer.startTag(null, "id");
@@ -116,8 +115,7 @@ public class XMLDatabase {
 			serializer.endTag(null, "enddate");
 			serializer.endTag(null, "attendance");
 		}
-		serializer.endTag(null, "attendances");
-		serializer.startTag(null, "bills");
+	
 		for (Bill b : bills) {
 			serializer.startTag(null, "bill");
 			serializer.startTag(null, "id");
@@ -137,7 +135,7 @@ public class XMLDatabase {
 			serializer.endTag(null, "ispaid");
 			serializer.endTag(null, "bill");
 		}
-		serializer.endTag(null, "bills");
+		serializer.endTag(null, "root");
 
 		serializer.endDocument();
 
@@ -153,7 +151,7 @@ public class XMLDatabase {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			org.w3c.dom.Document doc = db.parse(new InputSource(is));
-			doc.getDocumentElement().normalize();
+			//doc.getDocumentElement().normalize();
 
 			NodeList nodeList = doc.getElementsByTagName("bill");
 
@@ -162,21 +160,16 @@ public class XMLDatabase {
 				Node node = nodeList.item(i);
 
 				Element fstElmnt = (Element) node;
-
-				int id = Integer.parseInt(fstElmnt.getAttribute("id"));
-				int memberid = Integer.parseInt(fstElmnt
-						.getAttribute("memberid"));
-				double amount = Double.parseDouble(fstElmnt
-						.getAttribute("amount"));
+				
+				int id = Integer.parseInt(fstElmnt.getChildNodes().item(1).getTextContent());
+				int memberid = Integer.parseInt(fstElmnt.getChildNodes().item(3).getTextContent());
+				double amount = Double.parseDouble(fstElmnt.getChildNodes().item(5).getTextContent());
 				Calendar paydate = Calendar.getInstance();
-				paydate.set(Calendar.YEAR, Integer.parseInt(fstElmnt
-						.getAttribute("paydate").split("/")[0]));
-				paydate.set(Calendar.MONTH, Integer.parseInt(fstElmnt
-						.getAttribute("paydate").split("/")[1]));
-				paydate.set(Calendar.DATE, Integer.parseInt(fstElmnt
-						.getAttribute("paydate").split("/")[2]));
+				paydate.set(Calendar.YEAR, Integer.parseInt(fstElmnt.getChildNodes().item(7).getTextContent().split("/")[0]));
+				paydate.set(Calendar.MONTH, Integer.parseInt(fstElmnt.getChildNodes().item(7).getTextContent().split("/")[1]));
+				paydate.set(Calendar.DATE, Integer.parseInt(fstElmnt.getChildNodes().item(7).getTextContent().split("/")[2]));
 				boolean ispaid = false;
-				if (fstElmnt.getAttribute("ispaid").equals("true")) {
+				if (fstElmnt.getChildNodes().item(9).getTextContent().equals("true")) {
 					ispaid = true;
 				}
 
@@ -189,7 +182,7 @@ public class XMLDatabase {
 				}
 			}
 		} catch (Exception e) {
-			Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "bill : " + e.toString(), Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -200,38 +193,36 @@ public class XMLDatabase {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			org.w3c.dom.Document doc = db.parse(new InputSource(is));
-			doc.getDocumentElement().normalize();
-
-			NodeList nodeList = doc.getElementsByTagName("member");
-
-			for (int i = 0; i < nodeList.getLength(); i++) {
-
-				Node node = nodeList.item(i);
-
+			//doc.getDocumentElement().normalize();
+			
+		    NodeList nl = doc.getElementsByTagName("member");
+		   
+			for (int i = 0; i < nl.getLength(); i++) {			
+				Element fstElmnt = (Element) nl.item(i);
 				
-				Element fstElmnt = (Element) node.getFirstChild();
-				int id = Integer.parseInt(fstElmnt.getAttribute("id"));
-				String firstname = fstElmnt.getAttribute("name").split(" ")[0];
-				String lastname = fstElmnt.getAttribute("name").split(" ")[1];
+				int id = Integer.parseInt(fstElmnt.getChildNodes().item(1).getTextContent());
+				
+				String firstname = fstElmnt.getChildNodes().item(3).getTextContent().split(" ")[0];
+				String lastname = fstElmnt.getChildNodes().item(3).getTextContent().split(" ")[1];
+				
 				Calendar birthday = Calendar.getInstance();
-				birthday.set(Calendar.YEAR, Integer.parseInt(fstElmnt
-						.getAttribute("birthday").split("/")[0]));
-				birthday.set(Calendar.MONTH, Integer.parseInt(fstElmnt
-						.getAttribute("birthday").split("/")[1]));
-				birthday.set(Calendar.DATE, Integer.parseInt(fstElmnt
-						.getAttribute("birthday").split("/")[2]));
+				birthday.set(Calendar.YEAR, Integer.parseInt(fstElmnt.getChildNodes().item(5).getTextContent().split("/")[0]));
+				birthday.set(Calendar.MONTH, Integer.parseInt(fstElmnt.getChildNodes().item(5).getTextContent().split("/")[1]));
+				birthday.set(Calendar.DATE, Integer.parseInt(fstElmnt.getChildNodes().item(5).getTextContent().split("/")[2]));
+				
 				boolean ispresent = false;
-				if (fstElmnt.getAttribute("present").equals("true")) {
+				if (fstElmnt.getChildNodes().item(7).getTextContent().equals("true")) {
 					ispresent = true;
 				}
+				
 				Calendar lastcheck = Calendar.getInstance();
-				lastcheck.set(Calendar.YEAR, Integer.parseInt(fstElmnt
-						.getAttribute("checkin").split("/")[0]));
-				lastcheck.set(Calendar.MONTH, Integer.parseInt(fstElmnt
-						.getAttribute("checkin").split("/")[1]));
-				lastcheck.set(Calendar.DATE, Integer.parseInt(fstElmnt
-						.getAttribute("checkin").split("/")[2]));
-				String imgurl = fstElmnt.getAttribute("imgurl");
+				lastcheck.set(Calendar.YEAR, Integer.parseInt(fstElmnt.getChildNodes().item(11).getTextContent().split(" ")[0].split("/")[0]));
+				lastcheck.set(Calendar.MONTH, Integer.parseInt(fstElmnt.getChildNodes().item(11).getTextContent().split(" ")[0].split("/")[1]));
+				lastcheck.set(Calendar.DATE, Integer.parseInt(fstElmnt.getChildNodes().item(11).getTextContent().split(" ")[0].split("/")[2]));
+				lastcheck.set(Calendar.HOUR_OF_DAY, Integer.parseInt(fstElmnt.getChildNodes().item(11).getTextContent().split(" ")[1].split(":")[0]));
+				lastcheck.set(Calendar.MINUTE, Integer.parseInt(fstElmnt.getChildNodes().item(11).getTextContent().split(" ")[1].split(":")[1]));
+				lastcheck.set(Calendar.SECOND, Integer.parseInt(fstElmnt.getChildNodes().item(11).getTextContent().split(" ")[1].split(":")[2]));
+				String imgurl = fstElmnt.getChildNodes().item(9).getTextContent();
 				Member m = new Member(id, firstname, lastname, birthday,
 						imgurl, ispresent, lastcheck);
 				if (membercontroller.existMember(firstname, lastname)) {
@@ -239,11 +230,13 @@ public class XMLDatabase {
 				} else {
 					membercontroller.addMember(m);
 				}
-
-			}
+				
+				}
+				
+			
 
 		} catch (Exception e) {
-			System.out.println(e);
+			Toast.makeText(context, "member : " + e, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -260,7 +253,7 @@ public class XMLDatabase {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			org.w3c.dom.Document doc = db.parse(new InputSource(is));
-			doc.getDocumentElement().normalize();
+			//doc.getDocumentElement().normalize();
 
 			NodeList nodeList = doc.getElementsByTagName("attendance");
 
@@ -269,48 +262,37 @@ public class XMLDatabase {
 				Node node = nodeList.item(i);
 
 				Element fstElmnt = (Element) node;
-
-				int id = Integer.parseInt(fstElmnt.getAttribute("id"));
-				int memberid = Integer.parseInt(fstElmnt
-						.getAttribute("memberid"));
+				
+				int id = Integer.parseInt(fstElmnt.getChildNodes().item(1).getTextContent());
+				
+				int memberid = Integer.parseInt(fstElmnt.getChildNodes().item(3).getTextContent());
+				
 				Calendar startdate = Calendar.getInstance();
 				startdate
-						.set(Calendar.YEAR, Integer.parseInt(fstElmnt
-								.getAttribute("startdate").split(" ")[0]
+						.set(Calendar.YEAR, Integer.parseInt(fstElmnt.getChildNodes().item(5).getTextContent().split(" ")[0]
 								.split("/")[0]));
 				startdate
-						.set(Calendar.MONTH, Integer.parseInt(fstElmnt
-								.getAttribute("startdate").split(" ")[0]
+						.set(Calendar.MONTH, Integer.parseInt(fstElmnt.getChildNodes().item(5).getTextContent().split(" ")[0]
 								.split("/")[1]));
 				startdate
-						.set(Calendar.DATE, Integer.parseInt(fstElmnt
-								.getAttribute("startdate").split(" ")[0]
+						.set(Calendar.DATE, Integer.parseInt(fstElmnt.getChildNodes().item(5).getTextContent().split(" ")[0]
 								.split("/")[2]));
 				startdate
-						.set(Calendar.HOUR_OF_DAY, Integer.parseInt(fstElmnt
-								.getAttribute("startdate").split(" ")[1]
+						.set(Calendar.HOUR_OF_DAY, Integer.parseInt(fstElmnt.getChildNodes().item(5).getTextContent().split(" ")[1]
 								.split(":")[0]));
 				startdate
-						.set(Calendar.MINUTE, Integer.parseInt(fstElmnt
-								.getAttribute("startdate").split(" ")[1]
+						.set(Calendar.MINUTE, Integer.parseInt(fstElmnt.getChildNodes().item(5).getTextContent().split(" ")[1]
 								.split(":")[1]));
 				startdate
-						.set(Calendar.SECOND, Integer.parseInt(fstElmnt
-								.getAttribute("startdate").split(" ")[1]
+						.set(Calendar.SECOND, Integer.parseInt(fstElmnt.getChildNodes().item(5).getTextContent().split(" ")[1]
 								.split(":")[2]));
 				Calendar enddate = Calendar.getInstance();
-				enddate.set(Calendar.YEAR, Integer.parseInt(fstElmnt
-						.getAttribute("enddate").split(" ")[0].split("/")[0]));
-				enddate.set(Calendar.MONTH, Integer.parseInt(fstElmnt
-						.getAttribute("enddate").split(" ")[0].split("/")[1]));
-				enddate.set(Calendar.DATE, Integer.parseInt(fstElmnt
-						.getAttribute("enddate").split(" ")[0].split("/")[2]));
-				enddate.set(Calendar.HOUR_OF_DAY, Integer.parseInt(fstElmnt
-						.getAttribute("enddate").split(" ")[1].split(":")[0]));
-				enddate.set(Calendar.MINUTE, Integer.parseInt(fstElmnt
-						.getAttribute("enddate").split(" ")[1].split(":")[1]));
-				enddate.set(Calendar.SECOND, Integer.parseInt(fstElmnt
-						.getAttribute("enddate").split(" ")[1].split(":")[2]));
+				enddate.set(Calendar.YEAR, Integer.parseInt(fstElmnt.getChildNodes().item(7).getTextContent().split(" ")[0].split("/")[0]));
+				enddate.set(Calendar.MONTH, Integer.parseInt(fstElmnt.getChildNodes().item(7).getTextContent().split(" ")[0].split("/")[1]));
+				enddate.set(Calendar.DATE, Integer.parseInt(fstElmnt.getChildNodes().item(7).getTextContent().split(" ")[0].split("/")[2]));
+				enddate.set(Calendar.HOUR_OF_DAY, Integer.parseInt(fstElmnt.getChildNodes().item(7).getTextContent().split(" ")[1].split(":")[0]));
+				enddate.set(Calendar.MINUTE, Integer.parseInt(fstElmnt.getChildNodes().item(7).getTextContent().split(" ")[1].split(":")[1]));
+				enddate.set(Calendar.SECOND, Integer.parseInt(fstElmnt.getChildNodes().item(7).getTextContent().split(" ")[1].split(":")[2]));
 
 				Attendance a = new Attendance(id,
 						membercontroller.getMember(memberid), startdate,

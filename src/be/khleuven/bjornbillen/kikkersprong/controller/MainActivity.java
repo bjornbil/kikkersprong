@@ -170,6 +170,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(
 				requestCode, resultCode, intent);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 		if (scanResult.getContents() != null) {
 			String contents = scanResult.getContents();
 			String format = scanResult.getFormatName();
@@ -193,10 +194,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			startActivity(i);
 			}
 		}
-		else if (resultCode != RESULT_OK){
-			Intent i2 = new Intent(getApplicationContext(),MainActivity.class);
-			startActivity(i2);
-		}
+		
 	}
 
 	@Override
