@@ -1,11 +1,6 @@
 package be.khleuven.bjornbillen.kikkersprong.model;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import android.widget.ImageView;
 
 public class Member {
 	private Integer id;
@@ -64,7 +59,7 @@ public class Member {
 
 	public String getBirthdayString() {
 		return getBirthday().get(Calendar.YEAR) + "/"
-				+ getBirthday().get(Calendar.MONTH) + "/"
+				+ (getBirthday().get(Calendar.MONTH)+1) + "/"
 				+ getBirthday().get(Calendar.DATE);
 	}
 
@@ -83,7 +78,7 @@ public class Member {
 	// 4 = imgurl
 	
 	public String toString() {
-		return getFirstname() + " " + getLastname() + " " + getId() + " " + getBirthdayString() + " " + isPresent() + " " + getImageurl();
+		return getFirstname() + " " + getLastname() + " " + getId() + " " + getBirthdayString() + " " + isPresent() + " " + getImageurl() + " " + getLastCheckinString();
 	}
 
 	public boolean isPresent() {
@@ -103,7 +98,7 @@ public class Member {
 	}
 	
 	public String getLastCheckinString(){
-		return getLastcheckin().get(Calendar.YEAR) + "/" + getLastcheckin().get(Calendar.MONTH) + "/" + getLastcheckin().get(Calendar.DATE) + " " + getLastcheckin().get(Calendar.HOUR_OF_DAY) + ":" + getLastcheckin().get(Calendar.MINUTE) + ":" + getLastcheckin().get(Calendar.SECOND);
+		return getLastcheckin().get(Calendar.YEAR) + "/" + (getLastcheckin().get(Calendar.MONTH)+1) + "/" + getLastcheckin().get(Calendar.DATE) + " " + getLastcheckin().get(Calendar.HOUR_OF_DAY) + ":" + getLastcheckin().get(Calendar.MINUTE) + ":" + getLastcheckin().get(Calendar.SECOND);
 
 	}
 

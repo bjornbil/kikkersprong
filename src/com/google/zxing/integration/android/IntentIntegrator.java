@@ -391,11 +391,13 @@ public class IntentIntegrator {
 			if (resultCode == Activity.RESULT_OK) {
 				String contents = intent.getStringExtra("SCAN_RESULT");
 				String formatName = intent.getStringExtra("SCAN_RESULT_FORMAT");
+				@SuppressWarnings("unused")
 				byte[] rawBytes = intent.getByteArrayExtra("SCAN_RESULT_BYTES");
 				int intentOrientation = intent.getIntExtra(
 						"SCAN_RESULT_ORIENTATION", Integer.MIN_VALUE);
 				Integer orientation = intentOrientation == Integer.MIN_VALUE ? null
 						: intentOrientation;
+				@SuppressWarnings("unused")
 				String errorCorrectionLevel = intent
 						.getStringExtra("SCAN_RESULT_ERROR_CORRECTION_LEVEL");
 				return new IntentResult(contents, formatName);

@@ -1,17 +1,11 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
 import java.io.IOException;
-import java.util.Calendar;
-
 import be.khleuven.bjornbillen.kikkersprong.controller.admin.AdminActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
-import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
-import be.khleuven.bjornbillen.kikkersprong.model.Bill;
-import be.khleuven.bjornbillen.kikkersprong.model.Member;
-
 import com.example.kikkersprong.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -19,22 +13,18 @@ import com.google.zxing.integration.android.IntentResult;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.print.PrintAttributes.Margins;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.text.Layout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,13 +50,30 @@ public class MainActivity extends Activity implements OnClickListener {
 		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());
 		billcontroller = BillDAO.getInstance(getApplicationContext());
-		XMLDatabase xml = new XMLDatabase(getApplicationContext());
-		try {
-			xml.loadFromXML();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (getIntent().getExtras() != null){
+			if (getIntent().getExtras().getString("db") != null){
+				
+			}
+			else {
+				XMLDatabase xml = new XMLDatabase(getApplicationContext());
+				try {
+					xml.loadFromXML();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
+		else {
+			XMLDatabase xml = new XMLDatabase(getApplicationContext());
+			try {
+				xml.loadFromXML();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		infobutton = (Button) findViewById(R.id.infobutton);
 		scanbutton = (Button) findViewById(R.id.scanbutton);
 		scan = (TextView) findViewById(R.id.begroeting);
@@ -146,16 +153,19 @@ public class MainActivity extends Activity implements OnClickListener {
 				Intent i1 = new Intent(getApplicationContext(), AdminActivity.class);
 				i1.putExtra("name", name);
 				startActivity(i1);
+				MainActivity.this.finish();
 			}
 			else if (getMemberController().existMember(namearray[1], contentarray[2]) && id >= 0){
 				
 				Intent i = new Intent(getApplicationContext(), MemberActivity.class);
 				i.putExtra("id", id);
 				startActivity(i);
-				
+				MainActivity.this.finish();
 			}
 			else {
+				
 				startActivity(intent);
+				MainActivity.this.finish();
 			}
 			
 		}
@@ -163,7 +173,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 	
 	
-
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

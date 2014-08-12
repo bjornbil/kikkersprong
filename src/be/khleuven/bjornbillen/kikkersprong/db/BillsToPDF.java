@@ -25,12 +25,14 @@ public class BillsToPDF {
  private Member member = null;
  private List<Attendance> attendances = null;
  private Bill bill = null;
-  private void createPDF (List<Attendance> attendances, Member m, Bill b){
+  
+ @SuppressWarnings("unused")
+private void createPDF (List<Attendance> attendances, Member m, Bill b, Member member, Bill bill){
  
   Document doc = new Document();
   PdfWriter docWriter = null;
   this.member = member;
-  this.attendances = attendances;
+  this.setAttendances(attendances);
   this.bill = bill;
   initializeFonts();
  
@@ -240,5 +242,13 @@ public class BillsToPDF {
  
  
  }
+
+public List<Attendance> getAttendances() {
+	return attendances;
+}
+
+public void setAttendances(List<Attendance> attendances) {
+	this.attendances = attendances;
+}
  
 }

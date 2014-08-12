@@ -1,30 +1,18 @@
 package be.khleuven.bjornbillen.kikkersprong.db;
 
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.commons.net.ftp.FTPSClient;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -32,28 +20,18 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
-import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.XmlResourceParser;
 import android.os.AsyncTask;
-import android.provider.DocumentsContract.Document;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
@@ -69,23 +47,23 @@ public class XMLDatabase {
 	private AttendanceDAO attendancecontroller;
 	
 	public XMLDatabase(Context context) {
-		this.context = context;
+		this.setContext(context);
 		membercontroller = MemberDAO.getInstance(context);
 		attendancecontroller = AttendanceDAO.getInstance(context);
 		billcontroller = BillDAO.getInstance(context);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void writetoXML() throws IllegalArgumentException,
 			IllegalStateException, IOException {
-		String filename = "kikkersprong.xml";
+		
 
 		FileOutputStream fos = null;
 
 		try {
 			fos = new FileOutputStream(new File("sdcard/kikkersprong.xml"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -187,7 +165,7 @@ public class XMLDatabase {
 		return billcontroller;
 	}
 	public void writeToFTP(String userName, String pass) {  
-        boolean status = false;  
+        
         try {
             FTPSClient ftpClient = new FTPSClient("TLS",false);
             // Connect to host
@@ -198,12 +176,13 @@ public class XMLDatabase {
             
             ftpClient.setKeyManager(km);
             ftpClient.connect("r0258068.webontwerp.khleuven.be");
+            Toast.makeText(null,"Connecting to database...",Toast.LENGTH_LONG).show();
             int reply = ftpClient.getReplyCode();
             if (FTPReply.isPositiveCompletion(reply)) {
-
+            	
               // Login
               if (ftpClient.login(userName, pass)) {
-
+            	  Toast.makeText(null,"Login accepted",Toast.LENGTH_LONG).show();
                 // Set protection buffer size
                 ftpClient.execPBSZ(0);
                 // Set data channel protection to private
@@ -215,6 +194,7 @@ public class XMLDatabase {
       	  InputStream is = new FileInputStream("sdcard/kikkersprong.xml");
       	  if (ftpClient.storeFile("kikkersprong.xml", is)) {
       	    is.close();
+      	  Toast.makeText(null,"kikkersprong.xml database updated!",Toast.LENGTH_LONG).show();
       	  } else {
       	    System.out.println("Could not store file");
       	  }
@@ -236,10 +216,9 @@ public class XMLDatabase {
           } catch (NoSuchAlgorithmException nsae) {
             System.out.println("FTP client could not use SSL algorithm");
           } catch (UnrecoverableKeyException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (KeyStoreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         }
@@ -294,10 +273,10 @@ public class XMLDatabase {
 	          } catch (NoSuchAlgorithmException nsae) {
 	            System.out.println("FTP client could not use SSL algorithm");
 	          } catch (UnrecoverableKeyException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (KeyStoreException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 	}
@@ -332,7 +311,7 @@ public class XMLDatabase {
 				paydate.set(
 						Calendar.MONTH,
 						Integer.parseInt(fstElmnt.getChildNodes().item(7)
-								.getTextContent().split("/")[1]));
+								.getTextContent().split("/")[1])-1);
 				paydate.set(
 						Calendar.DATE,
 						Integer.parseInt(fstElmnt.getChildNodes().item(7)
@@ -386,7 +365,7 @@ public class XMLDatabase {
 				birthday.set(
 						Calendar.MONTH,
 						Integer.parseInt(fstElmnt.getChildNodes().item(5)
-								.getTextContent().split("/")[1]));
+								.getTextContent().split("/")[1])-1);
 				birthday.set(
 						Calendar.DATE,
 						Integer.parseInt(fstElmnt.getChildNodes().item(5)
@@ -406,7 +385,7 @@ public class XMLDatabase {
 				lastcheck.set(
 						Calendar.MONTH,
 						Integer.parseInt(fstElmnt.getChildNodes().item(11)
-								.getTextContent().split(" ")[0].split("/")[1]));
+								.getTextContent().split(" ")[0].split("/")[1])-1);
 				lastcheck.set(
 						Calendar.DATE,
 						Integer.parseInt(fstElmnt.getChildNodes().item(11)
@@ -440,7 +419,7 @@ public class XMLDatabase {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void loadFromXML() throws IOException {
 		new AsyncTask(){
 			@Override
@@ -490,7 +469,7 @@ public class XMLDatabase {
 				startdate.set(
 						Calendar.MONTH,
 						Integer.parseInt(fstElmnt.getChildNodes().item(5)
-								.getTextContent().split(" ")[0].split("/")[1]));
+								.getTextContent().split(" ")[0].split("/")[1])-1);
 				startdate.set(
 						Calendar.DATE,
 						Integer.parseInt(fstElmnt.getChildNodes().item(5)
@@ -515,7 +494,7 @@ public class XMLDatabase {
 				enddate.set(
 						Calendar.MONTH,
 						Integer.parseInt(fstElmnt.getChildNodes().item(7)
-								.getTextContent().split(" ")[0].split("/")[1]));
+								.getTextContent().split(" ")[0].split("/")[1])-1);
 				enddate.set(
 						Calendar.DATE,
 						Integer.parseInt(fstElmnt.getChildNodes().item(7)
@@ -547,5 +526,13 @@ public class XMLDatabase {
 		} catch (Exception e) {
 			Log.d("ERROR","Exception att : " + e.getMessage());
 		}
+	}
+
+	public Context getContext() {
+		return context;
+	}
+
+	public void setContext(Context context) {
+		this.context = context;
 	}
 }

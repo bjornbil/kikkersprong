@@ -1,4 +1,4 @@
-package be.khleuven.bjornbillen.kikkersprong.controller;
+package be.khleuven.bjornbillen.kikkersprong.controller.listadapter;
 
 import java.util.List;
 
@@ -58,8 +58,7 @@ public class CostumBillListAdapter extends BaseAdapter {
         	prijs = prijs.split(".")[0];
         }
         hours.setText("€" + prijs);
-        
-        hours.setText(prijs);
+
         String betaald = mList.get(position).split(" ")[2];
         Log.d("ok",betaald);
         if (betaald.equals("true")){

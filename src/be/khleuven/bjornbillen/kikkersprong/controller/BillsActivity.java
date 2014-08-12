@@ -1,33 +1,21 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
+import be.khleuven.bjornbillen.kikkersprong.controller.listadapter.CostumBillListAdapter;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
-import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
-import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
-import be.khleuven.bjornbillen.kikkersprong.model.Member;
-
 import com.example.kikkersprong.R;
-import com.example.kikkersprong.R.id;
-import com.example.kikkersprong.R.layout;
-import com.example.kikkersprong.R.menu;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -61,18 +49,14 @@ public class BillsActivity extends Activity {
 
 							// Show Alert
 				String datum = listView.getAdapter().getItem(position).toString().split(" ")[0];
-				String prijs = listView.getAdapter().getItem(position).toString().split(" ")[1];
-				double prijsdouble = Double.parseDouble(prijs);
-				
-				if (prijsdouble % 2 == 0){
-					int prijsrond = (int) Math.round(prijsdouble);
-					prijs = "€" + prijsrond ;
-				}
-				else {
-					prijs = "€" + prijs + "0";
-				}
+				String price = listView.getAdapter().getItem(position).toString().split(" ")[1];
+			    
+		        if (price.split(".").length > 1 && Integer.parseInt(price.split(".")[1]) == 0){
+		        	price = price.split(".")[0];
+		        }
+		        
 				Toast.makeText(getApplicationContext(),
-						"Datum : " + datum + " (" + prijs + ")",
+						"Datum : " + datum + " (" + price + ")",
 						Toast.LENGTH_LONG).show();
 
 			}

@@ -8,7 +8,6 @@ import java.util.List;
 import android.content.ContentValues;
 import android.content.Context;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
-import be.khleuven.bjornbillen.kikkersprong.model.Member;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 
 import com.hmkcode.android.sqlite.MySQLiteHelper;
@@ -70,7 +69,7 @@ public class AttendanceDAO {
 		int month = -1;
 		int day = -1;
 		int totaaluren = 0;
-		if (attendance.getEnddate().get(Calendar.DATE) == 30 && attendance.getEnddate().get(Calendar.MONTH) % 2 == 0){
+		if (attendance.getEnddate().get(Calendar.DATE) == 30 && attendance.getEnddate().get(Calendar.MONTH) % 2 != 0 && attendance.getEnddate().get(Calendar.MONTH) != Calendar.FEBRUARY && attendance.getEnddate().get(Calendar.MONTH) != Calendar.AUGUST){
 			month = attendance.getEnddate().get(Calendar.MONTH);
 			day = attendance.getEnddate().get(Calendar.DATE);
 		}
@@ -83,7 +82,7 @@ public class AttendanceDAO {
 			day= attendance.getEnddate().get(Calendar.DATE);
 		} 
 		Calendar vorigemaand = Calendar.getInstance();
-		if (month != -1){
+		if (month != -1 && day != -1){
 			for (Attendance a : getAttendances(attendance.getMember().getId())){
 				if (a.getStartdate().get(Calendar.MONTH) == month){
 					totaaluren += a.getDuration();
@@ -93,22 +92,8 @@ public class AttendanceDAO {
 			if (prijs > 0){
 			billcontroller.addBill(new Bill(billcontroller.getSize(),prijs,attendance.getMember(),attendance.getEnddate(),false));
 			}
-			vorigemaand.set(Calendar.MONTH, month);
-			if (day == 30){
-				vorigemaand.set(Calendar.DATE, 31);
-			}
-			else if (day == 31 && Calendar.MARCH != month){
-				vorigemaand.set(Calendar.DATE, 30);
-			}
-			else if (Calendar.MARCH == month){
-				vorigemaand.set(Calendar.DATE,28);
-			}
-			vorigemaand.add(Calendar.MONTH, -1);
 		}
 		else{
-			while (vorigemaand.get(Calendar.MONTH) != attendance.getStartdate().get(Calendar.MONTH)){
-				vorigemaand.add(Calendar.MONTH, -1);
-			}
 		vorigemaand.add(Calendar.MONTH, -1);
 		boolean rekeningbestaat = false;
 		for (Bill b : billcontroller.getBills(attendance.getMember().getId())){
@@ -116,6 +101,20 @@ public class AttendanceDAO {
 				rekeningbestaat = true;
 			}
 		}
+		if (vorigemaand.get(Calendar.MONTH) == Calendar.JANUARY || vorigemaand.get(Calendar.MONTH) == Calendar.AUGUST){
+			vorigemaand.set(Calendar.DATE, 31);
+		}
+		else if (vorigemaand.get(Calendar.MONTH) == Calendar.FEBRUARY){
+			vorigemaand.set(Calendar.DATE, 28);
+		}
+		else if (vorigemaand.get(Calendar.MONTH) %2 == 0){
+			vorigemaand.set(Calendar.DATE,30);
+		}
+		else{
+			vorigemaand.set(Calendar.DATE,31);
+		}
+		vorigemaand.set(Calendar.YEAR, 2014);
+		
 		// maak vorige maand aan in geval prijs > 0 en dus aanwezigheden > 0 in die maand
 		// indien nog geen rekening bestaande op deze maand
 		if (!rekeningbestaat){

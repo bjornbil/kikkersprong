@@ -5,20 +5,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import be.khleuven.bjornbillen.kikkersprong.controller.AttendanceActivity;
-import be.khleuven.bjornbillen.kikkersprong.controller.CostumAttendanceListAdapter;
-import be.khleuven.bjornbillen.kikkersprong.controller.CostumAttendancesAdapter;
-import be.khleuven.bjornbillen.kikkersprong.controller.CostumBillsAdapter;
-import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
-import be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity;
+import be.khleuven.bjornbillen.kikkersprong.controller.listadapter.CostumAttendancesAdapter;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
-import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
-import be.khleuven.bjornbillen.kikkersprong.model.Bill;
-import be.khleuven.bjornbillen.kikkersprong.model.Member;
-
 import com.example.kikkersprong.R;
 
 import android.annotation.SuppressLint;
@@ -80,15 +71,7 @@ public class ViewAttendancesActivity extends Activity {
 							// Show Alert
 				String datum = listView.getAdapter().getItem(position).toString().split(" ")[0];
 				String prijs = listView.getAdapter().getItem(position).toString().split(" ")[1];
-				double prijsdouble = Double.parseDouble(prijs);
 				
-				if (prijsdouble % 2 == 0){
-					int prijsrond = (int) Math.round(prijsdouble);
-					prijs = "€" + prijsrond ;
-				}
-				else {
-					prijs = "€" + prijs + "0";
-				}
 				Toast.makeText(getApplicationContext(),
 						"Datum : " + datum + " (" + prijs + ")",
 						Toast.LENGTH_LONG).show();
@@ -186,6 +169,7 @@ public class ViewAttendancesActivity extends Activity {
 		for (int i = 0; i < attendances.size(); i++) {
 			Calendar date = attendances.get(i).getStartdate();
 			Calendar currentdate = Calendar.getInstance();
+			
 			if (date.get(Calendar.MONTH) == currentdate.get(Calendar.MONTH))
 				valuelist.add(attendances.get(i).toString());
 			

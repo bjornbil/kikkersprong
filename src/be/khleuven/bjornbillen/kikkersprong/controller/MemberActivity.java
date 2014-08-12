@@ -1,28 +1,11 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Calendar;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-
-import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
-import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
-import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
 
-import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,7 +16,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -122,6 +104,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 		Log.d("CDA", "onBackPressed Called");
 		Intent setIntent = new Intent(getApplicationContext(),
 				MainActivity.class);
+		setIntent.putExtra("db","nietladen");
 		startActivity(setIntent);
 		MemberActivity.this.finish();
 	}

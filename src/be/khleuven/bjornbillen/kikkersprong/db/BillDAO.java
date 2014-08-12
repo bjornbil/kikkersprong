@@ -6,13 +6,7 @@ import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
-import be.khleuven.bjornbillen.kikkersprong.model.Member;
-import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
-
 import com.hmkcode.android.sqlite.MySQLiteHelper;
 
 public class BillDAO  {

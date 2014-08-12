@@ -33,7 +33,7 @@ public class Attendance {
 
 	public String getStartdateString() {
 		return getStartdate().get(Calendar.YEAR) + "/"
-				+ getStartdate().get(Calendar.MONTH) + "/"
+				+ (getStartdate().get(Calendar.MONTH)+1) + "/"
 				+ getStartdate().get(Calendar.DATE) + " "
 				+ getStartdate().get(Calendar.HOUR_OF_DAY) + ":"
 				+ getStartdate().get(Calendar.MINUTE) + ":"
@@ -50,7 +50,7 @@ public class Attendance {
 
 	public String getEnddateString() {
 		return getEnddate().get(Calendar.YEAR) + "/"
-				+ getEnddate().get(Calendar.MONTH) + "/"
+				+ (getEnddate().get(Calendar.MONTH)+1) + "/"
 				+ getEnddate().get(Calendar.DATE) + " "
 				+ getEnddate().get(Calendar.HOUR_OF_DAY) + ":"
 				+ getEnddate().get(Calendar.MINUTE) + ":"
@@ -78,6 +78,6 @@ public class Attendance {
 	}
 	public String toString(){
 		int duration = getDuration();
-		return getStartdate().get(Calendar.YEAR) + "/" + (getStartdate().get(Calendar.MONTH)) + "/" + getStartdate().get(Calendar.DATE) + " " + duration + "u" + " " + getMember().getFirstname() + " " +getMember().getLastname();
+		return getStartdate().get(Calendar.YEAR) + "/" + (getStartdate().get(Calendar.MONTH)+1) + "/" + getStartdate().get(Calendar.DATE) + " " + duration + "u" + " " + getMember().getFirstname() + " " +getMember().getLastname();
 	}
 }

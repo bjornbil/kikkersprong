@@ -1,28 +1,22 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import be.khleuven.bjornbillen.kikkersprong.controller.listadapter.CostumAttendanceListAdapter;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
-import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 
 import com.example.kikkersprong.R;
-import com.example.kikkersprong.R.id;
-import com.example.kikkersprong.R.layout;
-import com.example.kikkersprong.R.menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -50,7 +44,7 @@ public class AttendanceActivity extends Activity {
 		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		Bundle bundle = getIntent().getExtras();
 		int id = bundle.getInt("id");
-		Member m = getMemberController().getMember(id);
+		final Member m = getMemberController().getMember(id);
 		listView = (ListView) findViewById(R.id.listViewAttendance);
 		membername = (TextView) findViewById(R.id.membername);
 		// Defined Array values to show in ListView
@@ -71,7 +65,7 @@ public class AttendanceActivity extends Activity {
 				Attendance result = null;
 				String aanwezigheid = "Niet gevonden";
 				
-				for (Attendance a : getAttendanceController().getAttendances(getMemberController().getCurrentMemberID())){
+				for (Attendance a : getAttendanceController().getAttendances(m.getId())){
 					if (a.getStartdate().get(Calendar.DATE) == Integer.parseInt(datum.split("/")[2]) && (a.getStartdate().get(Calendar.MONTH)+1) == Integer.parseInt(datum.split("/")[1]) && a.getStartdate().get(Calendar.YEAR) == Integer.parseInt(datum.split("/")[0])){
 						result = a;
 					}
@@ -178,6 +172,9 @@ public class AttendanceActivity extends Activity {
 		for (int i = 0; i < attendances.size(); i++) {
 			Calendar date = attendances.get(i).getStartdate();
 			Calendar currentdate = Calendar.getInstance();
+			Log.d("test","" + date.get(Calendar.MONTH));
+				
+			
 			if (date.get(Calendar.MONTH) == currentdate.get(Calendar.MONTH))
 				valuelist.add(attendances.get(i).toString());
 			

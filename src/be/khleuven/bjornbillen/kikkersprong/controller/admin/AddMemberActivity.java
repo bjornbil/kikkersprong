@@ -1,27 +1,17 @@
 package be.khleuven.bjornbillen.kikkersprong.controller.admin;
 
 
-import java.io.IOException;
 import java.util.Calendar;
 
-import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
-import be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity;
-import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
-import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
-import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
-import com.example.kikkersprong.R.layout;
-import com.example.kikkersprong.R.menu;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -83,7 +73,7 @@ public class AddMemberActivity extends Activity implements OnClickListener {
 				month = Integer.parseInt(gebdatum.getText().toString().split("/")[1]);
 				year = Integer.parseInt(gebdatum.getText().toString().split("/")[2]);
 				dob.set(Calendar.DATE, day);
-				dob.set(Calendar.MONTH, month);
+				dob.set(Calendar.MONTH, month-1);
 				dob.set(Calendar.YEAR, year);
 				Intent i = new Intent(getApplicationContext(), AdminActivity.class);
 				String img;

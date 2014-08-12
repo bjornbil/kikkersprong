@@ -1,28 +1,15 @@
 package be.khleuven.bjornbillen.kikkersprong.controller.admin;
 
-import java.io.IOException;
-
-import be.khleuven.bjornbillen.kikkersprong.controller.AttendanceActivity;
-import be.khleuven.bjornbillen.kikkersprong.controller.BillsActivity;
 import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
-import be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
-import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
-import be.khleuven.bjornbillen.kikkersprong.model.Member;
-
 import com.example.kikkersprong.R;
-import com.example.kikkersprong.R.id;
-import com.example.kikkersprong.R.layout;
-import com.example.kikkersprong.R.menu;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -129,6 +116,7 @@ public class AdminActivity extends Activity implements OnClickListener {
 		getMemberController().update();
 		Intent setIntent = new Intent(getApplicationContext(),
 				MainActivity.class);
+		setIntent.putExtra("db","nietladen");
 		startActivity(setIntent);
 		AdminActivity.this.finish();
 	}

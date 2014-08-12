@@ -10,30 +10,18 @@ import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
-import com.example.kikkersprong.R.id;
-import com.example.kikkersprong.R.layout;
-import com.example.kikkersprong.R.menu;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.TextView;
 
-public class CheckinActivity extends Activity {
+public class CheckinActivity extends Activity implements OnTouchListener {
 	TextView checkstatus, checkdate, begroeting;
 	int id;
 	MemberDAO membercontroller;
@@ -77,7 +65,7 @@ public class CheckinActivity extends Activity {
 			}
 			Attendance nieuw = new Attendance(getAttendanceController().getSize(),
 					m, m.getLastcheckin(), enddate);
-			if (nieuw.getDuration() > 1) {
+			if (nieuw.getDuration() >= 1) {
 				getAttendanceController().addAttendance(nieuw);
 				getMemberController().update();
 			}
@@ -119,6 +107,18 @@ public class CheckinActivity extends Activity {
 		}
 		CheckinActivity.this.finish();
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@SuppressLint("ClickableViewAccessibility")
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		Intent i = new Intent(getApplicationContext(), MemberActivity.class);
+		i.putExtra("id", getMemberController().getCurrentMemberID());
+		i.putExtra("name",  getMemberController().getMember(id).getFirstname()
+				+ " " + getMemberController().getMember(id).getLastname());
+		startActivity(i);
+		CheckinActivity.this.finish();
+		return false;
 	}
 
 	

@@ -1,16 +1,9 @@
-package be.khleuven.bjornbillen.kikkersprong.controller;
+package be.khleuven.bjornbillen.kikkersprong.controller.listadapter;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-
+import be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 
 import com.example.kikkersprong.R;
@@ -22,8 +15,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.net.http.AndroidHttpClient;
-import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;

@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.khleuven.bjornbillen.kikkersprong.controller.CostumBillListAdapter;
-import be.khleuven.bjornbillen.kikkersprong.controller.CostumBillsAdapter;
-import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
-import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
+import be.khleuven.bjornbillen.kikkersprong.controller.listadapter.CostumBillsAdapter;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
@@ -71,15 +68,11 @@ public class ViewBillsActivity extends Activity {
 							// Show Alert
 				String datum = listView.getAdapter().getItem(position).toString().split(" ")[0];
 				String prijs = listView.getAdapter().getItem(position).toString().split(" ")[1];
-				double prijsdouble = Double.parseDouble(prijs);
-				
-				if (prijsdouble % 2 == 0){
-					int prijsrond = (int) Math.round(prijsdouble);
-					prijs = "€" + prijsrond ;
-				}
-				else {
-					prijs = "€" + prijs + "0";
-				}
+			    
+		        if (prijs.split(".").length > 1 && Integer.parseInt(prijs.split(".")[1]) == 0){
+		        	prijs = prijs.split(".")[0];
+		        }
+		       
 				Toast.makeText(getApplicationContext(),
 						"Datum : " + datum + " (" + prijs + ")",
 						Toast.LENGTH_LONG).show();

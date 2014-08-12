@@ -59,7 +59,7 @@ public class Bill {
 
 	public String getPaybeforeString() {
 		return getPaybefore().get(Calendar.YEAR) + "/"
-				+ getPaybefore().get(Calendar.MONTH) + "/"
+				+ (getPaybefore().get(Calendar.MONTH)+1) + "/"
 				+ getPaybefore().get(Calendar.DATE);
 	}
 
@@ -69,7 +69,7 @@ public class Bill {
 	
 	public String toString(){
 		return getPaybefore().get(Calendar.YEAR) + "/"
-				+ getPaybefore().get(Calendar.MONTH) + "/"
+				+ (getPaybefore().get(Calendar.MONTH)+1) + "/"
 				+ getPaybefore().get(Calendar.DATE) + " " + getAmount() + " " + isPaid() + " " + getMember().getFirstname() + " " + getMember().getLastname();
 	}
 

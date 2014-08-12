@@ -5,20 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import be.khleuven.bjornbillen.kikkersprong.controller.CostumMemberListAdapter;
-import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
-import be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity;
-import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
-import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
+import be.khleuven.bjornbillen.kikkersprong.controller.listadapter.CostumMemberListAdapter;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
-import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
-import com.example.kikkersprong.R.id;
-import com.example.kikkersprong.R.layout;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
