@@ -1,5 +1,6 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
@@ -33,25 +35,24 @@ import android.widget.AdapterView.OnItemClickListener;
 public class BillsActivity extends Activity {
 	ListView listView;
 	TextView membername, betaald;
-	BillDAO billcontroller;
-	MemberDAO membercontroller;
 	CostumBillListAdapter listadapter;
 	List<Bill> bills;
+	BillDAO billcontroller;
+	MemberDAO membercontroller;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bills);
-		billcontroller = new BillDAO(getApplicationContext());
-		membercontroller = new MemberDAO(getApplicationContext());
-		Bundle bundle = getIntent().getExtras();
-		int id = bundle.getInt("id");
-		membercontroller.setCurrentMemberID(id);
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
+		billcontroller = BillDAO.getInstance(getApplicationContext());
 		membername = (TextView) findViewById(R.id.billname);
 		betaald = (TextView) findViewById(R.id.betaald);
 		listView = (ListView) findViewById(R.id.listViewBills);
-		
-		bills = billcontroller.getBills(id);
-		membername.setText(membercontroller.getMember(id).getFirstname() + " " + membercontroller.getMember(id).getLastname());
+		Bundle bundle = getIntent().getExtras();
+		int id = bundle.getInt("id");
+		getMemberController().setCurrentMemberID(id);
+		bills = getBillController().getBills(id);
+		membername.setText(getMemberController().getMember(id).getFirstname() + " " + getMemberController().getMember(id).getLastname());
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -85,13 +86,18 @@ public class BillsActivity extends Activity {
 		listView.setAdapter(listadapter);
 	}
 	
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	public BillDAO getBillController(){
+		return billcontroller;
+	}
 	@Override
 	public void onBackPressed() {
 	   Log.d("CDA", "onBackPressed Called");
 	   Intent setIntent = new Intent(getApplicationContext(),MemberActivity.class);
-	   setIntent.putExtra("id", membercontroller.getCurrentMemberID());
-	   Member m = membercontroller.getMember(membercontroller.getCurrentMemberID());
-	   setIntent.putExtra("name", m.getFirstname() + " " + m.getLastname());
+	   setIntent.putExtra("id", getMemberController().getCurrentMemberID());
 	   startActivity(setIntent);
 	   BillsActivity.this.finish();
 	}

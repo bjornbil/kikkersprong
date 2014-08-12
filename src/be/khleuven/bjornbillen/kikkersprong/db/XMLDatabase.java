@@ -44,6 +44,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
 
+import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
@@ -58,19 +59,20 @@ import android.util.Xml;
 import android.widget.Toast;
 
 public class XMLDatabase {
-	private MemberDAO membercontroller;
-	private AttendanceDAO attendancecontroller;
-	private BillDAO billcontroller;
+	
 	private Context context;
 	static final String FTP_HOST = "http://r0258068.webontwerp.khleuven.be";
 	static final String FTP_USER = "r0258068";
 	static final String FTP_PASS = "Bejarn02";
-
+	private BillDAO billcontroller;
+	private MemberDAO membercontroller;
+	private AttendanceDAO attendancecontroller;
+	
 	public XMLDatabase(Context context) {
 		this.context = context;
-		membercontroller = new MemberDAO(context);
-		attendancecontroller = new AttendanceDAO(context);
-		billcontroller = new BillDAO(context);
+		membercontroller = MemberDAO.getInstance(context);
+		attendancecontroller = AttendanceDAO.getInstance(context);
+		billcontroller = BillDAO.getInstance(context);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -93,9 +95,9 @@ public class XMLDatabase {
 		serializer.setFeature(
 				"http://xmlpull.org/v1/doc/features.html#indent-output", true);
 
-		List<Member> members = membercontroller.getAllMembers();
-		List<Attendance> attendances = attendancecontroller.getAllAttendances();
-		List<Bill> bills = billcontroller.getAllBills();
+		List<Member> members = getMemberController().getAllMembers();
+		List<Attendance> attendances = getAttendanceController().getAllAttendances();
+		List<Bill> bills = getBillController().getAllBills();
 		serializer.startTag(null, "root");
 		for (Member m : members) {
 			serializer.startTag(null, "member");
@@ -174,6 +176,16 @@ public class XMLDatabase {
 		
 	}
 	
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	public AttendanceDAO getAttendanceController(){
+		return attendancecontroller;
+	}
+	public BillDAO getBillController(){
+		return billcontroller;
+	}
 	public void writeToFTP(String userName, String pass) {  
         boolean status = false;  
         try {
@@ -332,16 +344,15 @@ public class XMLDatabase {
 				}
 
 				Bill b = new Bill(id, amount,
-						membercontroller.getMember(memberid), paydate, ispaid);
-				if (billcontroller.hasBill(b)) {
-					billcontroller.updateBill(b);
+						getMemberController().getMember(memberid), paydate, ispaid);
+				if (getBillController().hasBill(b)) {
+					getBillController().updateBill(b);
 				} else {
-					billcontroller.addBill(b);
+					getBillController().addBill(b);
 				}
 			}
 		} catch (Exception e) {
-			Toast.makeText(context, "bill : " + e.toString(), Toast.LENGTH_LONG)
-					.show();
+			Log.d("ERROR","Exception bill : " + e.getMessage());
 		}
 	}
 
@@ -416,16 +427,16 @@ public class XMLDatabase {
 						.getTextContent();
 				Member m = new Member(id, firstname, lastname, birthday,
 						imgurl, ispresent, lastcheck);
-				if (membercontroller.existMember(firstname, lastname)) {
-					membercontroller.updateMember(m);
+				if (getMemberController().existMember(firstname, lastname)) {
+					getMemberController().updateMember(m);
 				} else {
-					membercontroller.addMember(m);
+					getMemberController().addMember(m);
 				}
 
 			}
 
 		} catch (Exception e) {
-			Toast.makeText(context, "member : " + e, Toast.LENGTH_LONG).show();
+			Log.d("ERROR","Exception member : " + e.getMessage());
 		}
 	}
 
@@ -523,18 +534,18 @@ public class XMLDatabase {
 								.getTextContent().split(" ")[1].split(":")[2]));
 
 				Attendance a = new Attendance(id,
-						membercontroller.getMember(memberid), startdate,
+						getMemberController().getMember(memberid), startdate,
 						enddate);
-				if (attendancecontroller.hasAttendance(a)) {
-					attendancecontroller.updateAttendance(a);
+				if (getAttendanceController().hasAttendance(a)) {
+					getAttendanceController().updateAttendance(a);
 				} else {
-					attendancecontroller.addAttendance(a);
+					getAttendanceController().addAttendance(a);
 				}
 
 			}
 
 		} catch (Exception e) {
-			System.out.println("XML Pasing Excpetion = " + e);
+			Log.d("ERROR","Exception att : " + e.getMessage());
 		}
 	}
 }

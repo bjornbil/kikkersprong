@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import be.khleuven.bjornbillen.kikkersprong.controller.AttendanceActivity;
 import be.khleuven.bjornbillen.kikkersprong.controller.BillsActivity;
+import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
+import be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
@@ -18,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,20 +30,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AdminActivity extends Activity implements OnClickListener {
-	MemberDAO membercontroller; 
-	AttendanceDAO attendancecontroller;
-	BillDAO billcontroller;
+	
 	TextView adminnaam;
 	Button addmember, viewmembers, viewbills, viewattendances, editmembers;
+	MemberDAO membercontroller;
+	AttendanceDAO attendancecontroller;
+	BillDAO billcontroller;
 	
 	@SuppressLint("ShowToast")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_admin);
-		membercontroller = new MemberDAO(getApplicationContext());
-		attendancecontroller = new AttendanceDAO(getApplicationContext());
-		billcontroller = new BillDAO(getApplicationContext());
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
+		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());
+		billcontroller = BillDAO.getInstance(getApplicationContext());
 		adminnaam = (TextView) findViewById(R.id.adminnaam);
 		addmember = (Button) findViewById(R.id.add_member);
 		viewmembers = (Button) findViewById(R.id.view_members);
@@ -53,8 +57,6 @@ public class AdminActivity extends Activity implements OnClickListener {
 		viewmembers.setOnClickListener(this);
 		addmember.setOnClickListener(this);
 		Bundle bundle = getIntent().getExtras();
-		int id = bundle.getInt("id");
-		membercontroller.setCurrentMemberID(id);
 		String naam = bundle.getString("name");
 		if (bundle.getString("updatetext") != null){
 		String update = bundle.getString("updatetext");
@@ -63,6 +65,17 @@ public class AdminActivity extends Activity implements OnClickListener {
 		}
 		adminnaam.setText(naam);
 			
+	}
+	
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	public AttendanceDAO getAttendanceController(){
+		return attendancecontroller;
+	}
+	public BillDAO getBillController(){
+		return billcontroller;
 	}
 
 	@Override
@@ -83,13 +96,6 @@ public class AdminActivity extends Activity implements OnClickListener {
 			AdminActivity.this.finish();
 			break;
 		case R.id.view_members:
-			XMLDatabase xml = new XMLDatabase(getApplicationContext());
-			try {
-				xml.loadFromXML();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			Intent i2 = new Intent(getApplicationContext(),
 					ViewMembersActivity.class);
 			i2.putExtra("name", adminnaam.getText());
@@ -97,6 +103,7 @@ public class AdminActivity extends Activity implements OnClickListener {
 			AdminActivity.this.finish();
 			break;
 		case R.id.view_bet:
+		
 			Intent i3 = new Intent(getApplicationContext(),
 					ViewBillsActivity.class);
 			i3.putExtra("name", adminnaam.getText());
@@ -104,6 +111,7 @@ public class AdminActivity extends Activity implements OnClickListener {
 			AdminActivity.this.finish();
 			break;
 		case R.id.view_aanw:
+			
 			Intent i4 = new Intent(getApplicationContext(),
 					ViewAttendancesActivity.class);
 			i4.putExtra("name", adminnaam.getText());
@@ -117,5 +125,11 @@ public class AdminActivity extends Activity implements OnClickListener {
 			AdminActivity.this.finish();
 	}
 	}
-
+	public void onBackPressed() {
+		getMemberController().update();
+		Intent setIntent = new Intent(getApplicationContext(),
+				MainActivity.class);
+		startActivity(setIntent);
+		AdminActivity.this.finish();
+	}
 }

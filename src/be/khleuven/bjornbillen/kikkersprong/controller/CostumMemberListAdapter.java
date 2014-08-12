@@ -11,6 +11,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 
+import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+
 import com.example.kikkersprong.R;
 
 import android.annotation.SuppressLint;
@@ -36,11 +38,12 @@ public class CostumMemberListAdapter extends BaseAdapter {
 
 	Context mContext;
 	List<String> mList;
-	
+	MemberDAO membercontroller;
 
 	public CostumMemberListAdapter(Context context, List<String> list) {
 		mList = list;
 		mContext = context;
+		membercontroller = MemberDAO.getInstance(context);
 	}
 
 	@Override
@@ -106,9 +109,8 @@ public class CostumMemberListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(view.getContext(), MemberActivity.class);
-				Log.d("idcostum","id costum : " + memberid);
 				i.putExtra("id", memberid);
-				i.putExtra("name",membername);
+				i.putExtra("name", membername);
 				parent.getContext().startActivity(i);
 				((Activity) parent.getContext()).finish();
 
@@ -130,6 +132,10 @@ public class CostumMemberListAdapter extends BaseAdapter {
 		});
 		
 		return view;
+	}
+	
+	public MemberDAO getMemberController(){
+		return membercontroller;
 	}
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		  ImageView bmImage;

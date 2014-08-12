@@ -26,14 +26,24 @@ public class MemberDAO  {
 	private static final String MEMBER_LASTCHECK = "checkin";
 	private int currentid;
 	private MySQLiteHelper db;
+	private static MemberDAO membercontroller;
+	private Context context;
 
 	private static final String[] MEMBER_COLUMNS = { MEMBER_ID, MEMBER_NAME,
 			MEMBER_DOB, MEMBER_IMAGEURL, MEMBER_PRESENT, MEMBER_LASTCHECK };
 
 	public MemberDAO(Context context) {
 		db = new MySQLiteHelper(context);
-		
+		this.context = context;
 	}
+	
+	public static MemberDAO getInstance(Context context){
+		if (membercontroller == null){
+			membercontroller = new MemberDAO(context);
+		}
+		return membercontroller;
+	}
+	
 	
 	public int getSize(){
 		return getAllMembers().size();
@@ -70,8 +80,18 @@ public class MemberDAO  {
 
 	public Member getMember(int id) {
 		return (Member) db.getObject(id, TABLE_MEMBERS, MEMBER_COLUMNS);
+		
 	}
 
+	public void update(){
+		XMLDatabase xml = new XMLDatabase(context);
+		try {
+			xml.writetoXML();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public List<Member> getAllMembers() {
 		List<Object> members = db.getAllObjects(TABLE_MEMBERS);
 		List<Member> resmembers = new ArrayList<Member>();
@@ -119,7 +139,6 @@ public class MemberDAO  {
 	// Deleting
 	public void deleteMember(int id) {
 		db.deleteObject(TABLE_MEMBERS, MEMBER_ID, id);
-
 	}
 
 }

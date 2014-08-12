@@ -24,13 +24,25 @@ public class AttendanceDAO {
 	private static final String ATTENDANCE_END = "end";
 	private MySQLiteHelper db;
 	private BillDAO billcontroller;
+	private static AttendanceDAO attendancecontroller;
+	private Context context;
 	
 	private static final String[] ATTENDANCE_COLUMNS = { ATTENDANCE_ID,
 			ATTENDANCE_MEMBERID, ATTENDANCE_START, ATTENDANCE_END };
 
 	public AttendanceDAO(Context context) {
 		db = new MySQLiteHelper(context);
-		billcontroller = new BillDAO(context);
+		this.context = context;
+		billcontroller = BillDAO.getInstance(context);
+		billcontroller.setPricePerHour(3.5);
+	}
+	
+	public static AttendanceDAO getInstance(Context context){
+		if (attendancecontroller == null){
+			attendancecontroller = new AttendanceDAO(context);
+		}
+	
+		return attendancecontroller;
 	}
 	
 	public int getSize(){
@@ -70,6 +82,7 @@ public class AttendanceDAO {
 			month = attendance.getEnddate().get(Calendar.MONTH);
 			day= attendance.getEnddate().get(Calendar.DATE);
 		} 
+		Calendar vorigemaand = Calendar.getInstance();
 		if (month != -1){
 			for (Attendance a : getAttendances(attendance.getMember().getId())){
 				if (a.getStartdate().get(Calendar.MONTH) == month){
@@ -80,30 +93,47 @@ public class AttendanceDAO {
 			if (prijs > 0){
 			billcontroller.addBill(new Bill(billcontroller.getSize(),prijs,attendance.getMember(),attendance.getEnddate(),false));
 			}
+			vorigemaand.set(Calendar.MONTH, month);
+			if (day == 30){
+				vorigemaand.set(Calendar.DATE, 31);
+			}
+			else if (day == 31 && Calendar.MARCH != month){
+				vorigemaand.set(Calendar.DATE, 30);
+			}
+			else if (Calendar.MARCH == month){
+				vorigemaand.set(Calendar.DATE,28);
+			}
+			vorigemaand.add(Calendar.MONTH, -1);
 		}
-		int thismonth = Calendar.getInstance().get(Calendar.MONTH);
+		else{
+			while (vorigemaand.get(Calendar.MONTH) != attendance.getStartdate().get(Calendar.MONTH)){
+				vorigemaand.add(Calendar.MONTH, -1);
+			}
+		vorigemaand.add(Calendar.MONTH, -1);
 		boolean rekeningbestaat = false;
 		for (Bill b : billcontroller.getBills(attendance.getMember().getId())){
-			if (b.getPaybefore().get(Calendar.MONTH) == thismonth - 1){
+			if (b.getPaybefore().get(Calendar.MONTH) == vorigemaand.get(Calendar.MONTH)){
 				rekeningbestaat = true;
 			}
 		}
+		// maak vorige maand aan in geval prijs > 0 en dus aanwezigheden > 0 in die maand
+		// indien nog geen rekening bestaande op deze maand
 		if (!rekeningbestaat){
 			for (Attendance a : getAttendances(attendance.getMember().getId())){
-				if (a.getStartdate().get(Calendar.MONTH) == thismonth - 1){
+				
+				if (a.getStartdate().get(Calendar.MONTH) == vorigemaand.get(Calendar.MONTH)){
 					totaaluren += a.getDuration();
 				}
 			}
 			double prijs = totaaluren * billcontroller.getPricePerHour();
-			Calendar paydate = Calendar.getInstance();
-			while (paydate.get(Calendar.MONTH) != thismonth - 1){
-				paydate.add(Calendar.DATE, -1);
-			}
+						
 			if (prijs > 0){
-				billcontroller.addBill(new Bill(billcontroller.getSize(),prijs,attendance.getMember(),paydate,false));
+				billcontroller.addBill(new Bill(billcontroller.getSize(),prijs,attendance.getMember(),vorigemaand,false));
 			}
 			
 		}
+		}
+		
 		
 	}
 
@@ -135,7 +165,7 @@ public class AttendanceDAO {
 
 	// Updating
 	public void updateAttendance(Attendance att) {
-
+		
 		ContentValues values = new ContentValues();
 		values.put(ATTENDANCE_ID, att.getId());
 		values.put(ATTENDANCE_MEMBERID, att.getMember().getId());
@@ -143,6 +173,16 @@ public class AttendanceDAO {
 		values.put(ATTENDANCE_END, att.getEnddateString());
 		db.updateObject(TABLE_ATTENDANCES, ATTENDANCE_ID, values,
 				att.getId());
+	}
+	
+	public void update(){
+		XMLDatabase xml = new XMLDatabase(context);
+		try {
+			xml.writetoXML();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

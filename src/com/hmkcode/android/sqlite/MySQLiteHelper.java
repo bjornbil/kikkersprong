@@ -129,9 +129,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				MEMBER_COLUMNS));
 		String datevalue = cursor.getString(cursor.getColumnIndex("paydate"));
 		int day,month,year;
-		day = Integer.parseInt(datevalue.split("/")[0]);
+		year = Integer.parseInt(datevalue.split("/")[0]);
 		month = Integer.parseInt(datevalue.split("/")[1]);
-		year = Integer.parseInt(datevalue.split("/")[2]);
+		day = Integer.parseInt(datevalue.split("/")[2]);
 		Calendar paydate = Calendar.getInstance();
 		paydate.set(Calendar.DATE, day);
 		paydate.set(Calendar.MONTH,month);
@@ -145,7 +145,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		else {
 			bill.setPaid(false);
 		}
-		bill.setAmount(Integer.parseInt(cursor.getString(cursor.getColumnIndex("amount"))));
+		bill.setAmount(Double.parseDouble(cursor.getString(cursor.getColumnIndex("amount"))));
 		return bill;
 	}
 	private Member pullStringMember(Cursor cursor) {

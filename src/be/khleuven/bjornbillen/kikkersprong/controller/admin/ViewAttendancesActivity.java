@@ -1,5 +1,6 @@
 package be.khleuven.bjornbillen.kikkersprong.controller.admin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -8,10 +9,12 @@ import be.khleuven.bjornbillen.kikkersprong.controller.AttendanceActivity;
 import be.khleuven.bjornbillen.kikkersprong.controller.CostumAttendanceListAdapter;
 import be.khleuven.bjornbillen.kikkersprong.controller.CostumAttendancesAdapter;
 import be.khleuven.bjornbillen.kikkersprong.controller.CostumBillsAdapter;
+import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
 import be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
@@ -35,28 +38,35 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ViewAttendancesActivity extends Activity {
-	AttendanceDAO attendancecontroller;
-	MemberDAO membercontroller;
+	
 	ListView listView;
 	RelativeLayout layout;
 	CostumAttendancesAdapter listadapter;
 	List<Attendance> attendances;
 	TextView adminnaam;
 	Spinner selectperiod;
-	
+	MemberDAO membercontroller;
+	AttendanceDAO attendancecontroller;
 	@SuppressLint("ResourceAsColor")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_attendance);
-		attendancecontroller = new AttendanceDAO(getApplicationContext());
-		membercontroller = new MemberDAO(getApplicationContext());
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
+		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());
+		XMLDatabase xml = new XMLDatabase(getApplicationContext());
+		try {
+			xml.loadFromXML();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		listView = (ListView) findViewById(R.id.listViewAttendance);
 		layout = (RelativeLayout) findViewById(R.id.aanwlayout);
 		layout.setBackgroundResource(R.color.infcolor);
 		adminnaam = (TextView) findViewById(R.id.membername);
 		selectperiod = (Spinner) findViewById(R.id.spinner1);
-		attendances = attendancecontroller.getAllAttendances();
+		attendances = getAttendanceController().getAllAttendances();
 		List<String> valuelist = new ArrayList<String>();
 		for (Attendance a : attendances){
 			valuelist.add(a.toString());
@@ -127,6 +137,15 @@ public class ViewAttendancesActivity extends Activity {
 	        );
 	}
 	
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	public AttendanceDAO getAttendanceController(){
+		return attendancecontroller;
+	}
+	
+	
 	private void showThisWeek(){
 		List<String> valuelist = new ArrayList<String>();
 		for (int i = 0; i < attendances.size(); i++) {
@@ -184,7 +203,6 @@ public class ViewAttendancesActivity extends Activity {
 	public void onBackPressed() {
 	   Log.d("CDA", "onBackPressed Called");
 	   Intent setIntent = new Intent(getApplicationContext(),AdminActivity.class);
-	   setIntent.putExtra("id",membercontroller.getCurrentMemberID());
 	   setIntent.putExtra("name", adminnaam.getText().toString());
 	   startActivity(setIntent);
 	   ViewAttendancesActivity.this.finish();

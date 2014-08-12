@@ -55,17 +55,13 @@ public class CostumBillsAdapter extends BaseAdapter {
         String prijs = "";
         date.setText(mList.get(position).split(" ")[0]);
         double prijsdouble = Double.parseDouble(mList.get(position).split(" ")[1]);
-        if (prijsdouble % 2 == 0){
-			int prijsrond = (int) Math.round(prijsdouble);
-			prijs = "€ " + prijsrond ;
-		}
-		else {
-			prijs = "€ " + prijs + "0";
-		}
-        
-        hours.setText(prijs);
+        prijs = Double.toString(prijsdouble);
+        if (prijs.split(".").length > 1 && Integer.parseInt(prijs.split(".")[1]) == 0){
+        	prijs = prijs.split(".")[0];
+        }
+        hours.setText("€" + prijs);
         String betaald = mList.get(position).split(" ")[2];
-        Log.d("ok",betaald);
+        
         if (betaald.equals("true")){
         imgview.setImageResource(R.drawable.ic_ispaid);
         }

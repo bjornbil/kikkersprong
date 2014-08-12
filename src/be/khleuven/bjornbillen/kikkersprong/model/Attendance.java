@@ -78,6 +78,6 @@ public class Attendance {
 	}
 	public String toString(){
 		int duration = getDuration();
-		return getStartdate().get(Calendar.YEAR) + "/" + (getStartdate().get(Calendar.MONTH)+1) + "/" + getStartdate().get(Calendar.DATE) + " " + duration + "u" + " " + getMember().getFirstname() + " " +getMember().getLastname();
+		return getStartdate().get(Calendar.YEAR) + "/" + (getStartdate().get(Calendar.MONTH)) + "/" + getStartdate().get(Calendar.DATE) + " " + duration + "u" + " " + getMember().getFirstname() + " " +getMember().getLastname();
 	}
 }

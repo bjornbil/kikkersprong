@@ -35,9 +35,9 @@ import android.widget.TextView;
 
 public class CheckinActivity extends Activity {
 	TextView checkstatus, checkdate, begroeting;
+	int id;
 	MemberDAO membercontroller;
 	AttendanceDAO attendancecontroller;
-
 	@SuppressLint("ResourceAsColor")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +45,13 @@ public class CheckinActivity extends Activity {
 		setContentView(R.layout.activity_checkin);
 		checkstatus = (TextView) findViewById(R.id.checkstatus);
 		begroeting = (TextView) findViewById(R.id.begroeting);
-		membercontroller = new MemberDAO(getApplicationContext());
-		attendancecontroller = new AttendanceDAO(getApplicationContext());
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
+		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());	
 		Bundle bundle = getIntent().getExtras();
 		int id = bundle.getInt("id");
-		membercontroller.setCurrentMemberID(id);
-		Member m = membercontroller.getMember(id);
+		this.id = id;
+		getMemberController().setCurrentMemberID(id);
+		Member m = getMemberController().getMember(id);
 		if (m.isPresent() == true) {
 
 			checkstatus.setTextColor(Color.GREEN);
@@ -62,20 +63,8 @@ public class CheckinActivity extends Activity {
 				begroeting.setText("Goeiedag, je bent nu");
 			}
 			m.setLastcheckin(startdate);
-			membercontroller.updateMember(m);
-			XMLDatabase xml = new XMLDatabase(getApplicationContext());
-			try {
-				xml.writetoXML();
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			getMemberController().updateMember(m);
+			
 
 		} else {
 			checkstatus.setTextColor(Color.RED);
@@ -86,69 +75,52 @@ public class CheckinActivity extends Activity {
 			} else {
 				begroeting.setText("Goede avond, je bent nu");
 			}
-			Attendance nieuw = new Attendance(attendancecontroller.getSize(),
+			Attendance nieuw = new Attendance(getAttendanceController().getSize(),
 					m, m.getLastcheckin(), enddate);
 			if (nieuw.getDuration() > 1) {
-				attendancecontroller.addAttendance(nieuw);
-				XMLDatabase xml = new XMLDatabase(getApplicationContext());
-				try {
-					xml.writetoXML();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				getAttendanceController().addAttendance(nieuw);
+				getMemberController().update();
 			}
-			
+
+		}
+		XMLDatabase xml = new XMLDatabase(getApplicationContext());
+		try {
+			xml.writetoXML();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		checkstatus.invalidate();
+	}
+	
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	public AttendanceDAO getAttendanceController(){
+		return attendancecontroller;
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			Intent i = new Intent(getApplicationContext(), MemberActivity.class);
-			i.putExtra("id", membercontroller.getCurrentMemberID());
-			i.putExtra(
-					"name",
-					membercontroller.getMember(
-							membercontroller.getCurrentMemberID())
-							.getFirstname()
-							+ " "
-							+ membercontroller.getMember(
-									membercontroller.getCurrentMemberID())
-									.getLastname());
+			i.putExtra("id", getMemberController().getCurrentMemberID());
+			i.putExtra("name",  getMemberController().getMember(id).getFirstname()
+					+ " " + getMemberController().getMember(id).getLastname());
 			startActivity(i);
 		}
 		CheckinActivity.this.finish();
 		return super.onKeyDown(keyCode, event);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.checkin, menu);
-		checkstatus = (TextView) findViewById(R.id.checkstatus);
-		membercontroller = new MemberDAO(getApplicationContext());
-
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+	
+	
 }

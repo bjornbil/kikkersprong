@@ -58,9 +58,9 @@ public class Bill {
 	}
 
 	public String getPaybeforeString() {
-		return getPaybefore().get(Calendar.DATE) + "/"
+		return getPaybefore().get(Calendar.YEAR) + "/"
 				+ getPaybefore().get(Calendar.MONTH) + "/"
-				+ getPaybefore().get(Calendar.YEAR);
+				+ getPaybefore().get(Calendar.DATE);
 	}
 
 	public void setPaybefore(Calendar paybefore) {
@@ -68,9 +68,9 @@ public class Bill {
 	}
 	
 	public String toString(){
-		return getPaybefore().get(Calendar.DATE) + "/"
+		return getPaybefore().get(Calendar.YEAR) + "/"
 				+ getPaybefore().get(Calendar.MONTH) + "/"
-				+ getPaybefore().get(Calendar.YEAR) + " " + getAmount() + " " + isPaid() + " " + getMember().getFirstname() + " " + getMember().getLastname();
+				+ getPaybefore().get(Calendar.DATE) + " " + getAmount() + " " + isPaid() + " " + getMember().getFirstname() + " " + getMember().getLastname();
 	}
 
 }

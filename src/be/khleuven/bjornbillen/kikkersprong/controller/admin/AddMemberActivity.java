@@ -6,6 +6,8 @@ import java.util.Calendar;
 
 import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
 import be.khleuven.bjornbillen.kikkersprong.controller.MemberActivity;
+import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
@@ -28,15 +30,14 @@ import android.widget.Toast;
 
 public class AddMemberActivity extends Activity implements OnClickListener {
 	Button addbutton;
-	MemberDAO membercontroller;
 	EditText naam, gebdatum, imgurl;
 	String adminnaam;
-	
+	MemberDAO membercontroller;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_member);
-		membercontroller = new MemberDAO(getApplicationContext());
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		addbutton = (Button) findViewById(R.id.edit_member_button);
 		
 		naam = (EditText) findViewById(R.id.input_naam);
@@ -47,7 +48,11 @@ public class AddMemberActivity extends Activity implements OnClickListener {
 		adminnaam = b.getString("name");
 	}
 	
-
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -59,7 +64,6 @@ public class AddMemberActivity extends Activity implements OnClickListener {
 	public void onBackPressed() {
 	   Log.d("CDA", "onBackPressed Called");
 	   Intent setIntent = new Intent(getApplicationContext(),AdminActivity.class);
-	   setIntent.putExtra("id", membercontroller.getCurrentMemberID());
 	   setIntent.putExtra("name", adminnaam);
 	   startActivity(setIntent);
 	   AddMemberActivity.this.finish();
@@ -89,28 +93,15 @@ public class AddMemberActivity extends Activity implements OnClickListener {
 				else {
 					img = imgurl.getText().toString();
 				}
-				if (!membercontroller.existMember(firstname,lastname)){
+				if (!getMemberController().existMember(firstname,lastname)){
 					
-				membercontroller.addMember(new Member(membercontroller.getSize(),firstname, lastname,dob,img,false,Calendar.getInstance()));
+					getMemberController().addMember(new Member(getMemberController().getSize(),firstname, lastname,dob,img,false,Calendar.getInstance()));
 				i.putExtra("updatetext", firstname + " Succesvol toegevoegd");
-				XMLDatabase xml = new XMLDatabase(getApplicationContext());
-				try {
-					xml.writetoXML();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				getMemberController().update();
 				}
 				else{
 					i.putExtra("updatetext", "Dit kind staat al in de database");
 				}
-				i.putExtra("id", membercontroller.getCurrentMemberID());
 				i.putExtra("name", adminnaam);
 				startActivity(i);
 				

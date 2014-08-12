@@ -1,12 +1,16 @@
 package be.khleuven.bjornbillen.kikkersprong.controller.admin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import be.khleuven.bjornbillen.kikkersprong.controller.CostumBillListAdapter;
 import be.khleuven.bjornbillen.kikkersprong.controller.CostumBillsAdapter;
+import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
+import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Bill;
 
 import com.example.kikkersprong.R;
@@ -26,26 +30,34 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ViewBillsActivity extends Activity {
-	BillDAO billcontroller;
-	MemberDAO membercontroller;
+	
 	ListView listView;
 	RelativeLayout layout;
 	CostumBillsAdapter listadapter;
 	List<Bill> bills;
 	TextView adminnaam;
+	BillDAO billcontroller;
+	MemberDAO membercontroller;
 	
 	@SuppressLint("ResourceAsColor")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bills);
-		billcontroller = new BillDAO(getApplicationContext());
-		membercontroller = new MemberDAO(getApplicationContext());
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
+		billcontroller = BillDAO.getInstance(getApplicationContext());
+		XMLDatabase xml = new XMLDatabase(getApplicationContext());
+		try {
+			xml.loadFromXML();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		listView = (ListView) findViewById(R.id.listViewBills);
 		layout = (RelativeLayout) findViewById(R.id.rekeningenlayout);
 		layout.setBackgroundResource(R.color.infcolor);
 		adminnaam = (TextView) findViewById(R.id.billname);
-		bills = billcontroller.getAllBills();
+		bills = getBillController().getAllBills();
 		List<String> valuelist = new ArrayList<String>();
 		for (Bill b : bills){
 			valuelist.add(b.toString());
@@ -81,11 +93,19 @@ public class ViewBillsActivity extends Activity {
 		adminnaam.setText(b.getString("name"));
 	}
 	
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	
+	public BillDAO getBillController(){
+		return billcontroller;
+	}
+	
 	@Override
 	public void onBackPressed() {
 	   Log.d("CDA", "onBackPressed Called");
 	   Intent setIntent = new Intent(getApplicationContext(),AdminActivity.class);
-	   setIntent.putExtra("id",membercontroller.getCurrentMemberID());
 	   setIntent.putExtra("name", adminnaam.getText().toString());
 	   startActivity(setIntent);
 	   ViewBillsActivity.this.finish();

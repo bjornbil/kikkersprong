@@ -1,11 +1,13 @@
 package be.khleuven.bjornbillen.kikkersprong.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Attendance;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
@@ -34,30 +36,29 @@ public class AttendanceActivity extends Activity {
 	ListView listView;
 	TextView membername, aanwezigheden;
 	Spinner selectperiod;
-	AttendanceDAO attendancecontroller;
-	MemberDAO membercontroller;
 	CostumAttendanceListAdapter listadapter;
 	String[] values;
 	List<Attendance> attendances;
 	ArrayAdapter<String> adapter;
+	AttendanceDAO attendancecontroller;
+	MemberDAO membercontroller;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_attendance);
-		attendancecontroller = new AttendanceDAO(getApplicationContext());
-		membercontroller = new MemberDAO(getApplicationContext());
-		Bundle b = getIntent().getExtras();
-		int id = b.getInt("id");
-		membercontroller.setCurrentMemberID(id);
-		Member m = membercontroller.getMember(id);
+		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
+		Bundle bundle = getIntent().getExtras();
+		int id = bundle.getInt("id");
+		Member m = getMemberController().getMember(id);
 		listView = (ListView) findViewById(R.id.listViewAttendance);
 		membername = (TextView) findViewById(R.id.membername);
 		// Defined Array values to show in ListView
 		selectperiod = (Spinner) findViewById(R.id.spinner1);
 		attendances = new ArrayList<Attendance>();
-		membername.setText(membercontroller.getMember(id).getFirstname() + " " + membercontroller.getMember(id).getLastname());
+		membername.setText(getMemberController().getMember(id).getFirstname() + " " + getMemberController().getMember(id).getLastname());
 	
-		attendances = attendancecontroller.getAttendances(membercontroller.getCurrentMemberID());
+		attendances = getAttendanceController().getAttendances(getMemberController().getCurrentMemberID());
 		showAll();
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -70,7 +71,7 @@ public class AttendanceActivity extends Activity {
 				Attendance result = null;
 				String aanwezigheid = "Niet gevonden";
 				
-				for (Attendance a : attendancecontroller.getAttendances(membercontroller.getCurrentMemberID())){
+				for (Attendance a : getAttendanceController().getAttendances(getMemberController().getCurrentMemberID())){
 					if (a.getStartdate().get(Calendar.DATE) == Integer.parseInt(datum.split("/")[2]) && (a.getStartdate().get(Calendar.MONTH)+1) == Integer.parseInt(datum.split("/")[1]) && a.getStartdate().get(Calendar.YEAR) == Integer.parseInt(datum.split("/")[0])){
 						result = a;
 					}
@@ -122,6 +123,14 @@ public class AttendanceActivity extends Activity {
 	        );
 	}
 	
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	public AttendanceDAO getAttendanceController(){
+		return attendancecontroller;
+	}
+	
 	private void showThisWeek(){
 		List<String> valuelist = new ArrayList<String>();
 		for (int i = 0; i < attendances.size(); i++) {
@@ -159,9 +168,7 @@ public class AttendanceActivity extends Activity {
 	public void onBackPressed() {
 	   Log.d("CDA", "onBackPressed Called");
 	   Intent setIntent = new Intent(getApplicationContext(),MemberActivity.class);
-	   setIntent.putExtra("id", membercontroller.getCurrentMemberID());
-	   Member m = membercontroller.getMember(membercontroller.getCurrentMemberID());
-	   setIntent.putExtra("name", m.getFirstname() + " " + m.getLastname());
+	   setIntent.putExtra("id", getMemberController().getCurrentMemberID());
 	   startActivity(setIntent);
 	   AttendanceActivity.this.finish();
 	}

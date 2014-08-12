@@ -26,13 +26,25 @@ public class BillDAO  {
 	private static final String BILL_PAID = "ispaid";
 	private MySQLiteHelper db;
 	private double priceperhour = 10.0;
+	private static BillDAO billcontroller;
+	private Context context;
+
 
 	private static final String[] BILL_COLUMNS = { BILL_ID, BILL_AMOUNT, BILL_MEMBERID,
 			BILL_PAYDATE, BILL_PAID };
 
 	public BillDAO(Context context) {
 		db = new MySQLiteHelper(context);
+		this.context = context;
 	}
+	
+	public static BillDAO getInstance(Context context){
+		if (billcontroller == null){
+			billcontroller = new BillDAO(context);
+		}
+		return billcontroller;
+	}
+	
 	
 	public int getSize(){
 		return getAllBills().size();
@@ -46,6 +58,22 @@ public class BillDAO  {
 	public double getPricePerHour(){
 		return priceperhour;
 	}
+	
+	public void update(){
+		XMLDatabase xml = new XMLDatabase(context);
+		try {
+			xml.writetoXML();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void addBill(Bill bill) {
 		if (bill == null) {
@@ -57,7 +85,7 @@ public class BillDAO  {
 		values.put(BILL_PAYDATE, bill.getPaybeforeString());
 		values.put(BILL_PAID, bill.isPaid());
 		db.addObject(TABLE_BILLS, values);
-		
+
 	}
 	
 	public boolean hasBill(Bill b){
@@ -84,6 +112,7 @@ public class BillDAO  {
 		}
 		return memberbills;
 	}
+	
 	public List<Bill> getAllBills() {
 		List<Object> billobjects = db.getAllObjects(TABLE_BILLS);
 		List<Bill> bills = new ArrayList<Bill>();
@@ -106,7 +135,7 @@ public class BillDAO  {
 		values.put(BILL_PAID, bill.isPaid());
 
 		db.updateObject(TABLE_BILLS, BILL_ID, values, bill.getId());
-		
+	
 	}
 
 	// Deleting

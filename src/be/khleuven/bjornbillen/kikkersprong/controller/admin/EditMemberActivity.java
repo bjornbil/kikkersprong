@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
+import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
+import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
@@ -31,17 +34,16 @@ import android.widget.Toast;
 
 public class EditMemberActivity extends Activity implements OnClickListener {
 	Button editbutton;
-	MemberDAO membercontroller;
 	EditText naam, gebdatum, imgurl;
 	String adminnaam;
 	Spinner selectmember;
+	MemberDAO membercontroller;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_member);
-		membercontroller = new MemberDAO(getApplicationContext());
 		editbutton = (Button) findViewById(R.id.edit_member_button);
-		
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		naam = (EditText) findViewById(R.id.input_naam);
 		gebdatum = (EditText) findViewById(R.id.input_gebdatum);
 		imgurl = (EditText) findViewById(R.id.input_imgurl);
@@ -49,9 +51,9 @@ public class EditMemberActivity extends Activity implements OnClickListener {
 		editbutton.setOnClickListener(this);
 		Bundle b = getIntent().getExtras();
 		adminnaam = b.getString("name");
-		String[] spinnerdata = new String[membercontroller.getSize()];
-		List<Member> members = membercontroller.getAllMembers();
-		for (int i = 0; i < membercontroller.getSize(); i++){
+		String[] spinnerdata = new String[getMemberController().getSize()];
+		List<Member> members = getMemberController().getAllMembers();
+		for (int i = 0; i < getMemberController().getSize(); i++){
 			spinnerdata[i] = members.get(i).getFirstname() + " " + members.get(i).getLastname();
 		}
 
@@ -66,7 +68,7 @@ public class EditMemberActivity extends Activity implements OnClickListener {
 	                @Override
 	                public void onItemSelected(AdapterView<?> arg0, View arg1,
 	                        int index, long arg3) {
-	                	Member m = membercontroller.getMember(index);
+	                	Member m = getMemberController().getMember(index);
 	                	naam.setText(m.getFirstname() + " " + m.getLastname());
 	                	Calendar bday = m.getBirthday();
 	                	gebdatum.setText(bday.get(Calendar.DATE)+"/"+bday.get(Calendar.MONTH)+"/"+bday.get(Calendar.YEAR));
@@ -83,6 +85,11 @@ public class EditMemberActivity extends Activity implements OnClickListener {
 	        );
 	}
 
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -93,7 +100,6 @@ public class EditMemberActivity extends Activity implements OnClickListener {
 	public void onBackPressed() {
 		   Log.d("CDA", "onBackPressed Called");
 		   Intent setIntent = new Intent(getApplicationContext(),AdminActivity.class);
-		   setIntent.putExtra("id", membercontroller.getCurrentMemberID());
 		   setIntent.putExtra("name", adminnaam);
 		   startActivity(setIntent);
 		   EditMemberActivity.this.finish();
@@ -122,31 +128,18 @@ public class EditMemberActivity extends Activity implements OnClickListener {
 				else {
 					img = imgurl.getText().toString();
 				}
-				if (membercontroller.existMember(firstname,lastname)){
+				if (getMemberController().existMember(firstname,lastname)){
 			    int id = selectmember.getSelectedItemPosition();
-				membercontroller.updateMember(new Member(id,firstname, lastname,dob,img,false,Calendar.getInstance()));
+			    getMemberController().updateMember(new Member(id,firstname, lastname,dob,img,false,Calendar.getInstance()));
 				i.putExtra("updatetext", firstname + " Succesvol gewijzigd");
-				XMLDatabase xml = new XMLDatabase(getApplicationContext());
-				try {
-					xml.writetoXML();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				getMemberController().update();
 				}
 				else{
 					i.putExtra("updatetext", "Dit kind werd niet gevonden");
 				}
-				i.putExtra("id", membercontroller.getCurrentMemberID());
 				i.putExtra("name", adminnaam);
 				startActivity(i);
-				
+				EditMemberActivity.this.finish();
 			}	
 			else {
 				Toast.makeText(getApplicationContext(), "Gelieve alles goed in te vullen", Toast.LENGTH_LONG).show();

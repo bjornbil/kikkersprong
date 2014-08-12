@@ -1,4 +1,4 @@
-   package be.khleuven.bjornbillen.kikkersprong.controller;
+package be.khleuven.bjornbillen.kikkersprong.controller;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -14,7 +14,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 
+import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
@@ -42,12 +45,13 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 public class MemberActivity extends Activity implements OnClickListener {
-	MemberDAO membercontroller;
-	TextView txtnaam, geboortedatum,checktext,title;
+	
+	TextView txtnaam, geboortedatum, checktext, title;
 	LinearLayout lin;
 	ImageView foto;
 	ImageButton checkin, attendances, bills;
 	Bitmap fotobitmap;
+	MemberDAO membercontroller;
 	int id;
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -56,12 +60,11 @@ public class MemberActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_member);
-		membercontroller = new MemberDAO(getApplicationContext());
 		txtnaam = (TextView) findViewById(R.id.name);
 		geboortedatum = (TextView) findViewById(R.id.gebdatum);
 		foto = (ImageView) findViewById(R.id.qrexample);
 		title = (TextView) findViewById(R.id.main_title);
-		
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		if (android.os.Build.VERSION.SDK_INT >= 17) {
 			lin = (LinearLayout) findViewById(R.id.clockspace2);
 			TextClock textclock;
@@ -71,7 +74,7 @@ public class MemberActivity extends Activity implements OnClickListener {
 			textclock.setFormat24Hour("MMM dd, yyyy k:mm:ss");
 			textclock.setTextColor(Color.BLACK);
 			lin.addView(textclock);
-			
+
 		}
 		checkin = (ImageButton) findViewById(R.id.checkinbutton);
 		bills = (ImageButton) findViewById(R.id.billsbutton);
@@ -81,51 +84,67 @@ public class MemberActivity extends Activity implements OnClickListener {
 		attendances.setOnClickListener(this);
 		checktext = (TextView) findViewById(R.id.checktext);
 		Bundle bundle = getIntent().getExtras();
-		
-		id = bundle.getInt("id");
-		Log.d("debug","id = " + id);
-		membercontroller.setCurrentMemberID(id);
-		Log.d("debug","membercontroller id = " + membercontroller.getCurrentMemberID());
-				String naam = bundle.getString("name");
-
-		Member m = membercontroller.getMember(id);
+		String naam = null;
+		int id = bundle.getInt("id");
+		getMemberController().setCurrentMemberID(id);
+		Member m = getMemberController().getMember(id);
 		String dbnaam = m.getFirstname() + " " + m.getLastname();
-		if (naam.equals(dbnaam)){
-		txtnaam.setText(naam);
-		geboortedatum.setText(m.getBirthdayString());
-		if (m.getImageurl() != null && m.getImageurl().contains("http")){
-		new DownloadImageTask(foto).execute(m.getImageurl());
+		if (bundle.getString("name") != null){
+		naam = bundle.getString("name");
 		}
 		else {
-			foto.setImageResource(R.drawable.ic_nopic);
+			naam = dbnaam;
+		}
+		boolean magdoor;
+		if (naam.equals(dbnaam)) {
+			txtnaam.setText(naam);
+			geboortedatum.setText(m.getBirthdayString());
+			if (m.getImageurl() != null && m.getImageurl().contains("http")) {
+				new DownloadImageTask(foto).execute(m.getImageurl());
+			} else {
+				foto.setImageResource(R.drawable.ic_nopic);
+			}
+			magdoor = true;
+		}
+		else {
+			magdoor = false;
 		}
 		updateCheckin();
+		if (!magdoor){
+			Intent i = new Intent(getApplicationContext(),MainActivity.class);
+			startActivity(i);
+			MemberActivity.this.finish();
 		}
-		
 	}
-	
-	
-	
+
 	@Override
 	public void onBackPressed() {
-	   Log.d("CDA", "onBackPressed Called");
-	   Intent setIntent = new Intent(getApplicationContext(),MainActivity.class);
-	   startActivity(setIntent);
-	   MemberActivity.this.finish();
+		Log.d("CDA", "onBackPressed Called");
+		Intent setIntent = new Intent(getApplicationContext(),
+				MainActivity.class);
+		startActivity(setIntent);
+		MemberActivity.this.finish();
 	}
 	
-	public void updateCheckin(){
-		
-		Log.d("id",id + "");
-		if(membercontroller.getMember(id).isPresent()){
+	public MemberDAO getMemberController(){
+		return membercontroller;
+				
+	}
+	
+	
+
+	public void updateCheckin() {
+
+		int id = getMemberController().getCurrentMemberID();
+		if (getMemberController().getMember(id).isPresent()) {
 			checkin.setImageResource(R.drawable.ic_checkout);
 			checktext.setText("Uitchecken");
-		}
-		else{
+		} else {
 			checkin.setImageResource(R.drawable.ic_checkin);
 			checktext.setText("Inchecken");
-			}
-		
+		}
+		checkin.bringToFront();
+
 	}
 
 	@Override
@@ -135,68 +154,66 @@ public class MemberActivity extends Activity implements OnClickListener {
 
 		return true;
 	}
-	
-	
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.checkinbutton:
-			Log.d("debug","id = " + id);
-			Member m = membercontroller.getMember(id);
-			if (m.isPresent()){
+			int id = getMemberController().getCurrentMemberID();
+			
+			Member m = getMemberController().getMember(id);
+			if (m.isPresent()) {
 				m.setPresent(false);
-			}
-			else {
+			} else {
 				m.setPresent(true);
 			}
-			membercontroller.updateMember(m);
-			
+			getMemberController().updateMember(m);
+
 			Intent i = new Intent(getApplicationContext(),
 					CheckinActivity.class);
-			i.putExtra("id", id);
+			i.putExtra("id", m.getId());
 			this.startActivity(i);
 			MemberActivity.this.finish();
 			break;
 		case R.id.attendancebutton:
 			Intent i2 = new Intent(getApplicationContext(),
 					AttendanceActivity.class);
-			i2.putExtra("id", id);
+			i2.putExtra("id", getMemberController().getCurrentMemberID());
 			this.startActivity(i2);
 			MemberActivity.this.finish();
 			break;
 		case R.id.billsbutton:
 			Intent i3 = new Intent(getApplicationContext(), BillsActivity.class);
-			i3.putExtra("id", membercontroller.getCurrentMemberID());
+			i3.putExtra("id", getMemberController().getCurrentMemberID());
 			this.startActivity(i3);
 			MemberActivity.this.finish();
 			break;
 		}
 
 	}
+
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-		  ImageView bmImage;
+		ImageView bmImage;
 
-		  public DownloadImageTask(ImageView bmImage) {
-		      this.bmImage = bmImage;
-		  }
-
-		  protected Bitmap doInBackground(String... urls) {
-		      String urldisplay = urls[0];
-		      Bitmap mIcon11 = null;
-		      try {
-		        InputStream in = new java.net.URL(urldisplay).openStream();
-		        mIcon11 = BitmapFactory.decodeStream(in);
-		      } catch (Exception e) {
-		          Log.e("Error", e.getMessage());
-		          e.printStackTrace();
-		      }
-		      return mIcon11;
-		  }
-
-		  protected void onPostExecute(Bitmap result) {
-		      bmImage.setImageBitmap(result);
-		  }
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
 		}
-}
 
+		protected Bitmap doInBackground(String... urls) {
+			String urldisplay = urls[0];
+			Bitmap mIcon11 = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mIcon11 = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+			return mIcon11;
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+		}
+	}
+}

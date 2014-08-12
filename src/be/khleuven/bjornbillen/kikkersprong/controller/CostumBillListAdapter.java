@@ -53,14 +53,11 @@ public class CostumBillListAdapter extends BaseAdapter {
         final ImageView imgview = (ImageView) view.findViewById(R.id.paystatus);
         String prijs = "";
         date.setText(mList.get(position).split(" ")[0]);
-        double prijsdouble = Double.parseDouble(mList.get(position).split(" ")[1]);
-        if (prijsdouble % 2 == 0){
-			int prijsrond = (int) Math.round(prijsdouble);
-			prijs = "€ " + prijsrond ;
-		}
-		else {
-			prijs = "€ " + prijs + "0";
-		}
+        prijs = mList.get(position).split(" ")[1];
+        if (prijs.split(".").length > 1 && Integer.parseInt(prijs.split(".")[1]) == 0){
+        	prijs = prijs.split(".")[0];
+        }
+        hours.setText("€" + prijs);
         
         hours.setText(prijs);
         String betaald = mList.get(position).split(" ")[2];

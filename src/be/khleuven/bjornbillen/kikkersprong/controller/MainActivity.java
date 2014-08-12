@@ -49,6 +49,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	AttendanceDAO attendancecontroller;
 	BillDAO billcontroller;
 	
+	
 
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 	@SuppressLint({ "ShowToast", "NewApi" })
@@ -56,9 +57,16 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		membercontroller = new MemberDAO(getApplicationContext());
-		attendancecontroller = new AttendanceDAO(getApplicationContext());
-		billcontroller = new BillDAO(getApplicationContext());
+		membercontroller = MemberDAO.getInstance(getApplicationContext());
+		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());
+		billcontroller = BillDAO.getInstance(getApplicationContext());
+		XMLDatabase xml = new XMLDatabase(getApplicationContext());
+		try {
+			xml.loadFromXML();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		infobutton = (Button) findViewById(R.id.infobutton);
 		scanbutton = (Button) findViewById(R.id.scanbutton);
 		scan = (TextView) findViewById(R.id.begroeting);
@@ -76,18 +84,18 @@ public class MainActivity extends Activity implements OnClickListener {
 			lin.addView(textclock);
 		}
 		
-		billcontroller.setPricePerHour(10);
-		XMLDatabase db = new XMLDatabase(getApplicationContext());
-		try {
-			db.loadFromXML();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		launch();
 	}
-
+	public MemberDAO getMemberController(){
+		return membercontroller;
+	}
+	
+	public AttendanceDAO getAttendanceController(){
+		return attendancecontroller;
+	}
+	public BillDAO getBillController(){
+		return billcontroller;
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -133,42 +141,49 @@ public class MainActivity extends Activity implements OnClickListener {
 			int id = Integer.parseInt(idarray[1]);
 			String namearray[] = contentarray[1].split("=");
 			String name = namearray[1] + " " + contentarray[2];
+			
 			if (id == -1){
 				Intent i1 = new Intent(getApplicationContext(), AdminActivity.class);
-				i1.putExtra("id",id);
-				i1.putExtra("name",name);
+				i1.putExtra("name", name);
 				startActivity(i1);
 			}
-			else {
-			Intent i = new Intent(getApplicationContext(), MemberActivity.class);
-			i.putExtra("id", id);
-			i.putExtra("name", name);
-			startActivity(i);
+			else if (getMemberController().existMember(namearray[1], contentarray[2]) && id >= 0){
+				
+				Intent i = new Intent(getApplicationContext(), MemberActivity.class);
+				i.putExtra("id", id);
+				startActivity(i);
+				
 			}
+			else {
+				startActivity(intent);
+			}
+			
 		}
 		
 	}
+	
+	
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.scanbutton:
 			
-		//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-	//scanIntegrator.initiateScan();
-		Intent i = new
-			 Intent(getApplicationContext(),MemberActivity.class);
-			 i.putExtra("id", 0);
+		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+	scanIntegrator.initiateScan();
+	/*Intent i = new
+			 Intent(getApplicationContext(),AdminActivity.class);
+			 i.putExtra("id", -1);
 			 i.putExtra("name", "Bjorn Billen");
 			 startActivity(i);
 			 
-			 MainActivity.this.finish();
+			 MainActivity.this.finish();*/
 			 
 			break;
 		case R.id.infobutton:
 			Intent i2 = new Intent(getApplicationContext(), InfoActivity.class);
 			this.startActivity(i2);
-			MainActivity.this.finish();
+			
 			break;
 		}
 	}
