@@ -198,15 +198,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.scanbutton:
 			
-		//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-	//scanIntegrator.initiateScan();
-	Intent i = new
+		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+	scanIntegrator.initiateScan();
+	/*Intent i = new
 			 Intent(getApplicationContext(),AdminActivity.class);
 			 i.putExtra("id", -1);
 			 i.putExtra("name", "Bjorn Billen");
 			 startActivity(i);
 			 
-			 MainActivity.this.finish();
+			 MainActivity.this.finish();*/
 			 
 			break;
 		case R.id.infobutton:
