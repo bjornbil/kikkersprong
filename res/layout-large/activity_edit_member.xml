@@ -93,6 +93,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/form_imageurl"
         android:layout_marginTop="18dp"
+        
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -114,5 +115,17 @@
         android:layout_alignBottom="@+id/imageView1"
         android:layout_alignLeft="@+id/memberbillname"
         android:layout_below="@+id/memberbillname" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_above="@+id/edit_member_button"
+        android:layout_alignLeft="@+id/edit_member_button"
+        android:layout_alignRight="@+id/edit_member_button"
+        android:layout_marginBottom="10dp"
+        android:background="@color/checkedout"
+        android:textSize="30sp"
+        android:text="@string/delete" />
 
 </RelativeLayout>

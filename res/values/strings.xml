@@ -63,7 +63,7 @@
     <string name="beheerder">Beheerder</string>
     <string name="addmember">Kind toevoegen</string>
     <string name="setpriceperhour">Prijs per uur aanpassen</string>
-    <string name="exportbills">Exporteer rekeningen</string>
+    <string name="exportbills">Beheer rekeningen</string>
     <string name="viewmembers">Alle kinderen</string>
     <string name="viewaanwezigheden">Alle aanwezigheden</string>
     <string name="viewbet">Alle rekeningen</string>
@@ -85,5 +85,6 @@
     <string name="title_activity_edit_member">EditMemberActivity</string>
     <string name="editmembers">Kinderen wijzigen</string>
     <string name="wijzigen">Wijzigen</string>
+    <string name="delete">Verwijderen</string>
 
 </resources>

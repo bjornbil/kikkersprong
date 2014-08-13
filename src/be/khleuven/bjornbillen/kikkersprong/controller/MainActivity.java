@@ -16,6 +16,8 @@ import android.preference.PreferenceManager;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -112,7 +114,20 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	@Override
 	public void onBackPressed() {
-	   finish();
+	    new AlertDialog.Builder(this)
+	        .setIcon(android.R.drawable.ic_dialog_alert)
+	        .setTitle("Kikkersprong sluiten")
+	        .setMessage("Ben je zeker dat je wil afsluiten?")
+	        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+	    {
+	        @Override
+	        public void onClick(DialogInterface dialog, int which) {
+	            finish();    
+	        }
+
+	    })
+	    .setNegativeButton("No", null)
+	    .show();
 	}
 
 	public void launch() {
@@ -179,15 +194,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.scanbutton:
 			
-		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-	scanIntegrator.initiateScan();
-	/*Intent i = new
+		//IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+	//scanIntegrator.initiateScan();
+	Intent i = new
 			 Intent(getApplicationContext(),AdminActivity.class);
 			 i.putExtra("id", -1);
 			 i.putExtra("name", "Bjorn Billen");
 			 startActivity(i);
 			 
-			 MainActivity.this.finish();*/
+			 MainActivity.this.finish();
 			 
 			break;
 		case R.id.infobutton:

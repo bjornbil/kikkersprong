@@ -99,16 +99,6 @@
         android:inputType="textPersonName"
         android:textSize="10sp" />
 
-    <Button
-        android:id="@+id/edit_member_button"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignLeft="@+id/input_imgurl"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@color/btncolor"
-        android:text="@string/wijzigen" />
-
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="wrap_content"
@@ -116,5 +106,26 @@
         android:layout_toRightOf="@+id/imageView1"
         android:layout_alignBottom="@+id/imageView1"
         android:layout_below="@+id/memberbillname" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/input_imgurl"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/form_naam"
+        android:background="@color/checkedout"
+        android:text="@string/delete" />
+
+    <Button
+        android:id="@+id/edit_member_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignRight="@+id/input_imgurl"
+        android:layout_toRightOf="@+id/button1"
+        android:background="@color/btncolor"
+        android:text="@string/wijzigen" />
 
 </RelativeLayout>

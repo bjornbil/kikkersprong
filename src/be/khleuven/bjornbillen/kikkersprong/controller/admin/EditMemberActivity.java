@@ -4,10 +4,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
 import be.khleuven.bjornbillen.kikkersprong.model.Member;
 
 import com.example.kikkersprong.R;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +25,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class EditMemberActivity extends Activity implements OnClickListener {
-	Button editbutton;
+	Button editbutton, deletebutton;
 	EditText naam, gebdatum, imgurl;
 	String adminnaam;
 	Spinner selectmember;
@@ -37,6 +40,8 @@ public class EditMemberActivity extends Activity implements OnClickListener {
 		gebdatum = (EditText) findViewById(R.id.input_gebdatum);
 		imgurl = (EditText) findViewById(R.id.input_imgurl);
 		selectmember = (Spinner) findViewById(R.id.spinner1);
+		deletebutton = (Button) findViewById(R.id.button1);
+		deletebutton.setOnClickListener(this);
 		editbutton.setOnClickListener(this);
 		Bundle b = getIntent().getExtras();
 		adminnaam = b.getString("name");
@@ -118,7 +123,7 @@ public class EditMemberActivity extends Activity implements OnClickListener {
 					img = imgurl.getText().toString();
 				}
 				if (getMemberController().existMember(firstname,lastname)){
-			    int id = selectmember.getSelectedItemPosition();
+					int id = selectmember.getSelectedItemPosition();
 			    getMemberController().updateMember(new Member(id,firstname, lastname,dob,img,false,Calendar.getInstance()));
 				i.putExtra("updatetext", firstname + " Succesvol gewijzigd");
 				getMemberController().update();
@@ -133,6 +138,30 @@ public class EditMemberActivity extends Activity implements OnClickListener {
 			else {
 				Toast.makeText(getApplicationContext(), "Gelieve alles goed in te vullen", Toast.LENGTH_LONG).show();
 			}
+		}
+		else if (v.getId() == R.id.button1){
+			final int id = selectmember.getSelectedItemPosition();
+			final String kind = getMemberController().getMember(id).getFirstname();
+			 new AlertDialog.Builder(this)
+		        .setIcon(android.R.drawable.ic_dialog_alert)
+		        .setTitle("Kind verwijderen")
+		        .setMessage("Ben je zeker dat je " + kind + " wil verwijderen?")
+		        .setPositiveButton("Ja", new DialogInterface.OnClickListener()
+		    {
+		        @Override
+		        public void onClick(DialogInterface dialog, int which) {
+		        	getMemberController().deleteMember(id);
+		        	getMemberController().update();
+		        	Intent i = new Intent(getApplicationContext(),AdminActivity.class);
+		        	i.putExtra("name", adminnaam);
+					startActivity(i);
+					EditMemberActivity.this.finish();
+		        }
+
+		    })
+		    .setNegativeButton("Annuleren", null)
+		    .show();
+		
 		}
 		
 	}

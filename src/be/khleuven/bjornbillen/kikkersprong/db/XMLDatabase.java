@@ -176,13 +176,13 @@ public class XMLDatabase {
             
             ftpClient.setKeyManager(km);
             ftpClient.connect("r0258068.webontwerp.khleuven.be");
-            Toast.makeText(null,"Connecting to database...",Toast.LENGTH_LONG).show();
+           
             int reply = ftpClient.getReplyCode();
             if (FTPReply.isPositiveCompletion(reply)) {
             	
               // Login
               if (ftpClient.login(userName, pass)) {
-            	  Toast.makeText(null,"Login accepted",Toast.LENGTH_LONG).show();
+            	
                 // Set protection buffer size
                 ftpClient.execPBSZ(0);
                 // Set data channel protection to private
@@ -194,7 +194,7 @@ public class XMLDatabase {
       	  InputStream is = new FileInputStream("sdcard/kikkersprong.xml");
       	  if (ftpClient.storeFile("kikkersprong.xml", is)) {
       	    is.close();
-      	  Toast.makeText(null,"kikkersprong.xml database updated!",Toast.LENGTH_LONG).show();
+      	  
       	  } else {
       	    System.out.println("Could not store file");
       	  }

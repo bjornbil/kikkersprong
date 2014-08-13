@@ -108,4 +108,15 @@
         android:layout_alignBottom="@+id/input_imgurl"
         android:layout_toLeftOf="@+id/input_naam" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/input_imgurl"
+        android:layout_toRightOf="@+id/form_naam"
+        android:background="@color/checkedout"
+        android:text="@string/delete"
+        android:textSize="30sp" />
+
 </RelativeLayout>

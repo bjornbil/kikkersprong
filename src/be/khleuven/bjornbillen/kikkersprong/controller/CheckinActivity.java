@@ -118,7 +118,7 @@ public class CheckinActivity extends Activity implements OnTouchListener {
 				+ " " + getMemberController().getMember(id).getLastname());
 		startActivity(i);
 		CheckinActivity.this.finish();
-		return false;
+		return super.onTouchEvent(event);
 	}
 
 	
