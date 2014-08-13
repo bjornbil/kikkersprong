@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/infcolor"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="be.khleuven.bjornbillen.kikkersprong.controller.admin.AddMemberActivity" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/memberbillname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView1"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="@string/beheer"
+        android:textSize="40sp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/deletebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/checkedout"
+        android:text="@string/delete"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="20dp"
+         />
+
+    <Button
+        android:id="@+id/setbetaald"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_above="@+id/deletebutton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:background="@color/checkedin"
+        android:text="@string/setbetaald" />
+
+    <Button
+        android:id="@+id/exportbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/setbetaald"
+        android:layout_alignLeft="@+id/setbetaald"
+        android:layout_alignParentRight="true"
+        android:background="@color/btncolor"
+        android:textSize="20sp"
+        android:text="@string/exporteernaarpdf" />
+
+    <EditText
+        android:id="@+id/amounttext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/memberbillname"
+        android:layout_alignRight="@+id/spinner1"
+        android:layout_centerVertical="true"
+        android:textSize="30sp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spinner1"
+        android:layout_centerVertical="true"
+        android:text="@string/bedrag"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_above="@+id/exportbutton"
+        android:layout_alignLeft="@+id/exportbutton"
+        android:layout_alignRight="@+id/exportbutton"
+        android:layout_marginBottom="10dp"
+        android:background="@color/btncolor"
+        android:textSize="20sp"
+        android:text="@string/wijzigen" />
+
+</RelativeLayout>

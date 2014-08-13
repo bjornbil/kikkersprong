@@ -86,5 +86,12 @@
     <string name="editmembers">Kinderen wijzigen</string>
     <string name="wijzigen">Wijzigen</string>
     <string name="delete">Verwijderen</string>
+    <string name="title_activity_edit_bill">EditBillActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="beheer">Beheer rekeningen</string>
+    <string name="setbetaald">Markeer als betaald</string>
+    <string name="exporteernaarpdf">Rekening exporteren (PDF)</string>
+    <string name="bedrag">Bedrag</string>
 
 </resources>

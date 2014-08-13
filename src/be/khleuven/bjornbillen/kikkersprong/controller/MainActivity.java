@@ -23,6 +23,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -48,6 +50,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE); 
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_main);
 		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());
@@ -118,7 +122,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	        .setIcon(android.R.drawable.ic_dialog_alert)
 	        .setTitle("Kikkersprong sluiten")
 	        .setMessage("Ben je zeker dat je wil afsluiten?")
-	        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+	        .setPositiveButton("Afsluiten", new DialogInterface.OnClickListener()
 	    {
 	        @Override
 	        public void onClick(DialogInterface dialog, int which) {
@@ -126,7 +130,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	        }
 
 	    })
-	    .setNegativeButton("No", null)
+	    .setNegativeButton("Annuleren", null)
 	    .show();
 	}
 

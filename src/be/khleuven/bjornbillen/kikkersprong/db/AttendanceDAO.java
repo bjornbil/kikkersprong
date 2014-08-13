@@ -83,11 +83,13 @@ public class AttendanceDAO {
 		} 
 		Calendar vorigemaand = Calendar.getInstance();
 		if (month != -1 && day != -1){
+			totaaluren += attendance.getDuration();
 			for (Attendance a : getAttendances(attendance.getMember().getId())){
 				if (a.getStartdate().get(Calendar.MONTH) == month){
 					totaaluren += a.getDuration();
 				}
 			}
+			totaaluren--;
 			double prijs = totaaluren * billcontroller.getPricePerHour();
 			if (prijs > 0){
 			billcontroller.addBill(new Bill(billcontroller.getSize(),prijs,attendance.getMember(),attendance.getEnddate(),false));

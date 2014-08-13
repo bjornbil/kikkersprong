@@ -457,6 +457,14 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int logo=0x7f01002d;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int metaButtonBarButtonStyle=0x7f01006f;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int metaButtonBarStyle=0x7f01006e;
         /**  The type of navigation to use. 
          <p>Must be one of the following constant values.</p>
 <table>
@@ -858,16 +866,17 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070009;
+        public static final int abc_search_url_text_holo=0x7f07000a;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
-        public static final int bgcolor=0x7f070003;
-        public static final int btncolor=0x7f070004;
-        public static final int checkedin=0x7f070007;
-        public static final int checkedout=0x7f070008;
-        public static final int infcolor=0x7f070005;
-        public static final int slogancolor=0x7f070006;
+        public static final int bgcolor=0x7f070004;
+        public static final int black_overlay=0x7f070003;
+        public static final int btncolor=0x7f070005;
+        public static final int checkedin=0x7f070008;
+        public static final int checkedout=0x7f070009;
+        public static final int infcolor=0x7f070006;
+        public static final int slogancolor=0x7f070007;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1108,8 +1117,8 @@ containing a value of this type.
         public static final int simpleborder=0x7f020069;
     }
     public static final class id {
-        public static final int aantaluurlistview=0x7f050079;
-        public static final int aanw=0x7f050072;
+        public static final int aantaluurlistview=0x7f05007e;
+        public static final int aanw=0x7f050077;
         public static final int aanwezigheden=0x7f050054;
         public static final int aanwlayout=0x7f050050;
         public static final int action_bar=0x7f05001c;
@@ -1123,33 +1132,35 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050085;
+        public static final int action_settings=0x7f05008a;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int add_member=0x7f050047;
         public static final int adminnaam=0x7f05004d;
         public static final int always=0x7f05000b;
-        public static final int attendancebutton=0x7f050070;
-        public static final int attendancename=0x7f05007a;
+        public static final int amounttext=0x7f050061;
+        public static final int attendancebutton=0x7f050075;
+        public static final int attendancename=0x7f05007f;
         public static final int beginning=0x7f050011;
         public static final int begroeting=0x7f05005c;
         public static final int betaald=0x7f05005a;
         public static final int betalingen=0x7f050056;
         public static final int billname=0x7f050058;
-        public static final int billsbutton=0x7f050071;
-        public static final int button1=0x7f05005e;
-        public static final int check1=0x7f050065;
-        public static final int check2=0x7f050063;
-        public static final int check3=0x7f050062;
+        public static final int billsbutton=0x7f050076;
+        public static final int button1=0x7f050063;
+        public static final int check1=0x7f05006a;
+        public static final int check2=0x7f050068;
+        public static final int check3=0x7f050067;
         public static final int checkbox=0x7f05002d;
-        public static final int checkinbutton=0x7f05006f;
+        public static final int checkinbutton=0x7f050074;
         public static final int checkinview=0x7f05005b;
         public static final int checkstatus=0x7f05005d;
-        public static final int checktext=0x7f05005f;
-        public static final int clockspace=0x7f050068;
-        public static final int clockspace2=0x7f050073;
+        public static final int checktext=0x7f050064;
+        public static final int clockspace=0x7f05006d;
+        public static final int clockspace2=0x7f050078;
         public static final int collapseActionView=0x7f05000d;
-        public static final int datelistview=0x7f050078;
+        public static final int datelistview=0x7f05007d;
         public static final int default_activity_button=0x7f050028;
+        public static final int deletebutton=0x7f05005e;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
@@ -1160,50 +1171,51 @@ containing a value of this type.
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
         public static final int exportbills=0x7f050049;
+        public static final int exportbutton=0x7f050060;
         public static final int form_gebdatum=0x7f050040;
         public static final int form_imageurl=0x7f050042;
         public static final int form_naam=0x7f05003f;
-        public static final int gebdatum=0x7f050075;
-        public static final int gomemberpage=0x7f050082;
-        public static final int goqr=0x7f050084;
+        public static final int gebdatum=0x7f05007a;
+        public static final int gomemberpage=0x7f050087;
+        public static final int goqr=0x7f050089;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002a;
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f050027;
         public static final int imageView1=0x7f05003c;
-        public static final int imageView3=0x7f050069;
-        public static final int imageView4=0x7f05006a;
-        public static final int imageView5=0x7f05006b;
-        public static final int imageView6=0x7f05006c;
-        public static final int infobutton=0x7f05006e;
+        public static final int imageView3=0x7f05006e;
+        public static final int imageView4=0x7f05006f;
+        public static final int imageView5=0x7f050070;
+        public static final int imageView6=0x7f050071;
+        public static final int infobutton=0x7f050073;
         public static final int input_gebdatum=0x7f050041;
         public static final int input_imgurl=0x7f050043;
         public static final int input_naam=0x7f05003e;
-        public static final int kinderen=0x7f050076;
+        public static final int kinderen=0x7f05007b;
         public static final int listMode=0x7f050001;
         public static final int listView1=0x7f050059;
         public static final int listViewAttendance=0x7f050051;
         public static final int listViewBills=0x7f050057;
-        public static final int listViewMembers=0x7f050077;
+        public static final int listViewMembers=0x7f05007c;
         public static final int list_item=0x7f050029;
         public static final int main_title=0x7f050046;
         public static final int memberbillname=0x7f05003d;
         public static final int membername=0x7f050053;
         public static final int middle=0x7f050012;
-        public static final int name=0x7f050074;
+        public static final int name=0x7f050079;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
-        public static final int paydatelistview=0x7f05007b;
-        public static final int paystatus=0x7f05007c;
-        public static final int prijslistview=0x7f05007d;
+        public static final int paydatelistview=0x7f050080;
+        public static final int paystatus=0x7f050081;
+        public static final int prijslistview=0x7f050082;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
-        public static final int qrexample=0x7f05006d;
+        public static final int qrexample=0x7f050072;
         public static final int radio=0x7f05002f;
         public static final int rekeningenlayout=0x7f050055;
-        public static final int scanbutton=0x7f050067;
+        public static final int scanbutton=0x7f05006c;
         public static final int search_badge=0x7f050032;
         public static final int search_bar=0x7f050031;
         public static final int search_button=0x7f050033;
@@ -1214,19 +1226,21 @@ containing a value of this type.
         public static final int search_plate=0x7f050036;
         public static final int search_src_text=0x7f050037;
         public static final int search_voice_btn=0x7f05003b;
+        public static final int setbetaald=0x7f05005f;
         public static final int shortcut=0x7f05002e;
         public static final int showCustom=0x7f050007;
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
         public static final int spinner1=0x7f050052;
         public static final int split_action_bar=0x7f05001e;
-        public static final int startbutton=0x7f050060;
+        public static final int startbutton=0x7f050065;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
+        public static final int textView1=0x7f050062;
         public static final int textView2=0x7f05004f;
-        public static final int textView3=0x7f050066;
-        public static final int textView4=0x7f050064;
-        public static final int textView5=0x7f050061;
+        public static final int textView3=0x7f05006b;
+        public static final int textView4=0x7f050069;
+        public static final int textView5=0x7f050066;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
         public static final int up=0x7f050021;
@@ -1235,11 +1249,11 @@ containing a value of this type.
         public static final int view_aanw=0x7f05004c;
         public static final int view_bet=0x7f05004b;
         public static final int view_members=0x7f05004a;
-        public static final int viewmembercheckin=0x7f05007f;
-        public static final int viewmemberdob=0x7f050083;
-        public static final int viewmemberfoto=0x7f05007e;
-        public static final int viewmemberid=0x7f050080;
-        public static final int viewmembername=0x7f050081;
+        public static final int viewmembercheckin=0x7f050084;
+        public static final int viewmemberdob=0x7f050088;
+        public static final int viewmemberfoto=0x7f050083;
+        public static final int viewmemberid=0x7f050085;
+        public static final int viewmembername=0x7f050086;
         public static final int welkombericht=0x7f050045;
         public static final int withText=0x7f05000c;
     }
@@ -1298,17 +1312,18 @@ containing a value of this type.
         public static final int activity_attendance=0x7f03001a;
         public static final int activity_bills=0x7f03001b;
         public static final int activity_checkin=0x7f03001c;
-        public static final int activity_edit_member=0x7f03001d;
-        public static final int activity_info=0x7f03001e;
-        public static final int activity_main=0x7f03001f;
-        public static final int activity_member=0x7f030020;
-        public static final int activity_view_members=0x7f030021;
-        public static final int costum_listview=0x7f030022;
-        public static final int costum_listview_adminattendance=0x7f030023;
-        public static final int costum_listview_adminbills=0x7f030024;
-        public static final int costum_listview_bills=0x7f030025;
-        public static final int costum_listview_members=0x7f030026;
-        public static final int support_simple_spinner_dropdown_item=0x7f030027;
+        public static final int activity_edit_bill=0x7f03001d;
+        public static final int activity_edit_member=0x7f03001e;
+        public static final int activity_info=0x7f03001f;
+        public static final int activity_main=0x7f030020;
+        public static final int activity_member=0x7f030021;
+        public static final int activity_view_members=0x7f030022;
+        public static final int costum_listview=0x7f030023;
+        public static final int costum_listview_adminattendance=0x7f030024;
+        public static final int costum_listview_adminbills=0x7f030025;
+        public static final int costum_listview_bills=0x7f030026;
+        public static final int costum_listview_members=0x7f030027;
+        public static final int support_simple_spinner_dropdown_item=0x7f030028;
     }
     public static final class menu {
         public static final int add_member=0x7f0c0000;
@@ -1372,6 +1387,8 @@ containing a value of this type.
         public static final int amount=0x7f0a0036;
         public static final int app_name=0x7f0a000d;
         public static final int attendancename=0x7f0a004b;
+        public static final int bedrag=0x7f0a0058;
+        public static final int beheer=0x7f0a0055;
         public static final int beheerder=0x7f0a0038;
         public static final int betaald=0x7f0a0035;
         public static final int bills=0x7f0a0020;
@@ -1382,9 +1399,12 @@ containing a value of this type.
         public static final int datum=0x7f0a0033;
         public static final int delete=0x7f0a0051;
         public static final int dob=0x7f0a0022;
+        public static final int dummy_button=0x7f0a0053;
+        public static final int dummy_content=0x7f0a0054;
         public static final int editmember=0x7f0a004d;
         public static final int editmembers=0x7f0a004f;
         public static final int exportbills=0x7f0a003b;
+        public static final int exporteernaarpdf=0x7f0a0057;
         public static final int form_gebdatum=0x7f0a0043;
         public static final int form_imageurl=0x7f0a0041;
         public static final int form_naam=0x7f0a0042;
@@ -1409,6 +1429,7 @@ containing a value of this type.
         public static final int qrcodeinfo=0x7f0a0025;
         public static final int qrcodeinfo2=0x7f0a0026;
         public static final int scan=0x7f0a0012;
+        public static final int setbetaald=0x7f0a0056;
         public static final int setpriceperhour=0x7f0a003a;
         public static final int slogan=0x7f0a0015;
         public static final int started=0x7f0a001b;
@@ -1419,6 +1440,7 @@ containing a value of this type.
         public static final int title_activity_attendance=0x7f0a002a;
         public static final int title_activity_bills=0x7f0a0029;
         public static final int title_activity_checkin=0x7f0a0028;
+        public static final int title_activity_edit_bill=0x7f0a0052;
         public static final int title_activity_edit_member=0x7f0a004e;
         public static final int title_activity_info=0x7f0a0010;
         public static final int title_activity_member=0x7f0a001c;
@@ -1437,15 +1459,18 @@ containing a value of this type.
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
         
 
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
+
     
  API 11 theme customizations can go here. 
 
@@ -1460,6 +1485,10 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0b008c;
+        public static final int ButtonBar=0x7f0b008e;
+        public static final int ButtonBarButton=0x7f0b008f;
+        public static final int FullscreenActionBarStyle=0x7f0b0090;
+        public static final int FullscreenTheme=0x7f0b008d;
         /**  Mimic text appearance in select_dialog_item.xml 
          */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0b0063;
@@ -2351,6 +2380,46 @@ containing a value of this type.
           @attr name com.example.kikkersprong:initialActivityCount
         */
         public static final int ActivityChooserView_initialActivityCount = 0;
+        /** 
+         Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels.
+    
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #ButtonBarContainerTheme_metaButtonBarButtonStyle com.example.kikkersprong:metaButtonBarButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #ButtonBarContainerTheme_metaButtonBarStyle com.example.kikkersprong:metaButtonBarStyle}</code></td><td></td></tr>
+           </table>
+           @see #ButtonBarContainerTheme_metaButtonBarButtonStyle
+           @see #ButtonBarContainerTheme_metaButtonBarStyle
+         */
+        public static final int[] ButtonBarContainerTheme = {
+            0x7f01006e, 0x7f01006f
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.example.kikkersprong.R.attr#metaButtonBarButtonStyle}
+          attribute's value can be found in the {@link #ButtonBarContainerTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.example.kikkersprong:metaButtonBarButtonStyle
+        */
+        public static final int ButtonBarContainerTheme_metaButtonBarButtonStyle = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.example.kikkersprong.R.attr#metaButtonBarStyle}
+          attribute's value can be found in the {@link #ButtonBarContainerTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.example.kikkersprong:metaButtonBarStyle
+        */
+        public static final int ButtonBarContainerTheme_metaButtonBarStyle = 0;
         /** Attributes that can be used with a CompatTextView.
            <p>Includes the following attributes:</p>
            <table>

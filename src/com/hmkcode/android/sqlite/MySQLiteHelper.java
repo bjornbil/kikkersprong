@@ -179,7 +179,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	public Object getObject(int id, String table, String[] columns) {
 		SQLiteDatabase db = this.getReadableDatabase();
-		String selectQuery = "SELECT  * FROM members WHERE id =" + id;
+		String selectQuery = "SELECT  * FROM " + table + " WHERE id =" + id;
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		/*Cursor cursor = db.query(table, // a. table
 				columns, // b. column names

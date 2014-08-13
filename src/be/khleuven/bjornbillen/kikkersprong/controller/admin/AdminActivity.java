@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,7 +21,7 @@ import android.widget.Toast;
 public class AdminActivity extends Activity implements OnClickListener {
 	
 	TextView adminnaam;
-	Button addmember, viewmembers, viewbills, viewattendances, editmembers;
+	Button addmember, viewmembers, viewbills, viewattendances, editmembers, exportbills;
 	MemberDAO membercontroller;
 	AttendanceDAO attendancecontroller;
 	BillDAO billcontroller;
@@ -28,6 +30,8 @@ public class AdminActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE); 
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_admin);
 		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());
@@ -36,6 +40,8 @@ public class AdminActivity extends Activity implements OnClickListener {
 		addmember = (Button) findViewById(R.id.add_member);
 		viewmembers = (Button) findViewById(R.id.view_members);
 		editmembers = (Button) findViewById(R.id.editmembers);
+		exportbills = (Button) findViewById(R.id.exportbills);
+		exportbills.setOnClickListener(this);
 		editmembers.setOnClickListener(this);
 		viewbills = (Button) findViewById(R.id.view_bet);
 		viewbills.setOnClickListener(this);
@@ -109,6 +115,12 @@ public class AdminActivity extends Activity implements OnClickListener {
 			Intent i5 = new Intent(getApplicationContext(), EditMemberActivity.class);
 			i5.putExtra("name", adminnaam.getText());
 			this.startActivity(i5);
+			AdminActivity.this.finish();
+			break;
+		case R.id.exportbills:
+			Intent i6 = new Intent(getApplicationContext(), EditBillActivity.class);
+			i6.putExtra("name", adminnaam.getText());
+			this.startActivity(i6);
 			AdminActivity.this.finish();
 	}
 	}
