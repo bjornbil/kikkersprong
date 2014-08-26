@@ -70,7 +70,7 @@ public class AttendanceActivity extends Activity {
 				String aanwezigheid = "Niet gevonden";
 				
 				for (Attendance a : getAttendanceController().getAttendances(m.getId())){
-					if (a.getStartdate().get(Calendar.DATE) == Integer.parseInt(datum.split("/")[2]) && (a.getStartdate().get(Calendar.MONTH)+1) == Integer.parseInt(datum.split("/")[1]) && a.getStartdate().get(Calendar.YEAR) == Integer.parseInt(datum.split("/")[0])){
+					if (a.getEnddate().get(Calendar.DATE) == Integer.parseInt(datum.split("/")[2]) && (a.getEnddate().get(Calendar.MONTH)+1) == Integer.parseInt(datum.split("/")[1]) && a.getStartdate().get(Calendar.YEAR) == Integer.parseInt(datum.split("/")[0])){
 						result = a;
 					}
 				}

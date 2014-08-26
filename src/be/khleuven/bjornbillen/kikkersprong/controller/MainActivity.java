@@ -56,21 +56,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());
 		billcontroller = BillDAO.getInstance(getApplicationContext());
-		if (getIntent().getExtras() != null){
-			if (getIntent().getExtras().getString("db") != null){
-				
-			}
-			else {
-				XMLDatabase xml = new XMLDatabase(getApplicationContext());
-				try {
-					xml.loadFromXML();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null && bundle.get("db") != null){
+			Toast.makeText(getApplicationContext(),"No read",Toast.LENGTH_LONG).show();
 		}
-		else {
+		else{
 			XMLDatabase xml = new XMLDatabase(getApplicationContext());
 			try {
 				xml.loadFromXML();
@@ -79,7 +69,6 @@ public class MainActivity extends Activity implements OnClickListener {
 				e.printStackTrace();
 			}
 		}
-		
 		infobutton = (Button) findViewById(R.id.infobutton);
 		scanbutton = (Button) findViewById(R.id.scanbutton);
 		scan = (TextView) findViewById(R.id.begroeting);
@@ -206,8 +195,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			 i.putExtra("name", "Bjorn Billen");
 			 startActivity(i);
 			 
-			 MainActivity.this.finish();*/
-			 
+			 MainActivity.this.finish();
+			 */
 			break;
 		case R.id.infobutton:
 			Intent i2 = new Intent(getApplicationContext(), InfoActivity.class);

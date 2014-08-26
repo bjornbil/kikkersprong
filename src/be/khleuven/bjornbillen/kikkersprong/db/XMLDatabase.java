@@ -233,7 +233,8 @@ public class XMLDatabase {
 
 	            
 	            ftpClient.setKeyManager(km);
-	            ftpClient.setDefaultTimeout(1000000);
+	            ftpClient.setDefaultTimeout(100000000);
+	            
 	            ftpClient.connect("r0258068.webontwerp.khleuven.be");
 	            int reply = ftpClient.getReplyCode();
 	            if (FTPReply.isPositiveCompletion(reply)) {
@@ -247,11 +248,11 @@ public class XMLDatabase {
 	                ftpClient.execPROT("P");
 	                // Enter local passive mode
 	                ftpClient.enterLocalPassiveMode();
-
+	                
 	                // Store file on host
 	      	  OutputStream os = new FileOutputStream("sdcard/kikkersprong.xml");
 	      	  if (ftpClient.retrieveFile("kikkersprong.xml", os)) {
-	      	    os.close();
+	      		os.close();
 	      	  } else {
 	      	    System.out.println("Could not store file");
 	      	  }

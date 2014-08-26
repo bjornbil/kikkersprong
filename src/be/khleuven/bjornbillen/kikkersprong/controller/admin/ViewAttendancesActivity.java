@@ -49,13 +49,7 @@ public class ViewAttendancesActivity extends Activity {
 		setContentView(R.layout.activity_attendance);
 		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		attendancecontroller = AttendanceDAO.getInstance(getApplicationContext());
-		XMLDatabase xml = new XMLDatabase(getApplicationContext());
-		try {
-			xml.loadFromXML();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		listView = (ListView) findViewById(R.id.listViewAttendance);
 		layout = (RelativeLayout) findViewById(R.id.aanwlayout);
 		layout.setBackgroundResource(R.color.infcolor);

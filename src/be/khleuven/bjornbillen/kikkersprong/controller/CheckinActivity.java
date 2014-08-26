@@ -56,7 +56,7 @@ public class CheckinActivity extends Activity implements OnTouchListener {
 			}
 			m.setLastcheckin(startdate);
 			getMemberController().updateMember(m);
-			
+			getMemberController().update();
 
 		} else {
 			checkstatus.setTextColor(Color.RED);
@@ -69,24 +69,11 @@ public class CheckinActivity extends Activity implements OnTouchListener {
 			}
 			Attendance nieuw = new Attendance(getAttendanceController().getSize(),
 					m, m.getLastcheckin(), enddate);
-			if (nieuw.getDuration() >= 1) {
+			if (nieuw.getDuration() >= 1 && m.getLastcheckin().get(Calendar.DATE) == enddate.get(Calendar.DATE)) {
 				getAttendanceController().addAttendance(nieuw);
 				getMemberController().update();
 			}
 
-		}
-		XMLDatabase xml = new XMLDatabase(getApplicationContext());
-		try {
-			xml.writetoXML();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 		checkstatus.invalidate();

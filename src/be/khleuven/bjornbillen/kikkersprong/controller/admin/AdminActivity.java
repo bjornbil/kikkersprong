@@ -1,9 +1,13 @@
 package be.khleuven.bjornbillen.kikkersprong.controller.admin;
 
+import java.io.IOException;
+
 import be.khleuven.bjornbillen.kikkersprong.controller.MainActivity;
 import be.khleuven.bjornbillen.kikkersprong.db.AttendanceDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.BillDAO;
 import be.khleuven.bjornbillen.kikkersprong.db.MemberDAO;
+import be.khleuven.bjornbillen.kikkersprong.db.XMLDatabase;
+
 import com.example.kikkersprong.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;

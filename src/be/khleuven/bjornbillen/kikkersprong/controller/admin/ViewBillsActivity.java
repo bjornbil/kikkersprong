@@ -47,13 +47,7 @@ public class ViewBillsActivity extends Activity {
 		setContentView(R.layout.activity_bills);
 		membercontroller = MemberDAO.getInstance(getApplicationContext());
 		billcontroller = BillDAO.getInstance(getApplicationContext());
-		XMLDatabase xml = new XMLDatabase(getApplicationContext());
-		try {
-			xml.loadFromXML();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		listView = (ListView) findViewById(R.id.listViewBills);
 		layout = (RelativeLayout) findViewById(R.id.rekeningenlayout);
 		layout.setBackgroundResource(R.color.infcolor);

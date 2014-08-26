@@ -36,13 +36,6 @@ public class ViewMembersActivity extends Activity {
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_view_members);
 		membercontroller = MemberDAO.getInstance(getApplicationContext());
-		XMLDatabase xml = new XMLDatabase(getApplicationContext());
-		try {
-			xml.loadFromXML();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		listView = (ListView) findViewById(R.id.listViewMembers);
 		members = getMemberController().getAllMembers();
 		
